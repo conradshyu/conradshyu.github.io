@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SUNLIT Protein Viewer</title>
+
+    <!-- site specific style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.js"></script>
+    <script src="molart.js"></script>
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3;     /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            position: fixed;
+            top: 50%;
+            left: 45%;
+            transform: translate(-50%, -50%);
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {transform: rotate(0deg);}
+            100% {transform: rotate(360deg);}
+        }
+    </style>
+</head>
+<body style="width: 100%; height: 100%; padding: 10px 10px 10px 10px;">
+    <table style="width: 100%">
+        <tr>
+            <td rowspan="2" style="width: 72px">
+                <a href="index.html">
+                    <img src="sunlit.png" alt="SUNLIT Protein Viewer" title="SUNLIT Protein Viewer" width="72" height="65">
+                </a>
+            </td>
+            <td style="width: 50%; text-align: left;">
+                <p style="color: rgb(68, 114, 196);"><b>S</b>tr<b>U</b>ctural a<b>N</b>notation and visua<b>LI</b>za<b>T</b>ion</p>
+            </td>
+            <td style="text-align: right;">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span id="h_id" style="color: teal; font-size: 16px;">SUNLIT Protein Viewer</span><br>
+                <span id="s_id" style="font-size: 14px;">Viewing Structure</span>
+            </td>
+        </tr>
+    </table>
+    <div id="l_bar" class="loader">
+    </div>
+    <div class="ui segment">
+        <div id="view"></div>
+    </div>
+    <div class="ui grid">
+        <div class="eight wide column">
+            <div class="ui segment">
+                <div class="ui accordion">
+                    <div class="title">
+                        <p id="unp_db" title="Click here to see additional UniProt information"><i class="dropdown icon"></i>SUNLIT Protein Viewer: UniProt ID</p>
+                    </div>
+                    <div class="content">
+                        <table class="ui compact table" style="width: 100%">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 20%">Title</td>
+                                    <td id="unp_title"></td>
+                                </tr>
+                                <tr>
+                                    <td>Protein Name</td>
+                                    <td id="unp_protein"></td>
+                                </tr>
+                                <tr>
+                                    <td>Organism</td>
+                                    <td id="unp_organism"></td>
+                                </tr>
+                                <tr>
+                                    <td>Gene</td>
+                                    <td id="unp_gene"></td>
+                                </tr>
+                                <tr>
+                                    <td>Length</td>
+                                    <td id="unp_length"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="eight wide column">
+            <div class="ui segment">
+                <div class="ui accordion">
+                    <div class="title">
+                        <p id="pdb_db" title="Click here to see additional structure information"><i class="dropdown icon"></i>PDB: PDB ID</p>
+                    </div>
+                    <div class="content">
+                        <table class="ui compact table" style="width: 100%">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 20%">Title</td>
+                                    <td id="pdb_title"></td>
+                                </tr>
+                                <tr>
+                                    <td>Method</td>
+                                    <td id="pdb_method"></td>
+                                </tr>
+                                <tr>
+                                    <td>Resolution</td>
+                                    <td id="pdb_resol"></td>
+                                </tr>
+                                <tr>
+                                    <td>Range</td>
+                                    <td id="pdb_range"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui modal">
+        <div class="ui header">
+            <p>Unreviewed UniProt ID</p>
+        </div>
+        <div class="ui content">
+            <table>
+                <tr>
+                    <td style="width: 15%; font-size: 64px; text-align: center;">
+                        <i style="color: red;" class="exclamation circle icon"></i>
+                    </td>
+                    <td>
+                        <p style="font-size: 14px;">
+                            The selected transcript maps to an unreviewed UniProt entry that may not have
+                            an associated structure. In this case, in seqr, you can click on the link
+                            associated with the consequence term (missense variant or inframe deletion or
+                            inframe insertion) which will open a popup window with all of the transcripts
+                            that include this variant. You can click on the structure viewer links
+                            associated with other transcripts that may map to a reviewed UniProt entry with
+                            associated structures.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="actions">
+            <div class="ui primary left labeled icon basic button" onclick="$('.ui.modal').modal('hide'); window.close();">
+                Ok
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+    <script>
+        function Query() {
+            this.AA = {
+                "ALA": "Alanine", "ARG": "Arginine", "ASN": "Asparagine", "ASP": "Aspartic acid",
+                "CYS": "Cysteine", "GLU": "Glutamic acid", "GLN": "Glutamine", "GLY": "Glycine",
+                "HIS": "Histidine", "ILE": "Isoleucine", "LEU": "Leucine", "LYS": "Lysine",
+                "MET": "Methionine", "PHE": "Phenylalanine", "PRO": "Proline", "SER": "Serine",
+                "THR": "Threonine", "TRP": "Tryptophan", "TYR": "Tyrosine", "VAL": "Valine",
+                "SEC": "Selenocysteine", "PYL": "Pyrrolysine", "XLE": "Leucine or Isoleucine",
+                "ASX": "Aspartic acid or Asparagine", "GLX": "Glutamic acid or Glutamine",
+                "XAA": "Any amino acid", "TER": "Termination codon", "UNK": "Unknown"};
+
+            let struct = {
+                "transcript": "none", "mutation": "none", "uniprot_ac": "none", "uniprot_db": {},
+                "pdb_site": 0, "pdb_list": {}, "smr_list": {}, "total": 0};
+
+            function request(u) {
+                let x = {};
+
+                $.ajax({
+                    async: false, url: u, type: "GET",
+                    success: function(r) {return(x = r);},
+                    error: function(e) {
+                        console.log(`Error: ${e}`);
+                    }   // report query server not responding
+                }); // rest api call
+
+                return(x);
+            };  // internal ajax request function
+
+            function chimera(p) {
+                let x = request(`https://www.ebi.ac.uk/pdbe/api/pdb/entry/polymer_coverage/${p}`);
+                let w = request(`https://data.rcsb.org/rest/v1/core/polymer_entity/${p}/${x[p]["molecules"][0]["entity_id"]}`);
+
+                return((("rcsb_polymer_entity_align" in w) && (w["rcsb_polymer_entity_align"].length > 1)) ?
+                    true: false);
+            }   // check chimeric structure
+
+            function ensembl(p) {
+                let u = request(`https://www.ebi.ac.uk/proteins/api/proteins/Ensembl:${p}?offset=0&size=10&reviewed=true&format=json`);
+                return((u.length > 0) ?
+                    {"hitCount": 1, "entries": [{"acc": u[0]["accession"], "id": u[0]["id"], "source": "uniprot"}]} :
+                    {"hitCount": 0, "entries": [{"acc": "none", "id": "none", "source": "uniprot"}]});
+            }   // translate from ensembl transcript to uniprot id
+
+            this.run = function(t = "ENST00000390665", u = "Q9Y5P8", s = "p.Ile458Gln") {
+                let site = s.match(/p|[a-zA-Z]+|[0-9]+|[a-zA-Z]+/g);
+                let r = (t.length == 0 ) ?
+                    {"hitCount": 1, "entries": [{"acc": u, "id": "none", "source": "uniprot"}]} : ensembl(t);
+                    //request(`https://www.ebi.ac.uk/ebisearch/ws/rest/uniprot?query=${t}&format=json`);
+
+                struct["residue"] = this.AA[site[3].toUpperCase()];
+                struct["pdb_site"] = site[2];
+                struct["mutation"] = s;    // mutation string
+                struct["transcript"] = t;  // ensembl transcript
+                struct["uniprot_ac"] = r["entries"][0]["acc"];
+
+                if (struct["uniprot_ac"] == "none") {
+                    return(struct);
+                }   // structure not reviewed or found
+
+                r = request(`https://rest.uniprot.org/uniprotkb/${struct["uniprot_ac"]}.txt`);
+
+                if (r.toLowerCase().search("unreviewed") > -1) {
+                    struct["uniprot_ac"] = "none"; return(struct);
+                }   // structure not reviewed
+
+                r = request(`https://alphafold.ebi.ac.uk/api/prediction/${struct["uniprot_ac"]}`);
+
+                if (Object.keys(r).length == 0) {
+                    struct["uniprot_ac"] = "none"; return(struct);
+                }   // no structure found
+
+                struct["uniprot_db"] = {
+                    "title": r[0]["uniprotId"], "protein": r[0]["uniprotDescription"], "gene": r[0]["gene"],
+                    "organism": r[0]["organismScientificName"], "length": r[0]["uniprotEnd"]
+                };  // sequence metadata
+
+                $(r).each(function(k, v) {
+                    struct["smr_list"][v["entryId"]] = {
+                        "pdb_range": `${v["uniprotStart"]} - ${v["uniprotEnd"]}`,
+                        "pdb_tid": v["taxId"], "pdb_resol": "Not Applicable",
+                        "pdb_method": "Template-Based", "pdb_title": "AlphaFold Molde",
+                        "cifUrl": v["cifUrl"], "pdbUrl": v["pdbUrl"], "bcifUrl": v["bcifUrl"]};
+                }); // collect alphafold structure
+
+                r = request(`https://swissmodel.expasy.org/repository/uniprot/${struct["uniprot_ac"]}.json?provider=swissmodel`);
+                $(r["result"]["structures"]).each(function(k, v) {
+                    if ((v["from"] > struct["pdb_site"]) || (v["to"] < struct["pdb_site"])) {
+                        return;
+                    }   // skip structure not within range
+
+                    struct["smr_list"][v["template"].substring(0, 6)] = {
+                        "pdb_range": `${v["from"]} - ${v["to"]}`, "pdb_tid": "Not Available",
+                        "pdb_resol": "Not Applicable", "pdb_method": "Template-Based",
+                        "pdb_title": "SWISS Model"};
+                }); // collect homology model
+
+                r = request(`https://www.ebi.ac.uk/pdbe/graph-api/mappings/best_structures/${struct["uniprot_ac"]}`);
+                $(r[struct["uniprot_ac"]]).each(function(k, v) {
+                    if ((v["unp_start"] > struct["pdb_site"]) || (v["unp_end"] < struct["pdb_site"])) {
+                        return;
+                    }   // skip structure not within range
+
+                    if (chimera(v["pdb_id"])) {
+                        return;
+                    }   // check chimeric structure
+
+                    let p = request(`https://data.rcsb.org/rest/v1/core/entry/${v["pdb_id"]}`);
+                    struct["pdb_list"][v["pdb_id"]] = {
+                        "pdb_range": `${v["unp_start"]} - ${v["unp_end"]}`, "pdb_tid": v["tax_id"],
+                        "pdb_resol": v["resolution"], "pdb_method": v["experimental_method"],
+                        "pdb_title": p["citation"][0]["title"]};
+                }); // collect experimental model
+
+                struct["total"] = Object.keys(struct["smr_list"]).length + Object.keys(struct["pdb_list"]).length;
+                return(struct);
+            }   // main query procedure
+        }
+
+        function load_molart(pdb_struct) {
+            $("#unp_db").html(`<i class="dropdown icon"></i>UniProt: ${pdb_struct["uniprot_ac"]}`);
+            $("#unp_title").html(pdb_struct["uniprot_db"]["title"]);
+            $("#unp_protein").html(pdb_struct["uniprot_db"]["protein"]);
+            $("#unp_organism").html(pdb_struct["uniprot_db"]["organism"]);
+            $("#unp_gene").html(pdb_struct["uniprot_db"]["gene"]);
+            $("#unp_length").html(pdb_struct["uniprot_db"]["length"]);
+
+            if (window.molart) {
+                window.molart.destroy();
+            }   // remove previous instance
+
+            window.molart = new MolArt({
+                //labelCallback: (info) => {console.log(info);},
+                uniprotId: pdb_struct["uniprot_ac"],
+                containerId: "view",
+                pdbIds: Object.keys(pdb_struct["pdb_list"]).length > 0 ? Object.keys(pdb_struct["pdb_list"]) : ["zzzz"],
+                smrIds: Object.keys(pdb_struct["smr_list"]).length > 0 ? Object.keys(pdb_struct["smr_list"]) : ["zzzz"],
+                alwaysLoadPredicted: true,
+                enableTooltips: true,
+                highlightByHovering: true,
+                categoryOrder: ['PTM'],
+                extraHighlights: {
+                    controlVisibility: true,
+                    label: 'Mutation',
+                    content: [{
+                        label: pdb_struct["residue"],
+                        showOnStart: true,
+                        sequenceNumbers: [pdb_struct["pdb_site"]],
+                        visual: {
+                            type: 'BallsAndSticks',
+                            params: {
+                                useVDW: true,
+                                vdwScaling: 0.25,
+                                bondRadius: 0.13,
+                                detail: 'Automatic'},
+                            color: {
+                                r: 1.0, g: 1.0, b: 0.0},
+                            alpha: 0.8}
+                    }]
+                }
+            });
+
+            //window.molart.on("pvReady", () => {console.log(window.molart.globals.pvContainer)});
+            window.molart.on("structureLoaded", () => {
+                const i = window.molart.globals.activeStructure.pdbId;
+                $("#h_id").html(`SUNLIT Protein Viewer: ${pdb_struct["uniprot_db"]["protein"].split("(")[0].trim()},
+                    ${pdb_struct["uniprot_db"]["gene"].split(" ")[0].trim()} (${pdb_struct["transcript"]})`);
+                $("#s_id").html(`Viewing AlphaFold ${i}`);
+                $("#pdb_title").html("AlphaFold");
+                $("#pdb_method").html("Deep-Learning");
+                $("#pdb_resol").html("Not Applicable");
+                $("#pdb_range").html(`1 - ${pdb_struct["uniprot_db"]["length"]}`);
+                $("#pdb_db").html(`<i class="dropdown icon"></i>AlphaFold: ${i.toUpperCase()}`);
+
+                if ((i in pdb_struct["pdb_list"]) || (i in pdb_struct["smr_list"])) {
+                    let x = '';
+
+                    if (pdb_struct["pdb_list"][i] == undefined) {
+                        x = pdb_struct["smr_list"][i];
+                        $("#s_id").html(`Viewing Homology Model ${i.toUpperCase()}`);
+                    } else {
+                        x = pdb_struct["pdb_list"][i];
+                        $("#s_id").html(`Viewing Experimental Model ${i.toUpperCase()}: ${x["pdb_title"]}`);
+                    }   // experimental or homology model
+                
+                    $("#pdb_title").html(x["pdb_title"]);
+                    $("#pdb_method").html(x["pdb_method"]);
+                    $("#pdb_resol").html(x["pdb_resol"]);
+                    $("#pdb_range").html(x["pdb_range"]);
+                    $("#pdb_db").html(`<i class="dropdown icon"></i>PDB: ${i.toUpperCase()}`);
+                }   // update structure information
+
+                //window.molart.globals.lm.getPlugin().getLiteMol().Bootstrap.Entity.Transformer.Molecule.CreateAssembly();
+                //window.molart.on("sequenceMouseOn", (r) => {console.log(r);});
+            });
+            //$(`#pluginContainer${uniprotId}ProtVista`).css("display", "none");
+            //console.log(window.molart.globals.lm.getPlugin().getLiteMol().Bootstrap.Entity.Transformer.Molecule.CreateAssembly);
+        }
+
+        $(document).ready(function() {
+            if ((navigator.vendor.indexOf("Apple") > -1) && (navigator.vendor.indexOf("Mac") > -1)) {
+                window.alert("Google Chrome is highly recommended. Other browsers may produce unexpected results.");
+            }   // check if browser is safari
+
+            const q = new URLSearchParams(window.location.search);
+            let xhr = new Query();
+
+            let p = xhr.run(
+                (q.get("transcript") == null) ? "" : q.get("transcript").trim(),
+                (q.get("uniprot") == null) ? "" : q.get("uniprot").trim(),
+                q.get("site").trim());
+
+            $("#l_bar").css("display", "none");
+            (p["uniprot_ac"] == "none") ? $(".ui.modal").modal("show") : load_molart(p);
+            $('.ui.accordion').accordion();
+        });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V7FYZL8JGE"></script>
+    <script>
+        // Global site tag (gtag.js) - Google Analytics
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){
+            window.dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-V7FYZL8JGE');
+    </script>
+</body>
+
+</html>

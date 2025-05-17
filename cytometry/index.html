@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Flow Cytometry Template Editor</title>
+
+    <!-- site specific style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.js"></script>
+</head>
+
+<body>
+    <div style="padding: 20px 2px 20px 2px; background-color: #f1f1f1;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <p><strong>BDFACS Flow Cytometry Template Editor</strong></p>
+                    <table class="table" style="width: 100%;">
+                        <tr>
+                            <td>Plate Name</td>
+                            <td><input id="tray" type="text" style="width: 100%" required autofocus /></td>
+                        </tr>
+                        <tr>
+                            <td>Date/Time</td>
+                            <td><input id="dt" type="text" style="width: 100%" /></td>
+                        </tr>
+                    </table>
+                    <p><strong>Sample Attributes</strong></p>
+                    <table class="table" style="width: 100%;">
+                        <tr>
+                            <td>Specimen</td>
+                            <td>Treatment</td>
+                            <td>Optional Tag</td>
+                        </tr>
+                        <tr>
+                            <td><input id="in_s" type="text" style="width: 100%" disabled /></td>
+                            <td><input id="in_t" type="text" style="width: 100%" disabled /></td>
+                            <td><input id="in_o" type="text" style="width: 100%" disabled /></td>
+                        </tr>
+                    </table>
+                    <p><strong>Note:</strong> Specimen can only be <q>Reset</q> after set.</p>
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 30%">
+                                <button id="bt_x" type="button" class="btn btn-primary">
+                                    Export XML
+                                </button>
+                            </td>
+                            <td></td>
+                            <td style="width: 20%; text-align: right;">
+                                <button id="bt_u" type="button" class="btn btn-success" disabled onclick="UpdateWell();">
+                                    Update
+                                </button>
+                            </td>
+                            <td style="width: 20%; text-align: right;">
+                                <button id="bt_r" type="button" class="btn btn-danger" disabled onclick="ResetWell();">
+                                    Reset
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-7">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><strong>Well Selection</strong></td>
+                            <td>
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg" fill="lightblue">
+                                    <circle cx="8" cy="8" r="8" />
+                                </svg>
+                            </td>
+                            <td>Annotated</td>
+                            <td>
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg" fill="green">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>Selected</td>
+                            <td>
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg" fill="lightgray">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>Empty</td>
+                        </tr>
+                    </table>
+                    <table style="width: 100%; text-align: center;">
+                        <tr>
+                            <td></td>
+                            <td style="width: 8%">
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'a01', 'b01', 'c01', 'd01', 'e01', 'f01', 'g01', 'h01'])">01</button>
+                            </td>
+                            <td style="width: 8%">
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'a02', 'b02', 'c02', 'd02', 'e02', 'f02', 'g02', 'h02'])">02</button>
+                            </td>
+                            <td style="width: 8%">
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'a03', 'b03', 'c03', 'd03', 'e03', 'f03', 'g03', 'h03'])">03</button>
+                            </td>
+                            <td style="width: 8%">
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'a04', 'b04', 'c04', 'd04', 'e04', 'f04', 'g04', 'h04'])">04</button>
+                            </td>
+                            <td style="width: 8%">
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'a05', 'b05', 'c05', 'd05', 'e05', 'f05', 'g05', 'h05'])">05</button>
+                            </td>
+                            <td style="width: 8%">
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'a06', 'b06', 'c06', 'd06', 'e06', 'f06', 'g06', 'h06'])">06</button>
+                            </td>
+                            <td style="width: 8%">
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'a07', 'b07', 'c07', 'd07', 'e07', 'f07', 'g07', 'h07'])">07</button>
+                            </td>
+                            <td style="width: 8%">
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'a08', 'b08', 'c08', 'd08', 'e08', 'f08', 'g08', 'h08'])">08</button>
+                            </td>
+                            <td style="width: 8%">
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'a09', 'b09', 'c09', 'd09', 'e09', 'f09', 'g09', 'h09'])">09</button>
+                            </td>
+                            <td style="width: 8%">
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'a10', 'b10', 'c10', 'd10', 'e10', 'f10', 'g10', 'h10'])">10</button>
+                            </td>
+                            <td style="width: 8%">
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'a11', 'b11', 'c11', 'd11', 'e11', 'f11', 'g11', 'h11'])">11</button>
+                            </td>
+                            <td style="width: 8%">
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'a12', 'b12', 'c12', 'd12', 'e12', 'f12', 'g12', 'h12'])">12</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'a01', 'a02' ,'a03', 'a04', 'a05', 'a06', 'a07', 'a08', 'a09', 'a10', 'a11', 'a12'])">A</button>
+                            </td>
+                            <td>
+                                <svg id="a01" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8" />
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="a02" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="a03" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="a04" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="a05" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="a06" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="a07" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="a08" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="a09" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="a10" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="a11" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="a12" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'b01', 'b02' ,'b03', 'b04', 'b05', 'b06', 'b07', 'b08', 'b09', 'b10', 'b11', 'b12'])">B</button>
+                            </td>
+                            <td>
+                                <svg id="b01" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="b02" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="b03" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="b04" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="b05" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="b06" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="b07" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="b08" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="b09" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="b10" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="b11" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="b12" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'c01', 'c02' ,'c03', 'c04', 'c05', 'c06', 'c07', 'c08', 'c09', 'c10', 'c11', 'c12'])">C</button>
+                            </td>
+                            <td>
+                                <svg id="c01" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="c02" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="c03" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="c04" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="c05" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="c06" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="c07" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="c08" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="c09" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="c10" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="c11" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="c12" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'd01', 'd02' ,'d03', 'd04', 'd05', 'd06', 'd07', 'd08', 'd09', 'd10', 'd11', 'd12'])">D</button>
+                            </td>
+                            <td>
+                                <svg id="d01" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="d02" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="d03" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="d04" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="d05" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="d06" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="d07" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="d08" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="d09" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="d10" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="d11" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="d12" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'e01', 'e02' ,'e03', 'e04', 'e05', 'e06', 'e07', 'e08', 'e09', 'e10', 'e11', 'e12'])">E</button>
+                            </td>
+                            <td>
+                                <svg id="e01" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="e02" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="e03" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="e04" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="e05" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="e06" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="e07" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="e08" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="e09" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="e10" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="e11" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="e12" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'f01', 'f02' ,'f03', 'f04', 'f05', 'f06', 'f07', 'f08', 'f09', 'f10', 'f11', 'f12'])">F</button>
+                            </td>
+                            <td>
+                                <svg id="f01" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="f02" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="f03" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="f04" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="f05" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="f06" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="f07" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="f08" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="f09" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="f10" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="f11" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="f12" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'g01', 'g02' ,'g03', 'g04', 'g05', 'g06', 'g07', 'g08', 'g09', 'g10', 'g11', 'g12'])">G</button>
+                            </td>
+                            <td>
+                                <svg id="g01" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="g02" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="g03" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="g04" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="g05" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="g06" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="g07" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="g08" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="g09" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="g10" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="g11" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="g12" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-link" onclick="ToggleWell([
+                                    'h01', 'h02' ,'h03', 'h04', 'h05', 'h06', 'h07', 'h08', 'h09', 'h10', 'h11', 'h12'])">H</button>
+                            </td>
+                            <td>
+                                <svg id="h01" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="h02" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="h03" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="h04" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="h05" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="h06" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="h07" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="h08" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="h09" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="h10" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="h11" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                            <td>
+                                <svg id="h12" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle" xmlns="http://www.w3.org/2000/svg"
+                                    fill="lightgray" onclick="ToggleWell([this.getAttribute('id')]);">
+                                    <circle cx="8" cy="8" r="8"/>
+                                </svg>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var well = {
+            "a01": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  0, "y": 0},
+            "a02": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  1, "y": 0},
+            "a03": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  2, "y": 0},
+            "a04": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  3, "y": 0},
+            "a05": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  4, "y": 0},
+            "a06": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  5, "y": 0},
+            "a07": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  6, "y": 0},
+            "a08": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  7, "y": 0},
+            "a09": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  8, "y": 0},
+            "a10": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  9, "y": 0},
+            "a11": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 10, "y": 0},
+            "a12": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 11, "y": 0},
+            "b01": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  0, "y": 1},
+            "b02": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  1, "y": 1},
+            "b03": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  2, "y": 1},
+            "b04": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  3, "y": 1},
+            "b05": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  4, "y": 1},
+            "b06": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  5, "y": 1},
+            "b07": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  6, "y": 1},
+            "b08": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  7, "y": 1},
+            "b09": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  8, "y": 1},
+            "b10": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  9, "y": 1},
+            "b11": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 10, "y": 1},
+            "b12": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 11, "y": 1},
+            "c01": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  0, "y": 2},
+            "c02": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  1, "y": 2},
+            "c03": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  2, "y": 2},
+            "c04": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  3, "y": 2},
+            "c05": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  4, "y": 2},
+            "c06": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  5, "y": 2},
+            "c07": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  6, "y": 2},
+            "c08": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  7, "y": 2},
+            "c09": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  8, "y": 2},
+            "c10": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  9, "y": 2},
+            "c11": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 10, "y": 2},
+            "c12": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 11, "y": 2},
+            "d01": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  0, "y": 3},
+            "d02": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  1, "y": 3},
+            "d03": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  2, "y": 3},
+            "d04": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  3, "y": 3},
+            "d05": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  4, "y": 3},
+            "d06": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  5, "y": 3},
+            "d07": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  6, "y": 3},
+            "d08": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  7, "y": 3},
+            "d09": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  8, "y": 3},
+            "d10": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  9, "y": 3},
+            "d11": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 10, "y": 3},
+            "d12": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 11, "y": 3},
+            "e01": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  0, "y": 4},
+            "e02": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  1, "y": 4},
+            "e03": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  2, "y": 4},
+            "e04": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  3, "y": 4},
+            "e05": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  4, "y": 4},
+            "e06": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  5, "y": 4},
+            "e07": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  6, "y": 4},
+            "e08": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  7, "y": 4},
+            "e09": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  8, "y": 4},
+            "e10": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  9, "y": 4},
+            "e11": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 10, "y": 4},
+            "e12": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 11, "y": 4},
+            "f01": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  0, "y": 5},
+            "f02": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  1, "y": 5},
+            "f03": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  2, "y": 5},
+            "f04": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  3, "y": 5},
+            "f05": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  4, "y": 5},
+            "f06": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  5, "y": 5},
+            "f07": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  6, "y": 5},
+            "f08": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  7, "y": 5},
+            "f09": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  8, "y": 5},
+            "f10": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  9, "y": 5},
+            "f11": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 10, "y": 5},
+            "f12": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 11, "y": 5},
+            "g01": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  0, "y": 6},
+            "g02": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  1, "y": 6},
+            "g03": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  2, "y": 6},
+            "g04": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  3, "y": 6},
+            "g05": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  4, "y": 6},
+            "g06": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  5, "y": 6},
+            "g07": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  6, "y": 6},
+            "g08": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  7, "y": 6},
+            "g09": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  8, "y": 6},
+            "g10": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  9, "y": 6},
+            "g11": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 10, "y": 6},
+            "g12": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 11, "y": 6},
+            "h01": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  0, "y": 7},
+            "h02": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  1, "y": 7},
+            "h03": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  2, "y": 7},
+            "h04": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  3, "y": 7},
+            "h05": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  4, "y": 7},
+            "h06": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  5, "y": 7},
+            "h07": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  6, "y": 7},
+            "h08": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  7, "y": 7},
+            "h09": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  8, "y": 7},
+            "h10": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x":  9, "y": 7},
+            "h11": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 10, "y": 7},
+            "h12": {"color": "lightgray", "specimen": "", "treatment": "", "tag": "", "x": 11, "y": 7}
+        }
+
+        function ToggleWell(x) {
+            $.each(x, function(i, v) {
+                if (document.getElementById(v).style.fill == "green") {
+                    well[v]["color"] = (well[v]["specimen"]).length > 0 ? "lightblue" : "lightgray";
+                } else {
+                    well[v]["color"] = "green";
+                    $("#in_s").val(well[v]["specimen"]);    // set specimen
+                    $("#in_t").val(well[v]["treatment"]);   // set treatment
+                    $("#in_o").val(well[v]["tag"]);         // set optional tag
+                }   // well has been selected
+
+                document.getElementById(v).style.fill = well[v]["color"];
+            })
+
+            $("#in_s").trigger("input");        // trigger an input event
+        }   // toggle the status of well(s)
+
+        function UpdateWell() {
+            $.each(well, function(i, v) {
+                if (v["color"] == "green") {
+                    if ((v["specimen"]).length > 0) {
+                        (document.getElementById(i).childNodes[3]).remove();
+                    }   // remove tooltip tag
+
+                    v["color"] = "lightblue";           // well color
+                    v["specimen"] = (v["specimen"]).length > 0 ? v["specimen"] : $("#in_s").val();
+                    v["treatment"] = (v["treatment"]).length > 0 ? v["treatment"] : $("#in_t").val();
+                    v["tag"] = $("#in_o").val();        // set optional tag
+
+                    document.getElementById(i).style.fill = v["color"];     // update the well color
+
+                    let a = document.createElementNS("http://www.w3.org/2000/svg", "title");
+                    a.innerHTML = `Well: ${i.toUpperCase()}\nSpecimen: ${v["specimen"]}${(v["treatment"]).length > 0 ? ("\nTreatment: " + v["treatment"]) : ""}${(v["tag"]).length > 0 ? ("\nOptional Tag: " + v["tag"]) : ""}`;
+                    document.getElementById(i).appendChild(a);
+                }   // well has been selected
+            });
+
+            $("#in_s, #in_t, #in_o").val("");   // reset all input fields
+            $("#in_s").trigger("input");        // trigger an input event
+        }
+
+        function ResetWell() {
+            $.each(well, function(i, v) {
+                if (v["color"] == "green") {
+                    if ((v["specimen"]).length > 0) {
+                        (document.getElementById(i).childNodes[3]).remove();
+                    }   // remove tooltip tag
+
+                    v["color"] = "lightgray";   // reset well status
+                    v["specimen"] = ""; v["treatment"] = ""; v["tag"] = "";
+                    document.getElementById(i).style.fill = v["color"];
+                }   // well has been selected
+            });
+
+            $("#in_s, #in_t, #in_o").val("");   // reset all input fields
+            $("#in_s").trigger("input");        // trigger an input event
+        }   // reset the parameters for well(s)
+
+        bt_x.onclick = function(e) {
+            if ($("#tray").val().length == 0) {
+                window.alert("Please enter the plate name!");
+                return(false);
+            }   // make sure the plate name is not empty
+
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "http://conrad.shyu.to:8000/cytometry/bdfacs.php",
+                data: {"tray": $("#tray").val(), "json": JSON.stringify(well)},
+                success: function(r) {
+                    let e = document.createElement('a');
+                    e.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(r));
+                    e.setAttribute('download', `${document.getElementById("tray").value}.xml`);
+                    e.style.display = 'none';
+                    document.body.appendChild(e);
+                    e.click();
+                    document.body.removeChild(e);
+                }   // generate a download link to XML file
+            });
+        }   // handle the onclick event
+
+        in_s.oninput = function() {
+            $("#in_s, #in_t, #in_o, #bt_u, #bt_r").prop("disabled", "true");
+
+            $.each(well, function(i, v) {
+                if (v["color"] == "green") {
+                    $("#in_s, #bt_r").prop("disabled", false);
+                    $("#in_t, #in_o, #bt_u").prop("disabled", $("#in_s").val().length > 0 ? false : true);
+                }   // activate the input field
+            });
+
+            $("#in_s").focus();     // Microsoft Edge keeps loosing focus
+        }   // input specimen event oninput
+
+        $(document).ready(function () {
+            let d = new Date();
+            $("#dt").val(`${d.toLocaleDateString()} ${d.toLocaleTimeString()}`);
+
+            $("#header").load("view/header.html");
+            $("#footer").load("view/footer.html");
+        });
+    </script>
+</body>
+
+</html>

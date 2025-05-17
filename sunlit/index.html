@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SUNLIT Protein Viewer</title>
+
+    <!-- site specific style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+</head>
+<body style="width: 100%; height: 100%; padding: 10px 10px 10px 10px;">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 60px;">
+                <img src="sunlit.png" alt="SUNLIT Protein Viewer" title="SUNLIT Protein Viewer" width="60" height="54">
+            </td>
+            <td style="width: 50%; color: rgb(68, 114, 196); text-align: left;">
+                <span style="font-size: 24px; color: teal;"><u>SUNLIT Protein Viewer</u></span><br>
+                <b>S</b>tr<b>U</b>ctural a<b>N</b>notation and visua<b>LI</b>za<b>T</b>ion
+            </td>
+            <td style="text-align: right; vertical-align: top;">
+                <a href="mailto:bioinformatics@niaid.nih.gov" title="Contact structural biology support">
+                    <i class="envelope outline icon" style="color: black;"></i>
+                    Structural Biology Support
+                </a>
+                &nbsp; &nbsp;
+                <a href="mailto:NIAIDBCBBGRISSupport@niaid.nih.gov" title="Contact GRIS support">
+                    <i class="envelope outline icon" style="color: black;"></i>
+                    GRIS Support
+                </a>
+                &nbsp; &nbsp;
+                <a href="https://gris.niaid.nih.gov/info/manual/reviewing-variants-context-protein-structure" target="_blank" title="Visit user manual pages">
+                    <i class="book icon" style="color: black;"></i>
+                    User Manual
+                </a>
+            </td>
+        </tr>
+    </table>
+    <div class="ui divider" style="margin: auto; margin-top: 10px; margin-bottom: 10px;"></div>
+    <div class="ui segment">
+        <p>Enter an Ensembl Transcript (e.g. ENST00000390665) or UniProt ID (e.g. Q9Y5P8), and UniProt residue number to search for structures.</p>
+    </div>
+    <div class="ui segment">
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 180px;">Ensembl Transcript ID</td>
+                <td>
+                    <div class="ui input" style="width: 100%;">
+                        <input type="text" name="transcript" value="ENST00000390665" placeholder="Enter transcript ID here ...">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>UniProt ID</td>
+                <td>
+                    <div class="ui input" style="width: 100%;">
+                        <input type="text" name="uniprot" value="" placeholder="Enter UniProt ID here ...">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>UniProt Residue Position</td>
+                <td>
+                    <div class="ui input" style="width: 100%;">
+                        <input type="text" name="residue" value="202" required placeholder="Enter UniProt residue number here ...">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="ui divider" style="margin: auto; margin-top: 10px; margin-bottom: 10px;"></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: right;">
+                    <button class="ui red basic right labeled icon button"
+                        onclick="$('input[name=transcript], input[name=uniprot], input[name=residue]').val('');">
+                        <i class="eraser icon"></i>
+                        Reset
+                    </button>
+                    &nbsp; &nbsp;
+                    <button class="ui blue basic right labeled icon button"
+                        onclick="load_viewer($('input[name=transcript]').val(), $('input[name=uniprot]').val(), $('input[name=residue]').val());">
+                        <i class="search icon"></i>
+                        Search
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        function load_viewer(t, u, r) {
+            if (r.length == 0) {
+                window.alert("Residue Position is required"); return(false);
+            }   // check residues position
+
+            if ((t.length == 0) && (u.length == 0)) {
+                window.alert("Ensembl Transcript or UniProt is required."); return(false);
+            }   // check transcript and uniprot
+
+            window.open((u.length > 0) ? `viewer.html?uniprot=${u}&site=p.Alu${r}Met` : `viewer.html?transcript=${t}&site=p.Alu${r}Met`, "_blank");
+            return(true);
+        }   // capture input and load viewer
+    </script>
+</body>
+</html>

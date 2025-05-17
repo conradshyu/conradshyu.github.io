@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<!--
+    Square Shuffle!
+    Written by Conrad Shyu (conradshyu@yahoo.com)
+    last updated on January 3, 2024
+-->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Square Shuffle!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.js"></script>
+
+    <style>
+        tr, td {
+            color: rgb(77, 77, 77);
+            font-weight: normal;
+            border: 2px solid gray;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 4px;
+            width: 48px;
+            height: 48px;
+        }
+    </style>
+</head>
+
+<body style="padding: 10px 10px 10px 10px;">
+    <div class="ui internally celled grid">
+        <div class="row">
+            <div class="eight wide column">
+                <div class="ui center aligned huge header" style="color: teal;">
+                    <img src="title.png" style="width: 40px; height: 40px;">
+                    Square Shuffle
+                </div>
+                <div class="ui segment">
+                    <h4 class="ui dividing header">
+                        <i class="th icon"></i>Next
+                    </h4>
+                    <table id="line" style="margin-left: auto; margin-right: auto;">
+                        <tr>
+                            <td style="background-color: white;"></td>
+                            <td style="background-color: white;"></td>
+                            <td style="background-color: white;"></td>
+                            <td style="background-color: white;"></td>
+                            <td style="background-color: white;"></td>
+                            <td style="background-color: white;"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="ui segment">
+                    <h4 class="ui dividing header">
+                        <i class="signal icon"></i>Statistics
+                    </h4>
+                    <table style="margin-left: auto; margin-right: auto;" id="s_line">
+                        <tr>
+                            <td style="background-color: red;"></td>
+                            <td style="border: 0px; width: 90px; text-align: left;">
+                                <h4 class="ui header" style="font-size: 20px; color: gray;">0</h4>
+                            </td>
+                            <td style="background-color: blue;"></td>
+                            <td style="border: 0px; width: 90px; text-align: left;">
+                                <h4 class="ui header" style="font-size: 20px; color: gray;">0</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: yellow;"></td>
+                            <td style="border: 0px; width: 90px; text-align: left;">
+                                <h4 class="ui header" style="font-size: 20px; color: gray;">0</h4>
+                            </td>
+                            <td style="background-color: green;"></td>
+                            <td style="border: 0px; width: 90px; text-align: left;">
+                                <h4 class="ui header" style="font-size: 20px; color: gray;">0</h4>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="ui segment">
+                    <h4 class="ui dividing header">
+                        <i class="trash alternate outline icon"></i>Cleared
+                    </h4>
+                    <table style="margin-left: auto; margin-right: auto;" id="s_user">
+                        <tr>
+                            <td style="background-color: red;"></td>
+                            <td style="border: 0px; width: 90px; text-align: left;">
+                                <h4 class="ui header" style="font-size: 20px; color: gray;">0</h4>
+                            </td>
+                            <td style="background-color: blue;"></td>
+                            <td style="border: 0px; width: 90px; text-align: left;">
+                                <h4 class="ui header" style="font-size: 20px; color: gray;">0</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: yellow;"></td>
+                            <td style="border: 0px; width: 90px; text-align: left;">
+                                <h4 class="ui header" style="font-size: 20px; color: gray;">0</h4>
+                            </td>
+                            <td style="background-color: green;"></td>
+                            <td style="border: 0px; width: 90px; text-align: left;">
+                                <h4 class="ui header" style="font-size: 20px; color: gray;">0</h4>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="ui segment">
+                    <div class="ui equal width grid">
+                        <div class="row">
+                            <div class="column">
+                                <h5 class="ui header" id="win" style="font-size: 16px;">
+                                    Line Cleared: 0
+                                </h5>
+                            </div>
+                            <div class="column">
+                                <h5 class="ui header" id="tm" style="font-size: 16px;">
+                                    Time: 00:00:00
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="eight wide column">
+                <div class="ui clearing divider"></div>
+                <table id="tile" style="margin-left: auto; margin-right: auto;"
+                    ontouchmove="event.preventDefault();">
+                    <tr>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                        <td style="background-color: white;">  </td>
+                    </tr>
+                </table>
+                <div class="ui clearing divider"></div>
+                <p style="text-align: right;">
+                    <button type="button" class="ui button" id="btn_ps" onclick="setPause(this);">
+                        Pause
+                    </button>
+                    <button type="button" class="ui primary button" onclick="run(4);">
+                        New Game
+                    </button>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        let source = "", timer = 1850, pause = false, count = 0, loop = null, gs = 0, time = "";
+        let a_line = {      // all generated
+            "rgb(240, 255, 255)": 0, "rgb(255, 255, 255)": 0,
+            "rgb(255, 0, 0)": 0, "rgb(0, 0, 255)": 0,
+            "rgb(0, 128, 0)": 0, "rgb(255, 255, 0)": 0};
+        let a_user = {      // user cleared
+            "rgb(240, 255, 255)": 0, "rgb(255, 255, 255)": 0,
+            "rgb(255, 0, 0)": 0, "rgb(0, 0, 255)": 0,
+            "rgb(0, 128, 0)": 0, "rgb(255, 255, 0)": 0};
+        const tile = $("#tile tr");     // load table into jquery
+        const azure = "rgb(240, 255, 255)"; 
+        const white = "rgb(255, 255, 255)";
+        const color = ["rgb(255, 0, 0)", "rgb(0, 0, 255)", "rgb(0, 128, 0)", "rgb(255, 255, 0)"];
+
+        const allowDrop = (e) => {
+            e.preventDefault();
+        }   // allow drop event
+
+        const drag = (e) => {
+            source = e.target;
+        }   // drag a number
+
+        const drop = (e) => {
+            $(e.target).css("background-color", $(source).css("background-color"));
+            $(source).css("background-color", azure);
+            clearWin(); setDND();
+        }   // handle drop event
+
+        const xfer = (e) => {
+            //e.preventDefault();
+            let i = document.elementFromPoint(
+                e.originalEvent.changedTouches[0]['clientX'],
+                e.originalEvent.changedTouches[0]['clientY']);
+
+            if ($(i).css("background-color") == azure) {
+                $(i).css("background-color", $(e.currentTarget).css("background-color"));
+                $(e.currentTarget).css("background-color", azure);
+                clearWin(); setDND();
+            }   // process touchscreen events
+        }
+
+        function setPause(i) {
+            if (!(loop == null)) {
+                pause = !pause;
+                i.innerHTML = pause ? 'Resume' : 'Pause';
+                i.style.color = pause ? 'green' : 'black';
+                pause ? clearDND() : setDND();
+            }
+        }   // update pause button
+
+        function clearDND() {
+            for (let y = 0; y < tile.length; y++) {
+                for (let x = 0; x < tile.eq(y).find("td").length; x++) {
+                    $(tile.eq(y).find("td").eq(x)).off("dragstart");
+                    $(tile.eq(y).find("td").eq(x)).off("drop");
+                    $(tile.eq(y).find("td").eq(x)).off("dragover");
+                    $(tile.eq(y).find("td").eq(x)).removeAttr("draggable");
+                    $(tile.eq(y).find("td").eq(x)).off("touchend");
+                    $(tile.eq(y).find("td").eq(x)).css("cursor", "default");
+                }
+            }
+        }   // clear all drag and drop options
+
+        function setDND() {
+            clearDND();
+
+            for (let y = 0; y < tile.length; y++) {
+                for (let x = 0; x < tile.eq(0).find("td").length; x++) {
+                    let s = $(tile.eq(y).find("td").eq(x));
+
+                    if ($(s).css("background-color") == white) {
+                        continue;
+                    }   // empty cell; disable drag and drop
+
+                    if ($(s).css("background-color") == azure) {
+                        $(s).on("drop", drop);
+                        $(s).on("dragover", allowDrop);
+                        $(s).attr("draggable", false);
+                        $(s).css("cursor", "default");
+                        continue;
+                    }   // enable drop event
+
+                    // color cells; top, bottom, left, right
+                    let a = ((y - 1) < 0) ?                             // top tile
+                        false : ($(tile.eq(y - 1).find("td").eq(x)).css("background-color") == azure);
+                    let b = ((y + 1) > tile.length) ?                   // bottom tile
+                        false : ($(tile.eq(y + 1).find("td").eq(x)).css("background-color") == azure);
+                    let c = ((x - 1) < 0) ?                             // left tile
+                        false : ($(tile.eq(y).find("td").eq(x - 1)).css("background-color") == azure);
+                    let d = ((x + 1) > tile.eq(0).find("td").length) ?  // right tile
+                        false : ($(tile.eq(y).find("td").eq(x + 1)).css("background-color") == azure);
+
+                    if (a || b || c || d) {
+                        $(s).on("dragstart", drag);
+                        $(s).attr("draggable", true);
+                        $(s).on("touchend", xfer);
+                        $(s).css("cursor", "pointer");
+                    }   // enable drag event
+                }
+            }
+        }   // enable drag and drop event based on tile color
+
+        function updateStat(i, s) {
+            let t = $(`#${i} tr`);
+
+            for (let a = 0; a < t.length; a++) {
+                let b = $(t.eq(a).find("td"));
+                $(b.eq(1)).html(`<h4 class="ui header" style="font-size: 20px; color: gray;">${s[$(b.eq(0)).css("background-color")]}</h4>`);
+                $(b.eq(3)).html(`<h4 class="ui header" style="font-size: 20px; color: gray;">${s[$(b.eq(2)).css("background-color")]}</h4>`);
+            }
+        }   // update square statistics
+
+        function clearWin() {
+            for (let y = tile.length - 1; y > 0; y--) {
+                let a = $(tile.eq(y).find("td").eq(0)).css("background-color");
+                let b = true;
+
+                if (a == white) {
+                    continue;
+                }   // skip empty tiles
+
+                for (let x = 1; x < tile.eq(y).find("td").length; x++) {
+                    b = (b && ($(tile.eq(y).find("td").eq(x)).css("background-color") == a));
+                }   // scan for winning row
+
+                if (!b) {
+                    continue;
+                }   // no winning row found
+
+                pause = true;   // temporarily pause drop
+
+                for (let x = 0; x < tile.eq(y).find("td").length; x++) {
+                    a_user[$(tile.eq(y).find("td").eq(x)).css("background-color")] += 1;
+                }   // collect all user cleared
+                updateStat("s_user", a_user);
+
+                for (let w = y; w > 0; w--) {
+                    for (let x = 0; x < tile.eq(w).find("td").length; x++) {
+                        $(tile.eq(w).find("td").eq(x)).css("background-color",
+                            $(tile.eq(w - 1).find("td").eq(x)).css("background-color"));
+                        $(tile.eq(w - 1).find("td").eq(x)).css("background-color", white);
+                    }
+                }   // shift rows
+
+                pause = false; count += 1;
+                $("#win").html(`Line Cleared: ${count}`);
+            }
+        }   // clear completed row
+
+        const rand = (i) => {
+            return(Math.floor(Math.random() * i));
+        }   // random integer between 0 and i - 1
+
+        function _run(a) {
+            let y = a[0]; let v = [... a[1]]; let w = [... a[2]];
+
+            if (!pause) {
+                if (!($(tile.eq(0).find("td").eq(0)).css("background-color") == white) &&
+                    !($(tile.eq(1).find("td").eq(0)).css("background-color") == white)) {
+                    pause = true; window.alert("Game Over!");
+                    clearDND(); clearTimeout(loop); loop = null;
+                } else {
+                    for (let i = 0; i < $("#line tr").eq(0).find("td").length; i++) {
+                        $($("#line tr").eq(0).find("td").eq(i)).css("background-color", v[i]);
+                    }   // update next line
+
+                   if (y > 0) {
+                        for (let x = 0; x < tile.eq(y - 1).find("td").length; x++) {
+                            $(tile.eq(y - 1).find("td").eq(x)).css("background-color", white);
+                        }
+                    }   // remove previous line
+
+                    for (let x = 0; x < tile.eq(y).find("td").length; x++) {
+                        $(tile.eq(y).find("td").eq(x)).css("background-color", w[x]);
+                    }   // update current line
+
+                    if ($(tile.eq(y + 1).find("td").eq(0)).css("background-color") == white) {
+                        y += 1;
+                    } else {
+                        w.forEach((i) => {a_line[i] += 1;}); updateStat("s_line", a_line);
+                        y = 0; w = [... v];
+                        v = [... Array(tile.eq(y).find("td").length).keys()].map((i) => {
+                            return(color[rand(color.length)]);});   // next line
+                        setDND();   // set drag and drop options
+                    }
+                }
+            }
+
+            loop = setTimeout(_run, timer - (count * 25), [y, v, w]);
+        }
+
+        function run(n = 4) {
+            count = 0; $("#win").html(`Line Cleared: ${count}`);
+            Object.keys(a_line).forEach((i, j) => {a_line[i] = 0;}); updateStat("s_line", a_line);
+            Object.keys(a_user).forEach((i, j) => {a_user[i] = 0;}); updateStat("s_user", a_user);
+
+            tile.each((a, b) => {
+                $(b).find("td").each((i, j) => {
+                    $(j).css("background-color", (a > (tile.length - n - 1)) ? color[rand(color.length)] : white);
+                });
+            }); // reset the matrix; assign tile color
+
+            tile.eq(tile.length - 1 - rand(n)).find("td").eq(rand(tile.eq(0).find("td").length)).css(
+                "background-color", azure);
+
+            for (let i = 0; i < tile.length; i++) {
+                for (let j = 0; j < tile.eq(i).find("td").length; j++) {
+                    a_line[$(tile.eq(i).find("td").eq(j)).css("background-color")] += 1;
+                }
+            }   // summarize number of square with different colors
+
+            updateStat("s_line", a_line); setDND();   // update drag and drop options
+            let y = 0;
+            let w = [... Array(tile.eq(y).find("td").length).keys()].map((i) => {
+                return(color[rand(color.length)]);});
+
+            for (let i = 0; i < $("#line tr").eq(0).find("td").length; i++) {
+                $($("#line tr").eq(0).find("td").eq(i)).css("background-color", w[i]);
+            }   // update next line
+
+            let v = [... Array(tile.eq(y).find("td").length).keys()].map((i) => {
+                return(color[rand(color.length)]);});   // next line
+
+            if (!(loop == null)) {
+                pause = true; $("#btn_ps").trigger("click");
+                clearTimeout(loop); loop = null;
+            }   // clear interval
+
+            _run([y, v, w]);
+
+            if (!(time == null)) {
+                clearInterval(time); gs = 0;
+            }   // stop existing timer
+
+            time = setInterval(() => {
+                if (!(pause)) {
+                    let d = new Date(null);
+                    d.setSeconds(gs); gs += 1;
+                    $("#tm").text(`Time: ${d.toISOString().substr(11, 8)}`);
+                }
+            }, 1000);
+        }   // generate new game
+    </script>
+</body>
+
+</html>

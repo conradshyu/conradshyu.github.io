@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<!--
+    Tile Tetris
+    Written by Conrad Shyu (conrad.shyu@nih.gov)
+-->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Tile Match</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+
+    <style>
+        tr, td {
+            color: rgb(77, 77, 77);
+            font-weight: normal;
+            border: 2px solid gray;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 4px;
+            padding: 12px;
+        }
+    </style>
+</head>
+<body style="padding: 10px 10px 10px 10px;">
+    <div class="ui grid" style="font-size: 36px;">
+        <div class="two wide column"></div>
+        <div class="center aligned twelve wide column" style="color: teal;">
+            <p>
+                <i class="chess board icon" style="color: teal;"></i>
+                <i class="arrow alternate circle left outline icon" style="color: lightblue;"></i>
+                <i class="chess board icon" style="color: maroon;"></i>
+                Shuffle Match
+            </p>
+        </div>
+        <div class="two wide column"></div>
+    </div>
+    <div class="ui divider"></div>
+    <div id="l1" class="ui internally celled grid" style="display: block;" ontouchmove="event.preventDefault();">
+        <div class="row">
+            <div class="eight wide column">
+                <table id="g1" style="margin-left: auto; margin-right: auto;">
+                    <tr>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="eight wide column">
+                <table id="t1" style="margin-left: auto; margin-right: auto;" ontouchmove="event.preventDefault();">
+                    <tr>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                        <td style="background-color: white; width: 58px; height: 58px;"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="l2" class="ui internally celled grid" style="display: none;">
+        <div class="row">
+            <div class="eight wide column">
+                <table id="g2" style="margin-left: auto; margin-right: auto;" ontouchmove="event.preventDefault();">
+                    <tr>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="eight wide column">
+                <table id="t2" style="margin-left: auto; margin-right: auto;" ontouchmove="event.preventDefault();">
+                    <tr>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                        <td style="background-color: white; width: 38px; height: 38px;"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="l3" class="ui internally celled grid" style="display: none;">
+        <div class="row">
+            <div class="eight wide column">
+                <table id="g3" style="margin-left: auto; margin-right: auto;" ontouchmove="event.preventDefault();">
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="eight wide column">
+                <table id="t3" style="margin-left: auto; margin-right: auto;" ontouchmove="event.preventDefault();">
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                        <td style="background-color: white; width: 24px; height: 24px;"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="ui divider"></div>
+    <div class="ui equal width left aligned grid" style="width: 100%;">
+        <div class="row">
+            <div class="column">
+                <h4 class="ui header" id="tm">Moves: 0</h4>
+            </div>
+            <div class="column">
+                <h4 class="ui header" id="tt">Time: 00:00:00</h4>
+            </div>
+            <div class="column">
+                <select class="ui compact dropdown"
+                    onchange="['#l1', '#l2', '#l3'].forEach((i) => {$(i).css('display', 'none');});
+                        let s = this.options[this.selectedIndex];
+                        view = $(`${s.getAttribute('view')}`).css('display', 'block');
+                        goal = $(`${s.getAttribute('goal')} tr`);
+                        tile = $(`${s.getAttribute('tile')} tr`); run();">
+                    <option goal="#g1" tile="#t1" view="#l1" selected>Easy</option>
+                    <option goal="#g2" tile="#t2" view="#l2">Medium</option>
+                    <option goal="#g3" tile="#t3" view="#l3">Hard</option>
+                </select>
+            </div>
+            <div class="column">
+                <button class="ui primary button" onclick="run();">
+                    New Game
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let source = "", step = 0, time = null, gs = 0;
+        let view = $("#l1").css("display", "block"); let goal = $("#g1 tr"); let tile = $("#t1 tr");
+        const azure = "rgb(240, 255, 255)"; 
+        const color = ["rgb(255, 0, 0)", "rgb(0, 0, 255)", "rgb(0, 128, 0)", "rgb(255, 255, 0)"];
+
+        const allowDrop = (e) => {
+            e.preventDefault();
+        }   // allow drop event
+
+        const drag = (e) => {
+            source = e.target;
+        }   // drag a number
+
+        const drop = (e) => {
+            e.preventDefault();
+            $(e.target).css("background-color", $(source).css("background-color"));
+            $(source).css("background-color", azure);
+            step++; $("#tm").text(`Moves: ${step}`);
+            setDND(); checkWin();
+        }
+
+        const xfer = (e) => {
+            e.preventDefault();
+            let i = document.elementFromPoint(
+                e.changedTouches[0]['clientX'], e.changedTouches[0]['clientY']);
+
+            if ($(i).attr("ondrop") == "drop(event)") {
+                $(i).css("background-color", $(e.originalTarget).css("background-color"));
+                $(e.originalTarget).css("background-color", azure);
+                setDND(); checkWin();
+            }   // process touchscreen events
+        }
+
+        function checkWin() {
+            let b = true;
+
+            for (i = 0; i < goal.length; i++) {
+                for (j = 0; j < goal.eq(0).find("td").length; j++) {
+                    b = (b && ($(goal.eq(i).find("td").eq(j)).css("background-color") ==
+                        $(tile.eq(i).find("td").eq(j)).css("background-color")));
+                }
+            }
+
+            if (b) {
+                window.alert("Congraduations! You did it!");
+                clearInterval(time);
+            }
+        }   // check if win
+
+        function setDND() {
+            for (let y = 0; y < tile.length; y++) {
+                for (let x = 0; x < tile.eq(0).find("td").length; x++) {
+                    let s = $(tile.eq(y).find("td").eq(x));
+                    $(s).off("dragstart");
+                    $(s).off("drop");
+                    $(s).off("dragover");
+                    $(s).removeAttr("draggable");
+                    $(s).off("touchend");
+                    $(s).css("cursor", "default");
+
+                    if ($(s).css("background-color") == azure) {
+                        $(s).on("drop", drop);
+                        $(s).on("dragover", allowDrop);
+                        $(s).attr("draggable", false);
+                        $(s).css("cursor", "default");
+                        continue;
+                    }   // enable drop event
+
+                    // color cells; top, bottom, left, right
+                    let a = ((y - 1) < 0) ?                             // top tile
+                        false : ($(tile.eq(y - 1).find("td").eq(x)).css("background-color") == azure);
+                    let b = ((y + 1) > tile.length) ?                   // bottom tile
+                        false : ($(tile.eq(y + 1).find("td").eq(x)).css("background-color") == azure);
+                    let c = ((x - 1) < 0) ?                             // left tile
+                        false : ($(tile.eq(y).find("td").eq(x - 1)).css("background-color") == azure);
+                    let d = ((x + 1) > tile.eq(0).find("td").length) ?  // right tile
+                        false : ($(tile.eq(y).find("td").eq(x + 1)).css("background-color") == azure);
+
+                    if (a || b || c || d) {
+                        $(s).on("dragstart", drag);
+                        $(s).attr("draggable", true);
+                        $(s).on("touchend", xfer);
+                        $(s).css("cursor", "pointer");
+                    }   // enable drag event
+                }
+            }
+        }   // enable drag and drop event based on tile color
+
+        function run() {
+            step = 0; $("#tm").text(`Moves: ${step}`);
+            const rand = (i) => {return(Math.floor(Math.random() * i));}
+            let w = [azure];
+            [... Array(goal.length * goal.eq(0).find("td").length - 1).keys()].forEach((i) => {
+                w.push(color[rand(color.length)]);});
+            let u = w.sort((a, b) => {return(0.5 - Math.random());});
+            let p = 0, q = 0;
+
+            goal.each((a, b) => {
+                $(b).find("td").each((i, j) => {$(j).css("background-color", u[p]); p++;});
+            });
+
+            let x = w.sort((a, b) => {return(0.5 - Math.random());});
+
+            tile.each((a, b) => {
+                $(b).find("td").each((i, j) => {$(j).css("background-color", x[q]); q++;});
+            });
+
+            setDND();
+
+            if (!(time == null)) {
+                clearInterval(time); gs = 0;
+            }   // stop existing timer
+
+            time = setInterval(() => {
+                let d = new Date(null);
+                d.setSeconds(gs); gs += 1;
+                $("#tt").text(`Time: ${d.toISOString().substr(11, 8)}`);
+            }, 1000);
+        }   // generate new game
+
+        $(document).ready(() => {
+            $('.ui.dropdown').dropdown();
+        });
+    </script>
+</body>
+
+</html>
