@@ -1,0 +1,1938 @@
+[
+    {
+        "Country": "Afghanistan",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Afghanistan",
+        "Population": 25500100,
+        "Date": "2013-01-01",
+        "Percentage": 0.36,
+        "ID": 1
+    },
+    {
+        "Country": "Albania",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Albania",
+        "Population": 2831741,
+        "Date": "2011-10-01",
+        "Percentage": 0.04,
+        "ID": 2
+    },
+    {
+        "Country": "Algeria",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Algeria",
+        "Population": 37100000,
+        "Date": "2012-01-01",
+        "Percentage": 0.53,
+        "ID": 3
+    },
+    {
+        "Country": "American Samoa (USA)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/American_Samoa",
+        "Population": 55519,
+        "Date": "2010-04-01",
+        "Percentage": 0.00079,
+        "ID": 4
+    },
+    {
+        "Country": "Andorra",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Andorra",
+        "Population": 78115,
+        "Date": "2011-07-01",
+        "Percentage": 0.0011,
+        "ID": 5
+    },
+    {
+        "Country": "Angola",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Angola",
+        "Population": 20609294,
+        "Date": "2012-07-01",
+        "Percentage": 0.29,
+        "ID": 6
+    },
+    {
+        "Country": "Anguilla (UK)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Anguilla",
+        "Population": 13452,
+        "Date": "2011-05-11",
+        "Percentage": 0.00019,
+        "ID": 7
+    },
+    {
+        "Country": "Antigua and Barbuda",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Antigua_and_Barbuda",
+        "Population": 86295,
+        "Date": "2011-05-27",
+        "Percentage": 0.0012,
+        "ID": 8
+    },
+    {
+        "Country": "Argentina",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Argentina",
+        "Population": 40117096,
+        "Date": "2010-10-27",
+        "Percentage": 0.57,
+        "ID": 9
+    },
+    {
+        "Country": "Armenia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Armenia",
+        "Population": 3275700,
+        "Date": "2012-06-01",
+        "Percentage": 0.046,
+        "ID": 10
+    },
+    {
+        "Country": "Aruba (Netherlands)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Aruba",
+        "Population": 101484,
+        "Date": "2010-09-29",
+        "Percentage": 0.0014,
+        "ID": 11
+    },
+    {
+        "Country": "Australia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Australia",
+        "Population": 22808690,
+        "Date": "2012-11-11",
+        "Percentage": 0.32,
+        "ID": 12
+    },
+    {
+        "Country": "Austria",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Austria",
+        "Population": 8452835,
+        "Date": "2012-07-01",
+        "Percentage": 0.12,
+        "ID": 13
+    },
+    {
+        "Country": "Azerbaijan",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Azerbaijan",
+        "Population": 9235100,
+        "Date": "2012-01-01",
+        "Percentage": 0.13,
+        "ID": 14
+    },
+    {
+        "Country": "Bahamas",
+        "Wikipedia": "http://en.wikipedia.org/wiki/The_Bahamas",
+        "Population": 353658,
+        "Date": "2010-05-03",
+        "Percentage": 0.005,
+        "ID": 15
+    },
+    {
+        "Country": "Bahrain",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Bahrain",
+        "Population": 1234571,
+        "Date": "2010-04-27",
+        "Percentage": 0.018,
+        "ID": 16
+    },
+    {
+        "Country": "Bangladesh",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Bangladesh",
+        "Population": 152518015,
+        "Date": "2012-07-16",
+        "Percentage": 2.16,
+        "ID": 17
+    },
+    {
+        "Country": "Barbados",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Barbados",
+        "Population": 274200,
+        "Date": "2010-07-01",
+        "Percentage": 0.0039,
+        "ID": 18
+    },
+    {
+        "Country": "Belarus",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Belarus",
+        "Population": 9459000,
+        "Date": "2012-09-01",
+        "Percentage": 0.13,
+        "ID": 19
+    },
+    {
+        "Country": "Belgium",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Belgium",
+        "Population": 10839905,
+        "Date": "2010-01-01",
+        "Percentage": 0.15,
+        "ID": 20
+    },
+    {
+        "Country": "Belize",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Belize",
+        "Population": 312971,
+        "Date": "2010-05-12",
+        "Percentage": 0.0044,
+        "ID": 21
+    },
+    {
+        "Country": "Benin",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Benin",
+        "Population": 9352000,
+        "Date": "2012-07-01",
+        "Percentage": 0.13,
+        "ID": 22
+    },
+    {
+        "Country": "Bermuda (UK)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Bermuda",
+        "Population": 64237,
+        "Date": "2010-05-20",
+        "Percentage": 0.00091,
+        "ID": 23
+    },
+    {
+        "Country": "Bhutan",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Bhutan",
+        "Population": 720679,
+        "Date": "2012-07-01",
+        "Percentage": 0.01,
+        "ID": 24
+    },
+    {
+        "Country": "Bolivia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Bolivia",
+        "Population": 10426155,
+        "Date": "2010-07-01",
+        "Percentage": 0.15,
+        "ID": 25
+    },
+    {
+        "Country": "Bosnia and Herzegovina",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Bosnia_and_Herzegovina",
+        "Population": 3868621,
+        "Date": "2012-06-30",
+        "Percentage": 0.055,
+        "ID": 26
+    },
+    {
+        "Country": "Botswana",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Botswana",
+        "Population": 2024904,
+        "Date": "2011-08-22",
+        "Percentage": 0.029,
+        "ID": 27
+    },
+    {
+        "Country": "Brazil",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Brazil",
+        "Population": 193946886,
+        "Date": "2012-07-01",
+        "Percentage": 2.75,
+        "ID": 28
+    },
+    {
+        "Country": "British Virgin Islands (UK)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/British_Virgin_Islands",
+        "Population": 29537,
+        "Date": "2010-07-01",
+        "Percentage": 0.00042,
+        "ID": 29
+    },
+    {
+        "Country": "Brunei",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Brunei",
+        "Population": 393162,
+        "Date": "2011-06-20",
+        "Percentage": 0.0056,
+        "ID": 30
+    },
+    {
+        "Country": "Bulgaria",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Bulgaria",
+        "Population": 7364570,
+        "Date": "2011-02-01",
+        "Percentage": 0.1,
+        "ID": 31
+    },
+    {
+        "Country": "Burkina Faso",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Burkina_Faso",
+        "Population": 15730977,
+        "Date": "2010-07-01",
+        "Percentage": 0.22,
+        "ID": 32
+    },
+    {
+        "Country": "Burundi",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Burundi",
+        "Population": 8749000,
+        "Date": "2012-07-01",
+        "Percentage": 0.12,
+        "ID": 33
+    },
+    {
+        "Country": "Cambodia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Cambodia",
+        "Population": 14478000,
+        "Date": "2012-07-01",
+        "Percentage": 0.21,
+        "ID": 34
+    },
+    {
+        "Country": "Cameroon",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Cameroon",
+        "Population": 19406100,
+        "Date": "2010-01-01",
+        "Percentage": 0.28,
+        "ID": 35
+    },
+    {
+        "Country": "Canada",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Canada",
+        "Population": 34974700,
+        "Date": "2012-11-11",
+        "Percentage": 0.5,
+        "ID": 36
+    },
+    {
+        "Country": "Cape Verde",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Cape_Verde",
+        "Population": 491875,
+        "Date": "2010-06-16",
+        "Percentage": 0.007,
+        "ID": 37
+    },
+    {
+        "Country": "Caribbean Netherlands (Netherlands)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Caribbean_Netherlands",
+        "Population": 21133,
+        "Date": "2011-01-01",
+        "Percentage": 0.0003,
+        "ID": 38
+    },
+    {
+        "Country": "Cayman Islands (UK)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Cayman_Islands",
+        "Population": 55456,
+        "Date": "2010-10-10",
+        "Percentage": 0.00079,
+        "ID": 39
+    },
+    {
+        "Country": "Central African Republic",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Central_African_Republic",
+        "Population": 4576000,
+        "Date": "2012-07-01",
+        "Percentage": 0.065,
+        "ID": 40
+    },
+    {
+        "Country": "Chad",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Chad",
+        "Population": 11274106,
+        "Date": "2009-05-20",
+        "Percentage": 0.16,
+        "ID": 41
+    },
+    {
+        "Country": "Chile",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Chile",
+        "Population": 16572475,
+        "Date": "2012-04-09",
+        "Percentage": 0.24,
+        "ID": 42
+    },
+    {
+        "Country": "China",
+        "Wikipedia": "http://en.wikipedia.org/wiki/China",
+        "Population": 1347350000,
+        "Date": "2011-12-31",
+        "Percentage": 19.11,
+        "ID": 43
+    },
+    {
+        "Country": "Christmas Island (Australia)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Christmas_Island",
+        "Population": 2072,
+        "Date": "2011-08-09",
+        "Percentage": 2e-05,
+        "ID": 44
+    },
+    {
+        "Country": "Cocos (Keeling) Islands (Australia)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Cocos_(Keeling)_Islands",
+        "Population": 550,
+        "Date": "2011-08-09",
+        "Percentage": 8e-06,
+        "ID": 45
+    },
+    {
+        "Country": "Colombia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Colombia",
+        "Population": 46780000,
+        "Date": "2012-11-11",
+        "Percentage": 0.66,
+        "ID": 46
+    },
+    {
+        "Country": "Comoros",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Comoros",
+        "Population": 669300,
+        "Date": "2009-07-01",
+        "Percentage": 0.0095,
+        "ID": 47
+    },
+    {
+        "Country": "Cook Islands (NZ)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Cook_Islands",
+        "Population": 17791,
+        "Date": "2011-12-01",
+        "Percentage": 0.00025,
+        "ID": 48
+    },
+    {
+        "Country": "Costa Rica",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Costa_Rica",
+        "Population": 4301712,
+        "Date": "2011-06-03",
+        "Percentage": 0.061,
+        "ID": 49
+    },
+    {
+        "Country": "Croatia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Croatia",
+        "Population": 4290612,
+        "Date": "2011-03-31",
+        "Percentage": 0.061,
+        "ID": 50
+    },
+    {
+        "Country": "Cuba",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Cuba",
+        "Population": 11247925,
+        "Date": "2011-12-31",
+        "Percentage": 0.16,
+        "ID": 51
+    },
+    {
+        "Country": "Cura\u00e7ao (Netherlands)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Cura%C3%A7ao",
+        "Population": 149679,
+        "Date": "2011-03-26",
+        "Percentage": 0.0021,
+        "ID": 52
+    },
+    {
+        "Country": "Cyprus",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Cyprus",
+        "Population": 838897,
+        "Date": "2011-10-01",
+        "Percentage": 0.012,
+        "ID": 53
+    },
+    {
+        "Country": "Czech Republic",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Czech_Republic",
+        "Population": 10507566,
+        "Date": "2012-03-31",
+        "Percentage": 0.15,
+        "ID": 54
+    },
+    {
+        "Country": "Democratic Republic of the Congo",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Democratic_Republic_of_the_Congo",
+        "Population": 69575000,
+        "Date": "2012-07-01",
+        "Percentage": 0.99,
+        "ID": 55
+    },
+    {
+        "Country": "Denmark",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Denmark",
+        "Population": 5587085,
+        "Date": "2012-07-01",
+        "Percentage": 0.079,
+        "ID": 56
+    },
+    {
+        "Country": "Djibouti",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Djibouti",
+        "Population": 818159,
+        "Date": "2009-05-29",
+        "Percentage": 0.012,
+        "ID": 57
+    },
+    {
+        "Country": "Dominica",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Dominica",
+        "Population": 71293,
+        "Date": "2011-05-14",
+        "Percentage": 0.001,
+        "ID": 58
+    },
+    {
+        "Country": "Dominican Republic",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Dominican_Republic",
+        "Population": 9445281,
+        "Date": "2010-12-01",
+        "Percentage": 0.13,
+        "ID": 59
+    },
+    {
+        "Country": "Ecuador",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Ecuador",
+        "Population": 14483499,
+        "Date": "2010-11-28",
+        "Percentage": 0.21,
+        "ID": 60
+    },
+    {
+        "Country": "Egypt",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Egypt",
+        "Population": 82814000,
+        "Date": "2012-11-11",
+        "Percentage": 1.17,
+        "ID": 61
+    },
+    {
+        "Country": "El Salvador",
+        "Wikipedia": "http://en.wikipedia.org/wiki/El_Salvador",
+        "Population": 6183000,
+        "Date": "2010-06-30",
+        "Percentage": 0.088,
+        "ID": 62
+    },
+    {
+        "Country": "Equatorial Guinea",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Equatorial_Guinea",
+        "Population": 740000,
+        "Date": "2012-07-01",
+        "Percentage": 0.01,
+        "ID": 63
+    },
+    {
+        "Country": "Eritrea",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Eritrea",
+        "Population": 5581000,
+        "Date": "2012-07-01",
+        "Percentage": 0.079,
+        "ID": 64
+    },
+    {
+        "Country": "Estonia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Estonia",
+        "Population": 1294236,
+        "Date": "2012-03-31",
+        "Percentage": 0.018,
+        "ID": 65
+    },
+    {
+        "Country": "Ethiopia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Ethiopia",
+        "Population": 84320987,
+        "Date": "2012-07-01",
+        "Percentage": 1.2,
+        "ID": 66
+    },
+    {
+        "Country": "Falkland Islands (UK)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Falkland_Islands",
+        "Population": 2563,
+        "Date": "2012-04-15",
+        "Percentage": 3e-05,
+        "ID": 67
+    },
+    {
+        "Country": "Faroe Islands (Denmark)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Faroe_Islands",
+        "Population": 48459,
+        "Date": "2012-07-01",
+        "Percentage": 0.00069,
+        "ID": 68
+    },
+    {
+        "Country": "Federated States of Micronesia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Federated_States_of_Micronesia",
+        "Population": 102843,
+        "Date": "2010-04-04",
+        "Percentage": 0.0015,
+        "ID": 69
+    },
+    {
+        "Country": "Fiji",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Fiji",
+        "Population": 876000,
+        "Date": "2012-07-01",
+        "Percentage": 0.012,
+        "ID": 70
+    },
+    {
+        "Country": "Finland",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Finland",
+        "Population": 5424220,
+        "Date": "2012-11-11",
+        "Percentage": 0.08,
+        "ID": 71
+    },
+    {
+        "Country": "France",
+        "Wikipedia": "http://en.wikipedia.org/wiki/France",
+        "Population": 65350000,
+        "Date": "2012-01-01",
+        "Percentage": 0.93,
+        "ID": 72
+    },
+    {
+        "Country": "French Guiana (France)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/French_Guiana",
+        "Population": 224469,
+        "Date": "2009-01-01",
+        "Percentage": 0.0032,
+        "ID": 73
+    },
+    {
+        "Country": "French Polynesia (France)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/French_Polynesia",
+        "Population": 277000,
+        "Date": "2012-07-01",
+        "Percentage": 0.0039,
+        "ID": 74
+    },
+    {
+        "Country": "Gabon",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Gabon",
+        "Population": 1564000,
+        "Date": "2012-07-01",
+        "Percentage": 0.022,
+        "ID": 75
+    },
+    {
+        "Country": "Gambia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/The_Gambia",
+        "Population": 1825000,
+        "Date": "2012-07-01",
+        "Percentage": 0.026,
+        "ID": 76
+    },
+    {
+        "Country": "Georgia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Georgia_(country)",
+        "Population": 4497600,
+        "Date": "2012-01-01",
+        "Percentage": 0.064,
+        "ID": 77
+    },
+    {
+        "Country": "Germany",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Germany",
+        "Population": 81857000,
+        "Date": "2012-04-30",
+        "Percentage": 1.16,
+        "ID": 78
+    },
+    {
+        "Country": "Ghana",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Ghana",
+        "Population": 24658823,
+        "Date": "2010-09-26",
+        "Percentage": 0.35,
+        "ID": 79
+    },
+    {
+        "Country": "Gibraltar (UK)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Gibraltar",
+        "Population": 29752,
+        "Date": "2011-07-01",
+        "Percentage": 0.00042,
+        "ID": 80
+    },
+    {
+        "Country": "Greece",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Greece",
+        "Population": 10787690,
+        "Date": "2011-05-24",
+        "Percentage": 0.15,
+        "ID": 81
+    },
+    {
+        "Country": "Greenland (Denmark)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Greenland",
+        "Population": 56749,
+        "Date": "2012-01-01",
+        "Percentage": 0.0008,
+        "ID": 82
+    },
+    {
+        "Country": "Grenada",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Grenada",
+        "Population": 110821,
+        "Date": "2009-07-01",
+        "Percentage": 0.0016,
+        "ID": 83
+    },
+    {
+        "Country": "Guadeloupe (France)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Guadeloupe",
+        "Population": 401554,
+        "Date": "2009-01-01",
+        "Percentage": 0.0057,
+        "ID": 84
+    },
+    {
+        "Country": "Guam (USA)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Guam",
+        "Population": 159358,
+        "Date": "2010-04-01",
+        "Percentage": 0.0023,
+        "ID": 85
+    },
+    {
+        "Country": "Guatemala",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Guatemala",
+        "Population": 14713763,
+        "Date": "2011-07-01",
+        "Percentage": 0.21,
+        "ID": 86
+    },
+    {
+        "Country": "Guernsey (UK)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Guernsey",
+        "Population": 62431,
+        "Date": "2010-03-31",
+        "Percentage": 0.00089,
+        "ID": 87
+    },
+    {
+        "Country": "Guinea",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Guinea",
+        "Population": 10824200,
+        "Date": "2010-07-01",
+        "Percentage": 0.15,
+        "ID": 88
+    },
+    {
+        "Country": "Guinea-Bissau",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Guinea-Bissau",
+        "Population": 1520830,
+        "Date": "2009-03-01",
+        "Percentage": 0.022,
+        "ID": 89
+    },
+    {
+        "Country": "Guyana",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Guyana",
+        "Population": 784894,
+        "Date": "2010-07-01",
+        "Percentage": 0.011,
+        "ID": 90
+    },
+    {
+        "Country": "Haiti",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Haiti",
+        "Population": 10085214,
+        "Date": "2010-07-01",
+        "Percentage": 0.14,
+        "ID": 91
+    },
+    {
+        "Country": "Honduras",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Honduras",
+        "Population": 8385072,
+        "Date": "2012-07-01",
+        "Percentage": 0.12,
+        "ID": 92
+    },
+    {
+        "Country": "Hong Kong (China)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Hong_Kong",
+        "Population": 7103700,
+        "Date": "2011-12-31",
+        "Percentage": 0.1,
+        "ID": 93
+    },
+    {
+        "Country": "Hungary",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Hungary",
+        "Population": 9957731,
+        "Date": "2012-01-01",
+        "Percentage": 0.14,
+        "ID": 94
+    },
+    {
+        "Country": "Iceland",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Iceland",
+        "Population": 320060,
+        "Date": "2012-04-01",
+        "Percentage": 0.0045,
+        "ID": 95
+    },
+    {
+        "Country": "India",
+        "Wikipedia": "http://en.wikipedia.org/wiki/India",
+        "Population": 1210193422,
+        "Date": "2011-03-01",
+        "Percentage": 17.16,
+        "ID": 96
+    },
+    {
+        "Country": "Indonesia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Indonesia",
+        "Population": 237641326,
+        "Date": "2010-05-01",
+        "Percentage": 3.37,
+        "ID": 97
+    },
+    {
+        "Country": "Iran",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Iran",
+        "Population": 75149669,
+        "Date": "2011-10-24",
+        "Percentage": 1.07,
+        "ID": 98
+    },
+    {
+        "Country": "Iraq",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Iraq",
+        "Population": 33330000,
+        "Date": "2011-07-01",
+        "Percentage": 0.47,
+        "ID": 99
+    },
+    {
+        "Country": "Ireland",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Republic_of_Ireland",
+        "Population": 4588252,
+        "Date": "2011-04-10",
+        "Percentage": 0.065,
+        "ID": 100
+    },
+    {
+        "Country": "Isle of Man (UK)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Isle_of_Man",
+        "Population": 84497,
+        "Date": "2011-03-27",
+        "Percentage": 0.0012,
+        "ID": 101
+    },
+    {
+        "Country": "Israel",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Israel",
+        "Population": 7928500,
+        "Date": "2012-08-31",
+        "Percentage": 0.11,
+        "ID": 102
+    },
+    {
+        "Country": "Italy",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Italy",
+        "Population": 60849247,
+        "Date": "2012-03-31",
+        "Percentage": 0.86,
+        "ID": 103
+    },
+    {
+        "Country": "Ivory Coast",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Ivory_Coast",
+        "Population": 21395000,
+        "Date": "2009-07-01",
+        "Percentage": 0.3,
+        "ID": 104
+    },
+    {
+        "Country": "Jamaica",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Jamaica",
+        "Population": 2709300,
+        "Date": "2011-12-31",
+        "Percentage": 0.038,
+        "ID": 105
+    },
+    {
+        "Country": "Japan",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Japan",
+        "Population": 127520000,
+        "Date": "2012-09-01",
+        "Percentage": 1.81,
+        "ID": 106
+    },
+    {
+        "Country": "Jersey (UK)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Jersey",
+        "Population": 97857,
+        "Date": "2011-03-27",
+        "Percentage": 0.0014,
+        "ID": 107
+    },
+    {
+        "Country": "Jordan",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Jordan",
+        "Population": 6368400,
+        "Date": "2012-11-11",
+        "Percentage": 0.09,
+        "ID": 108
+    },
+    {
+        "Country": "Kazakhstan",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Kazakhstan",
+        "Population": 16815000,
+        "Date": "2012-08-01",
+        "Percentage": 0.24,
+        "ID": 109
+    },
+    {
+        "Country": "Kenya",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Kenya",
+        "Population": 38610097,
+        "Date": "2009-08-24",
+        "Percentage": 0.55,
+        "ID": 110
+    },
+    {
+        "Country": "Kiribati",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Kiribati",
+        "Population": 103000,
+        "Date": "2012-07-01",
+        "Percentage": 0.0015,
+        "ID": 111
+    },
+    {
+        "Country": "Kuwait",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Kuwait",
+        "Population": 3582054,
+        "Date": "2010-12-31",
+        "Percentage": 0.051,
+        "ID": 112
+    },
+    {
+        "Country": "Kyrgyzstan",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Kyrgyzstan",
+        "Population": 5477600,
+        "Date": "2011-07-01",
+        "Percentage": 0.078,
+        "ID": 113
+    },
+    {
+        "Country": "Laos",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Laos",
+        "Population": 6465800,
+        "Date": "2012-07-01",
+        "Percentage": 0.092,
+        "ID": 114
+    },
+    {
+        "Country": "Latvia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Latvia",
+        "Population": 2070371,
+        "Date": "2011-03-01",
+        "Percentage": 0.029,
+        "ID": 115
+    },
+    {
+        "Country": "Lebanon",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Lebanon",
+        "Population": 4292000,
+        "Date": "2012-07-01",
+        "Percentage": 0.061,
+        "ID": 116
+    },
+    {
+        "Country": "Lesotho",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Lesotho",
+        "Population": 2217000,
+        "Date": "2012-07-01",
+        "Percentage": 0.031,
+        "ID": 117
+    },
+    {
+        "Country": "Liberia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Liberia",
+        "Population": 4245000,
+        "Date": "2012-07-01",
+        "Percentage": 0.06,
+        "ID": 118
+    },
+    {
+        "Country": "Libya",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Libya",
+        "Population": 6469000,
+        "Date": "2012-07-01",
+        "Percentage": 0.092,
+        "ID": 119
+    },
+    {
+        "Country": "Liechtenstein",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Liechtenstein",
+        "Population": 36476,
+        "Date": "2011-12-31",
+        "Percentage": 0.00052,
+        "ID": 120
+    },
+    {
+        "Country": "Lithuania",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Lithuania",
+        "Population": 3180394,
+        "Date": "2012-08-01",
+        "Percentage": 0.045,
+        "ID": 121
+    },
+    {
+        "Country": "Luxembourg",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Luxembourg",
+        "Population": 511800,
+        "Date": "2010-12-31",
+        "Percentage": 0.0073,
+        "ID": 122
+    },
+    {
+        "Country": "Macau (China)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Macau",
+        "Population": 568700,
+        "Date": "2012-06-30",
+        "Percentage": 0.0081,
+        "ID": 123
+    },
+    {
+        "Country": "Macedonia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Republic_of_Macedonia",
+        "Population": 2059794,
+        "Date": "2011-12-31",
+        "Percentage": 0.029,
+        "ID": 124
+    },
+    {
+        "Country": "Madagascar",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Madagascar",
+        "Population": 20696070,
+        "Date": "2011-07-01",
+        "Percentage": 0.29,
+        "ID": 125
+    },
+    {
+        "Country": "Malawi",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Malawi",
+        "Population": 15883000,
+        "Date": "2012-07-01",
+        "Percentage": 0.23,
+        "ID": 126
+    },
+    {
+        "Country": "Malaysia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Malaysia",
+        "Population": 29547000,
+        "Date": "2012-11-11",
+        "Percentage": 0.42,
+        "ID": 127
+    },
+    {
+        "Country": "Maldives",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Maldives",
+        "Population": 317280,
+        "Date": "2010-07-01",
+        "Percentage": 0.0045,
+        "ID": 128
+    },
+    {
+        "Country": "Mali",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Mali",
+        "Population": 14528662,
+        "Date": "2009-04-01",
+        "Percentage": 0.21,
+        "ID": 129
+    },
+    {
+        "Country": "Malta",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Malta",
+        "Population": 417617,
+        "Date": "2010-12-31",
+        "Percentage": 0.0059,
+        "ID": 130
+    },
+    {
+        "Country": "Marshall Islands",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Marshall_Islands",
+        "Population": 54305,
+        "Date": "2010-07-01",
+        "Percentage": 0.00077,
+        "ID": 131
+    },
+    {
+        "Country": "Martinique (France)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Martinique",
+        "Population": 396404,
+        "Date": "2009-01-01",
+        "Percentage": 0.0056,
+        "ID": 132
+    },
+    {
+        "Country": "Mauritania",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Mauritania",
+        "Population": 3378254,
+        "Date": "2012-07-01",
+        "Percentage": 0.048,
+        "ID": 133
+    },
+    {
+        "Country": "Mauritius",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Mauritius",
+        "Population": 1286051,
+        "Date": "2011-07-01",
+        "Percentage": 0.018,
+        "ID": 134
+    },
+    {
+        "Country": "Mayotte (France)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Mayotte",
+        "Population": 217000,
+        "Date": "2012-07-01",
+        "Percentage": 0.0031,
+        "ID": 135
+    },
+    {
+        "Country": "Mexico",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Mexico",
+        "Population": 112336538,
+        "Date": "2010-06-12",
+        "Percentage": 1.59,
+        "ID": 136
+    },
+    {
+        "Country": "Moldova",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Moldova",
+        "Population": 3559500,
+        "Date": "2012-01-01",
+        "Percentage": 0.05,
+        "ID": 137
+    },
+    {
+        "Country": "Monaco",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Monaco",
+        "Population": 35000,
+        "Date": "2012-07-01",
+        "Percentage": 0.0005,
+        "ID": 138
+    },
+    {
+        "Country": "Mongolia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Mongolia",
+        "Population": 2736800,
+        "Date": "2009-07-01",
+        "Percentage": 0.039,
+        "ID": 139
+    },
+    {
+        "Country": "Montenegro",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Montenegro",
+        "Population": 620029,
+        "Date": "2011-04-01",
+        "Percentage": 0.0088,
+        "ID": 140
+    },
+    {
+        "Country": "Montserrat (UK)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Montserrat",
+        "Population": 4922,
+        "Date": "2011-05-12",
+        "Percentage": 5e-05,
+        "ID": 141
+    },
+    {
+        "Country": "Morocco",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Morocco",
+        "Population": 32725600,
+        "Date": "2012-11-11",
+        "Percentage": 0.46,
+        "ID": 142
+    },
+    {
+        "Country": "Mozambique",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Mozambique",
+        "Population": 23700715,
+        "Date": "2012-07-01",
+        "Percentage": 0.34,
+        "ID": 143
+    },
+    {
+        "Country": "Myanmar",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Myanmar",
+        "Population": 48724000,
+        "Date": "2012-07-01",
+        "Percentage": 0.69,
+        "ID": 144
+    },
+    {
+        "Country": "Namibia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Namibia",
+        "Population": 2104900,
+        "Date": "2011-08-28",
+        "Percentage": 0.03,
+        "ID": 145
+    },
+    {
+        "Country": "Nauru",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Nauru",
+        "Population": 10000,
+        "Date": "2012-07-01",
+        "Percentage": 0.00014,
+        "ID": 146
+    },
+    {
+        "Country": "Nepal",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Nepal",
+        "Population": 26620809,
+        "Date": "2011-06-22",
+        "Percentage": 0.38,
+        "ID": 147
+    },
+    {
+        "Country": "Netherlands",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Netherlands",
+        "Population": 16751323,
+        "Date": "2012-08-31",
+        "Percentage": 0.24,
+        "ID": 148
+    },
+    {
+        "Country": "New Caledonia (France)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/New_Caledonia",
+        "Population": 245580,
+        "Date": "2009-07-27",
+        "Percentage": 0.0035,
+        "ID": 149
+    },
+    {
+        "Country": "New Zealand",
+        "Wikipedia": "http://en.wikipedia.org/wiki/New_Zealand",
+        "Population": 4445430,
+        "Date": "2012-11-11",
+        "Percentage": 0.063,
+        "ID": 150
+    },
+    {
+        "Country": "Nicaragua",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Nicaragua",
+        "Population": 6071045,
+        "Date": "2012-06-30",
+        "Percentage": 0.086,
+        "ID": 151
+    },
+    {
+        "Country": "Niger",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Niger",
+        "Population": 16274738,
+        "Date": "2012-07-01",
+        "Percentage": 0.23,
+        "ID": 152
+    },
+    {
+        "Country": "Nigeria",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Nigeria",
+        "Population": 166629000,
+        "Date": "2012-07-01",
+        "Percentage": 2.36,
+        "ID": 153
+    },
+    {
+        "Country": "Niue (NZ)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Niue",
+        "Population": 1000,
+        "Date": "2012-07-01",
+        "Percentage": 1e-05,
+        "ID": 154
+    },
+    {
+        "Country": "Norfolk Island (Australia)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Norfolk_Island",
+        "Population": 2302,
+        "Date": "2011-08-09",
+        "Percentage": 2e-05,
+        "ID": 155
+    },
+    {
+        "Country": "North Korea",
+        "Wikipedia": "http://en.wikipedia.org/wiki/North_Korea",
+        "Population": 24554000,
+        "Date": "2012-07-01",
+        "Percentage": 0.35,
+        "ID": 156
+    },
+    {
+        "Country": "Northern Mariana Islands (USA)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Northern_Mariana_Islands",
+        "Population": 53883,
+        "Date": "2010-04-01",
+        "Percentage": 0.00076,
+        "ID": 157
+    },
+    {
+        "Country": "Norway",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Norway",
+        "Population": 5047000,
+        "Date": "2012-11-11",
+        "Percentage": 0.072,
+        "ID": 158
+    },
+    {
+        "Country": "Oman",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Oman",
+        "Population": 2773479,
+        "Date": "2010-12-12",
+        "Percentage": 0.039,
+        "ID": 159
+    },
+    {
+        "Country": "Pakistan",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Pakistan",
+        "Population": 181192000,
+        "Date": "2012-11-11",
+        "Percentage": 2.57,
+        "ID": 160
+    },
+    {
+        "Country": "Palau",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Palau",
+        "Population": 21000,
+        "Date": "2012-07-01",
+        "Percentage": 0.0003,
+        "ID": 161
+    },
+    {
+        "Country": "Palestinian territories",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Palestinian_territories",
+        "Population": 4293313,
+        "Date": "2012-07-01",
+        "Percentage": 0.061,
+        "ID": 162
+    },
+    {
+        "Country": "Panama",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Panama",
+        "Population": 3405813,
+        "Date": "2010-05-16",
+        "Percentage": 0.048,
+        "ID": 163
+    },
+    {
+        "Country": "Papua New Guinea",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Papua_New_Guinea",
+        "Population": 7170000,
+        "Date": "2012-07-01",
+        "Percentage": 0.1,
+        "ID": 164
+    },
+    {
+        "Country": "Paraguay",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Paraguay",
+        "Population": 6337127,
+        "Date": "2010-07-01",
+        "Percentage": 0.09,
+        "ID": 165
+    },
+    {
+        "Country": "Peru",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Peru",
+        "Population": 30135875,
+        "Date": "2012-06-30",
+        "Percentage": 0.43,
+        "ID": 166
+    },
+    {
+        "Country": "Philippines",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Philippines",
+        "Population": 92337852,
+        "Date": "2010-05-01",
+        "Percentage": 1.31,
+        "ID": 167
+    },
+    {
+        "Country": "Pitcairn Islands (UK)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Pitcairn_Islands",
+        "Population": 66,
+        "Date": "2008-07-01",
+        "Percentage": 1e-06,
+        "ID": 168
+    },
+    {
+        "Country": "Poland",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Poland",
+        "Population": 38538447,
+        "Date": "2011-12-31",
+        "Percentage": 0.55,
+        "ID": 169
+    },
+    {
+        "Country": "Portugal",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Portugal",
+        "Population": 10561614,
+        "Date": "2011-03-21",
+        "Percentage": 0.15,
+        "ID": 170
+    },
+    {
+        "Country": "Puerto Rico (USA)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Puerto_Rico",
+        "Population": 3706690,
+        "Date": "2011-07-01",
+        "Percentage": 0.053,
+        "ID": 171
+    },
+    {
+        "Country": "Qatar",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Qatar",
+        "Population": 1757540,
+        "Date": "2012-10-31",
+        "Percentage": 0.025,
+        "ID": 172
+    },
+    {
+        "Country": "Republic of the Congo",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Republic_of_the_Congo",
+        "Population": 4233000,
+        "Date": "2012-07-01",
+        "Percentage": 0.06,
+        "ID": 173
+    },
+    {
+        "Country": "Romania",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Romania",
+        "Population": 19042936,
+        "Date": "2011-10-20",
+        "Percentage": 0.27,
+        "ID": 174
+    },
+    {
+        "Country": "Russia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Russia",
+        "Population": 143228300,
+        "Date": "2012-09-01",
+        "Percentage": 2.03,
+        "ID": 175
+    },
+    {
+        "Country": "Rwanda",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Rwanda",
+        "Population": 10718379,
+        "Date": "2011-07-01",
+        "Percentage": 0.15,
+        "ID": 176
+    },
+    {
+        "Country": "R\u00e9union (France)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/R%C3%A9union",
+        "Population": 816364,
+        "Date": "2009-01-01",
+        "Percentage": 0.012,
+        "ID": 177
+    },
+    {
+        "Country": "Saint Barth\u00e9lemy (France)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Saint_Barth%C3%A9lemy",
+        "Population": 8902,
+        "Date": "2009-01-01",
+        "Percentage": 0.00013,
+        "ID": 178
+    },
+    {
+        "Country": "Saint Helena, Ascension and Tristan da Cunha (UK)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Saint_Helena,_Ascension_and_Tristan_da_Cunha",
+        "Population": 4000,
+        "Date": "2012-07-01",
+        "Percentage": 4e-05,
+        "ID": 179
+    },
+    {
+        "Country": "Saint Kitts and Nevis",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Saint_Kitts_and_Nevis",
+        "Population": 51970,
+        "Date": "2009-07-01",
+        "Percentage": 0.00074,
+        "ID": 180
+    },
+    {
+        "Country": "Saint Lucia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Saint_Lucia",
+        "Population": 166526,
+        "Date": "2010-05-10",
+        "Percentage": 0.0024,
+        "ID": 181
+    },
+    {
+        "Country": "Saint Martin (France)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Collectivity_of_Saint_Martin",
+        "Population": 36824,
+        "Date": "2009-01-01",
+        "Percentage": 0.00052,
+        "ID": 182
+    },
+    {
+        "Country": "Saint Pierre and Miquelon (France)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Saint_Pierre_and_Miquelon",
+        "Population": 6082,
+        "Date": "2009-01-01",
+        "Percentage": 6e-05,
+        "ID": 183
+    },
+    {
+        "Country": "Saint Vincent and the Grenadines",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Saint_Vincent_and_the_Grenadines",
+        "Population": 100892,
+        "Date": "2009-07-01",
+        "Percentage": 0.0014,
+        "ID": 184
+    },
+    {
+        "Country": "Samoa",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Samoa",
+        "Population": 186340,
+        "Date": "2011-11-07",
+        "Percentage": 0.0026,
+        "ID": 185
+    },
+    {
+        "Country": "San Marino",
+        "Wikipedia": "http://en.wikipedia.org/wiki/San_Marino",
+        "Population": 32404,
+        "Date": "2012-07-31",
+        "Percentage": 0.00046,
+        "ID": 186
+    },
+    {
+        "Country": "Saudi Arabia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Saudi_Arabia",
+        "Population": 28376355,
+        "Date": "2011-07-01",
+        "Percentage": 0.4,
+        "ID": 187
+    },
+    {
+        "Country": "Senegal",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Senegal",
+        "Population": 12855153,
+        "Date": "2011-07-01",
+        "Percentage": 0.18,
+        "ID": 188
+    },
+    {
+        "Country": "Serbia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Serbia",
+        "Population": 7120666,
+        "Date": "2011-10-01",
+        "Percentage": 0.1,
+        "ID": 189
+    },
+    {
+        "Country": "Seychelles",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Seychelles",
+        "Population": 90945,
+        "Date": "2010-08-26",
+        "Percentage": 0.0013,
+        "ID": 190
+    },
+    {
+        "Country": "Sierra Leone",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Sierra_Leone",
+        "Population": 6126000,
+        "Date": "2012-07-01",
+        "Percentage": 0.087,
+        "ID": 191
+    },
+    {
+        "Country": "Singapore",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Singapore",
+        "Population": 5312400,
+        "Date": "2012-10-30",
+        "Percentage": 0.074,
+        "ID": 192
+    },
+    {
+        "Country": "Sint Maarten (Netherlands)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Sint_Maarten",
+        "Population": 37429,
+        "Date": "2010-01-01",
+        "Percentage": 0.00053,
+        "ID": 193
+    },
+    {
+        "Country": "Slovakia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Slovakia",
+        "Population": 5445324,
+        "Date": "2011-09-30",
+        "Percentage": 0.077,
+        "ID": 194
+    },
+    {
+        "Country": "Slovenia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Slovenia",
+        "Population": 2061350,
+        "Date": "2012-11-11",
+        "Percentage": 0.029,
+        "ID": 195
+    },
+    {
+        "Country": "Solomon Islands",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Solomon_Islands",
+        "Population": 553935,
+        "Date": "2012-07-01",
+        "Percentage": 0.0079,
+        "ID": 196
+    },
+    {
+        "Country": "Somalia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Somalia",
+        "Population": 9797000,
+        "Date": "2012-07-01",
+        "Percentage": 0.14,
+        "ID": 197
+    },
+    {
+        "Country": "South Africa",
+        "Wikipedia": "http://en.wikipedia.org/wiki/South_Africa",
+        "Population": 51770560,
+        "Date": "2011-10-09",
+        "Percentage": 0.73,
+        "ID": 198
+    },
+    {
+        "Country": "South Korea",
+        "Wikipedia": "http://en.wikipedia.org/wiki/South_Korea",
+        "Population": 50004441,
+        "Date": "2012-07-01",
+        "Percentage": 0.71,
+        "ID": 199
+    },
+    {
+        "Country": "South Sudan",
+        "Wikipedia": "http://en.wikipedia.org/wiki/South_Sudan",
+        "Population": 8260490,
+        "Date": "2008-04-22",
+        "Percentage": 0.12,
+        "ID": 200
+    },
+    {
+        "Country": "Spain",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Spain",
+        "Population": 46163116,
+        "Date": "2012-07-01",
+        "Percentage": 0.65,
+        "ID": 201
+    },
+    {
+        "Country": "Sri Lanka",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Sri_Lanka",
+        "Population": 20277597,
+        "Date": "2012-03-20",
+        "Percentage": 0.29,
+        "ID": 202
+    },
+    {
+        "Country": "Sudan",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Sudan",
+        "Population": 30894000,
+        "Date": "2008-04-22",
+        "Percentage": 0.44,
+        "ID": 203
+    },
+    {
+        "Country": "Suriname",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Suriname",
+        "Population": 534000,
+        "Date": "2012-07-01",
+        "Percentage": 0.0076,
+        "ID": 204
+    },
+    {
+        "Country": "Svalbard and Jan Mayen (Norway)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Svalbard_and_Jan_Mayen",
+        "Population": 2495,
+        "Date": "2010-03-01",
+        "Percentage": 2e-05,
+        "ID": 205
+    },
+    {
+        "Country": "Swaziland",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Swaziland",
+        "Population": 1220000,
+        "Date": "2012-07-01",
+        "Percentage": 0.017,
+        "ID": 206
+    },
+    {
+        "Country": "Sweden",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Sweden",
+        "Population": 9532634,
+        "Date": "2012-08-31",
+        "Percentage": 0.14,
+        "ID": 207
+    },
+    {
+        "Country": "Switzerland",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Switzerland",
+        "Population": 8000001,
+        "Date": "2012-08-02",
+        "Percentage": 0.11,
+        "ID": 208
+    },
+    {
+        "Country": "Syria",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Syria",
+        "Population": 21829000,
+        "Date": "2012-11-11",
+        "Percentage": 0.31,
+        "ID": 209
+    },
+    {
+        "Country": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+        "Wikipedia": "http://en.wikipedia.org/wiki/S%C3%A3o_Tom%C3%A9_and_Pr%C3%ADncipe",
+        "Population": 172000,
+        "Date": "2012-07-01",
+        "Percentage": 0.0024,
+        "ID": 210
+    },
+    {
+        "Country": "Taiwan",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Taiwan",
+        "Population": 23268372,
+        "Date": "2012-07-31",
+        "Percentage": 0.33,
+        "ID": 211
+    },
+    {
+        "Country": "Tajikistan",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Tajikistan",
+        "Population": 7800000,
+        "Date": "2012-01-01",
+        "Percentage": 0.11,
+        "ID": 212
+    },
+    {
+        "Country": "Tanzania",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Tanzania",
+        "Population": 43188000,
+        "Date": "2010-07-01",
+        "Percentage": 0.61,
+        "ID": 213
+    },
+    {
+        "Country": "Thailand",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Thailand",
+        "Population": 65479453,
+        "Date": "2010-09-01",
+        "Percentage": 0.93,
+        "ID": 214
+    },
+    {
+        "Country": "Timor-Leste",
+        "Wikipedia": "http://en.wikipedia.org/wiki/East_Timor",
+        "Population": 1066409,
+        "Date": "2010-07-11",
+        "Percentage": 0.015,
+        "ID": 215
+    },
+    {
+        "Country": "Togo",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Togo",
+        "Population": 6191155,
+        "Date": "2010-11-06",
+        "Percentage": 0.088,
+        "ID": 216
+    },
+    {
+        "Country": "Tokelau (NZ)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Tokelau",
+        "Population": 1411,
+        "Date": "2011-10-18",
+        "Percentage": 1e-05,
+        "ID": 217
+    },
+    {
+        "Country": "Tonga",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Tonga",
+        "Population": 103036,
+        "Date": "2011-11-30",
+        "Percentage": 0.0015,
+        "ID": 218
+    },
+    {
+        "Country": "Trinidad and Tobago",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Trinidad_and_Tobago",
+        "Population": 1317714,
+        "Date": "2010-07-01",
+        "Percentage": 0.019,
+        "ID": 219
+    },
+    {
+        "Country": "Tunisia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Tunisia",
+        "Population": 10673800,
+        "Date": "2011-07-01",
+        "Percentage": 0.15,
+        "ID": 220
+    },
+    {
+        "Country": "Turkey",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Turkey",
+        "Population": 74724269,
+        "Date": "2011-12-31",
+        "Percentage": 1.06,
+        "ID": 221
+    },
+    {
+        "Country": "Turkmenistan",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Turkmenistan",
+        "Population": 5170000,
+        "Date": "2012-07-01",
+        "Percentage": 0.073,
+        "ID": 222
+    },
+    {
+        "Country": "Turks and Caicos Islands (UK)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Turks_and_Caicos_Islands",
+        "Population": 31458,
+        "Date": "2012-01-25",
+        "Percentage": 0.00045,
+        "ID": 223
+    },
+    {
+        "Country": "Tuvalu",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Tuvalu",
+        "Population": 10000,
+        "Date": "2012-07-01",
+        "Percentage": 0.00014,
+        "ID": 224
+    },
+    {
+        "Country": "Uganda",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Uganda",
+        "Population": 32939800,
+        "Date": "2011-07-01",
+        "Percentage": 0.47,
+        "ID": 225
+    },
+    {
+        "Country": "Ukraine",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Ukraine",
+        "Population": 45560272,
+        "Date": "2012-08-01",
+        "Percentage": 0.65,
+        "ID": 226
+    },
+    {
+        "Country": "United Arab Emirates",
+        "Wikipedia": "http://en.wikipedia.org/wiki/United_Arab_Emirates",
+        "Population": 8264070,
+        "Date": "2010-07-01",
+        "Percentage": 0.12,
+        "ID": 227
+    },
+    {
+        "Country": "United Kingdom",
+        "Wikipedia": "http://en.wikipedia.org/wiki/United_Kingdom",
+        "Population": 62262000,
+        "Date": "2010-07-01",
+        "Percentage": 0.88,
+        "ID": 228
+    },
+    {
+        "Country": "United States",
+        "Wikipedia": "http://en.wikipedia.org/wiki/United_States",
+        "Population": 314745000,
+        "Date": "2012-11-11",
+        "Percentage": 4.46,
+        "ID": 229
+    },
+    {
+        "Country": "United States Virgin Islands",
+        "Wikipedia": "http://en.wikipedia.org/wiki/United_States_Virgin_Islands",
+        "Population": 106405,
+        "Date": "2010-04-01",
+        "Percentage": 0.0015,
+        "ID": 230
+    },
+    {
+        "Country": "Uruguay",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Uruguay",
+        "Population": 3286314,
+        "Date": "2011-09-30",
+        "Percentage": 0.047,
+        "ID": 231
+    },
+    {
+        "Country": "Uzbekistan",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Uzbekistan",
+        "Population": 29123400,
+        "Date": "2011-07-01",
+        "Percentage": 0.41,
+        "ID": 232
+    },
+    {
+        "Country": "Vanuatu",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Vanuatu",
+        "Population": 234023,
+        "Date": "2009-11-16",
+        "Percentage": 0.0033,
+        "ID": 233
+    },
+    {
+        "Country": "Vatican City",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Vatican_City",
+        "Population": 800,
+        "Date": "2011-03-01",
+        "Percentage": 1e-05,
+        "ID": 234
+    },
+    {
+        "Country": "Venezuela",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Venezuela",
+        "Population": 28946101,
+        "Date": "2011-11-30",
+        "Percentage": 0.41,
+        "ID": 235
+    },
+    {
+        "Country": "Vietnam",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Vietnam",
+        "Population": 87840000,
+        "Date": "2011-07-01",
+        "Percentage": 1.25,
+        "ID": 236
+    },
+    {
+        "Country": "Wallis and Futuna (France)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Wallis_and_Futuna",
+        "Population": 13000,
+        "Date": "2012-07-01",
+        "Percentage": 0.00018,
+        "ID": 237
+    },
+    {
+        "Country": "Western Sahara",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Western_Sahara",
+        "Population": 567000,
+        "Date": "2012-07-01",
+        "Percentage": 0.008,
+        "ID": 238
+    },
+    {
+        "Country": "Yemen",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Yemen",
+        "Population": 24527000,
+        "Date": "2012-07-01",
+        "Percentage": 0.35,
+        "ID": 239
+    },
+    {
+        "Country": "Zambia",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Zambia",
+        "Population": 13092666,
+        "Date": "2010-10-16",
+        "Percentage": 0.19,
+        "ID": 240
+    },
+    {
+        "Country": "Zimbabwe",
+        "Wikipedia": "http://en.wikipedia.org/wiki/Zimbabwe",
+        "Population": 13014000,
+        "Date": "2012-07-01",
+        "Percentage": 0.18,
+        "ID": 241
+    },
+    {
+        "Country": "\u00c5land Islands (Finland)",
+        "Wikipedia": "http://en.wikipedia.org/wiki/%C3%85land_Islands",
+        "Population": 28355,
+        "Date": "2011-12-31",
+        "Percentage": 0.0004,
+        "ID": 242
+    }
+]
