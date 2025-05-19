@@ -29,10 +29,6 @@
                                 <input type="file" onclick="event.stopPropagation();" accept=".csv" onchange="load_file(this, ',');" hidden />
                             </a>
                             <a class="item" onclick="$(this).children('input').click();">
-                                <i class="table icon"></i>Open a XLSX File ...
-                                <input type="file" onclick="event.stopPropagation();" accept=".xlsx" onchange="load_xlsx(this);" hidden />
-                            </a>
-                            <a class="item" onclick="$(this).children('input').click();">
                                 <i class="sticky note outline icon"></i>Open a TSV File ...
                                 <input type="file" onclick="event.stopPropagation();" accept=".txt, .tsv" onchange="load_file(this, '\t');" hidden />
                             </a>
@@ -84,25 +80,6 @@
 
         function page(i) {
             dataTable.body(dataTable.paging(i));
-        }
-
-        function load_xlsx(i) {
-            const xlsx = new FormData();
-            xlsx.append("file", i.files[0]);
-
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", "upload.php", true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    dataTable.draw(JSON.parse(xhr.responseText), 50);
-                }   // load data to datatable
-            };
-
-            xhr.onerror = function(e) {
-                console.log(`Error: {e}`);
-            }   // print out error
-
-            xhr.send(xlsx);
         }
 
         function load_file(i, s = ",") {
