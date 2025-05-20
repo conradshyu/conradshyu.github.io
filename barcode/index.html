@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="ie=edge">
+    <title>Barcode and QR Code</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.6/JsBarcode.all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.4.4/qrcode.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.js"></script>
+</head>
+
+<body style="padding: 20px 20px 20px 20px; font-family: Arial, sans-serif;">
+    <h1 class="ui header" style="justify-content: center; display: flex;">
+        Barcode and QR Code
+    </h1>
+    <div class="ui top attached tabular menu">
+        <a class="active item" data-tab="bar">Barcode</a>
+        <a class="item" data-tab="qrc">QR Code</a>
+    </div>
+    <div class="ui bottom attached active tab segment" data-tab="bar">
+        <div class="ui segment">
+            <p>
+                A barcode or bar code is a method of representing data in a visual, machine-readable form.
+                Initially, barcodes represented data by varying the widths, spacings and sizes of parallel
+                lines. These barcodes, now commonly referred to as linear or one-dimensional (1D), can be
+                scanned by special optical scanners, called barcode readers, of which there are several types. 
+            </p>
+        </div>
+        <div class="ui grid">
+            <div class="ui six wide column" style="text-align: left;">
+                <div class="ui segment">
+                    <p id="text">
+                        Barcode symbology is the method of encoding data into barcodes using lines, dots, or squares.
+                        When a barcode scanner reads the symbols, it decodes the data and records it for various uses.
+                    </p>
+                </div>
+                <table class="ui celled table" style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td style="width: 30%;">Symbology</td>
+                            <td>
+                                <select class="ui dropdown" style="width: 100%;"
+                                    onchange="CODEDATA.format = this.value; $('#text').text(CODEDATA.help[this.value]);">
+                                    <option selected disabled>Barcode Symbology</option>
+                                    <option value="CODE128">CODE128</option>
+                                    <option value="CODE39">CODE39</option>
+                                    <option value="EAN13">EAN-13</option>
+                                    <option value="EAN8">EAN-8</option>
+                                    <option value="EAN5">EAN-5</option>
+                                    <option value="EAN2">EAN-2</option>
+                                    <option value="UPC">UPC</option>
+                                    <option value="ITF14">ITF-14</option>
+                                    <option value="MSI">MSI</option>
+                                    <option value="MSI10">MSI10</option>
+                                    <option value="MSI11">MSI11</option>
+                                    <option value="MSI1010">MSI1010</option>
+                                    <option value="MSI1110">MSI1110</option>
+                                    <option value="pharmacode">Pharmacode</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Text</td>
+                            <td>
+                                <div class="ui input focus" style="width: 100%;">
+                                    <input type="text" placeholder="Barcode Text ..." onchange="CODEDATA.text = this.value;">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="text-align: right;">
+                    <button class="ui primary basic button" onclick="run_barcode();">Generate Barcode</button>
+                </p>
+            </div>
+            <div class="ui ten wide column" style="text-align: center;">
+                <div class="ui segment" style="vertical-align: top;">
+                    <p>Scalable Vector Graphics (SVG)</p>
+                    <svg id="svg"></svg>
+                </div>
+                <div class="ui segment" style="display: none;">
+                    <p>HTML Canvas Graphics</p>
+                    <canvas id="canvas"></canvas>
+                </div>
+                <div class="ui segment" style="display: none;">
+                    <p>Raster Image</p>
+                    <img id="image"></img>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="qrc">
+        <div class="ui grid">
+            <div class="ui ten wide column" style="text-align: left;">
+                <div class="ui segment">
+                    <p>
+                        A QR code, quick-response code, is a type of two-dimensional matrix barcode invented in 1994
+                        by Masahiro Hara of Japanese company Denso Wave for labelling automobile parts. It features
+                        black squares on a white background with fiducial markers, readable by imaging devices like
+                        cameras, and processed using Reed-Solomon error correction until the image can be appropriately
+                        interpreted. The required data is then extracted from patterns that are present in both the
+                        horizontal and the vertical components of the QR image.
+                    </p>
+                </div>
+                <div class="ui segment">
+                    <div class="ui fluid action input">
+                        <input type="text" placeholder="QR Code Text ..." onchange="CODEDATA.text = this.value;">
+                        <button class="ui primary basic button" onclick="run_qrcode();">Generate QR Code</button>
+                    </div>
+                </div>
+            </div>
+            <div class="ui six wide column" style="text-align: center;">
+                <div class="ui segment" style="vertical-align: top;">
+                    <p id="qrtext">QR Code</p>
+                    <img id="qrcode"></img>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const CODEDATA = {
+            "text": "",
+            "format": "",
+            "size": 164,
+            "width": 2,
+            "height": 100,
+            "displayValue": true,
+            //"fontOptions": "",
+            "font": "monospace",
+            "textAlign": "center",
+            "textPosition": "bottom",
+            "textMargin": 2,
+            "fontSize": 20,
+            "background": "#ffffff",
+            "lineColor": "#000000",
+            "margin": 10,
+            //"marginTop": 0, "marginBottom": 0, "marginLeft": 0, "marginRight": 0,
+            "valid": function() {
+                console.log(`Format: ${this.format}, Value: ${this.text}`);},
+            "help": {
+                "CODE128": "All 128 ASCII characters. Example: P0001234",
+                "CODE39": "Digits, uppercase letters and some characters (-, ., $, /, +, %, and space). Example: CODE39 BARCODE",
+                "EAN13": "Digits 0 to 9 with maximum of 13. Example: 5901234123457",
+                "EAN8": "Digits 0 to 9 with maximum of 8. Example: 96385074",
+                "EAN5": "Digits 0 to 9 with maximum of 5. Example: 54495",
+                "EAN2": "Digits 0 to 9 with maximum of 2. Example: 53",
+                "UPC": "Digits 0 to 9 with maximum of 12. Example: 123456789999",
+                "ITF14": "ITF-14 (Interleaved 2 of 5). Always 14 digits. Example: 12345678901231",
+                "MSI": "MSI (Modified Plessey) barcode. Digits 0 to 9. Example: 1234, Result: 1234",
+                "MSI10": "Digits 0 to 9 with automatic checksum calculation of mod 10. Example: 1234, Result: 12344",
+                "MSI11": "Digits 0 to 9 with automatic checksum calculation of mod 11. Example: 1234, Result: 12343",
+                "MSI1010": "Digits 0 to 9 with automatic checksum calculation of mod 1010. Example: 1234, Result: 123448",
+                "MSI1110": "Digits 0 to 9 with automatic checksum calculation of mod 1110. Example: 1234, Result: 123430",
+                "pharmacode": "Pharmaceutical barcode. Digits 3 to 131070. Example: 1234"
+            }
+        };
+
+        function run_barcode() {
+            CODEDATA.valid();
+            $.each(["#svg", "#canvas", "#image"], (a, b) => {
+                $(b).JsBarcode(CODEDATA.text, {
+                    "format": CODEDATA.format,
+                    "displayValue": CODEDATA.displayValue,
+                    "textAlign": CODEDATA.textAlign,
+                    "textPosition": CODEDATA.textPosition,
+                    "background": CODEDATA.background,
+                    "lineColor": CODEDATA.lineColor
+                });
+            });
+        }
+
+        function run_qrcode() {
+            let q = document.getElementById("qrcode");
+            $("#qrtext").text(`QR Code: ${CODEDATA.text}`);
+            QRCode.toDataURL(CODEDATA.text, {
+                "color": {"light": CODEDATA.backgroud, "dark": CODEDATA.lineColor},
+                "height": CODEDATA.size, "width": CODEDATA.size,
+                "scale": 4, "type": 'image/png',
+            }).then(u => {
+                q.src = u;  // assign image to src attribute
+            }).catch(r => {
+                console.error(r);
+            });
+        }
+
+        $(document).ready(function() {
+            $('.menu .item').tab();
+        });
+    </script>
+</body>
+
+</html>

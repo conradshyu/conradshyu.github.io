@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Viral Spread Simulation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+</head>
+
+<body style="font-family: Sans-serif; padding: 10px 10px 10px 10px;">
+    <div class="ui two column grid" style="background-image: linear-gradient(lightgray, white, lightgray);">
+        <div class="column">
+            <p style="font-size: 24px;">Viral Spread Simulation</p>
+        </div>
+        <div class="column">
+            <p>
+                <button id="set" class="ui teal button">Settings</button>
+                <button id="rst" class="ui blue button">Restart</button>
+                <button id="ctl" class="ui red button">Stop</button>
+            </p>
+        </div>
+    </div>
+    <div class="ui two column divided grid" style="background-image: linear-gradient(white, lightblue, white);">
+        <div class="column" style="text-align: right;">
+            <canvas id="plot" width="500" height="300" style="background-color: white; border: 1px solid black;">
+                Note: Your browser does not support the canvas element.
+            </canvas>
+        </div>
+        <div class="column" style="text-align: left;">
+            <canvas id="pop" width="300" height="300" style="background-color: white; border: 1px solid blue;">
+                Note: Your browser does not support the canvas element.
+            </canvas>
+        </div>
+    </div>
+    <div class="ui four column grid" style="background-image: linear-gradient(lightgray, white, lightgray);">
+        <div class="column">
+            <p id="t_sus">Susceptible: </p>
+        </div>
+        <div class="column">
+            <p id="t_inf">Infected: </p>
+        </div>
+        <div class="column">
+            <p id="t_rev">Recovered: </p>
+        </div>
+        <div class="column">
+            <p id="t_pop">Population: </p>
+        </div>
+    </div>
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Viral Spread Simulation
+        </div>
+        <div class="image content">
+            <div class="ui image">
+                <img src="virus.png" style="width: 200px; height: 200px;">
+            </div>
+            <div class="description">
+                <div class="ui header">Simulation Parameters</div>
+                <table>
+                    <tr>
+                        <td style="text-align: right;">Population Size: </td>
+                        <td><input type="text" id="in_pop"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">Patient Zero: </td>
+                        <td><input type="text" id="in_zero"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">Infection Probability: </td>
+                        <td><input type="text" id="in_ip"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">Arrival Probability: </td>
+                        <td><input type="text" id="in_ap"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">Departure Probability: </td>
+                        <td><input type="text" id="in_dp"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui gray deny button">
+                Cancel
+            </div>
+            <div id="bt_reset" class="ui blue deny button">
+                Reset
+            </div>
+            <div id="bt_set" class="ui positive right labeled icon button">
+                Ok
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+    <script>
+        function Particle(ctx, r = 2, dx = 2, dy = 2, fg = "green") {
+            this.r = r; this.dx = dx; this.dy = dy;
+            this.color = fg;
+            this.canvas = document.getElementById(ctx);
+            this.gdi = this.canvas.getContext("2d");
+            this.x = Math.round(Math.random() * (this.canvas.width - this.r * 2) + this.r);
+            this.y = Math.round(Math.random() * (this.canvas.height - this.r * 2) + this.r);
+
+            this.test = function(c) {
+                if (this.color == "green") {
+                    this.color = (c == "red") ? c : this.color;
+                }   // test for infection
+            }
+
+            this.run = function() {
+                let cx = this.x + this.dx;
+                let cy = this.y + this.dy;
+                this.dx = ((cx > (this.canvas.width - this.r)) || (cx < this.r)) ? this.dx * -1 : this.dx;
+                this.dy = ((cy > (this.canvas.height - this.r)) || (cy < this.r)) ? this.dy * -1 : this.dy;
+                this.x += (Math.random() < 0.5) ? 0 : this.dx;
+                this.y += (Math.random() < 0.5) ? 0 : this.dy;
+
+                if (this.color == "red") {
+                    this.color = (Math.random() < 0.001) ? "gray" : this.color;
+                }   // recovery
+
+                this.gdi.beginPath();
+                this.gdi.arc(this.x, this.y, this.r, 0, Math.PI * 2.0, false);
+                this.gdi.fillStyle = this.color;
+                this.gdi.fill();
+                this.gdi.closePath();
+            }   // run the simulation
+        }
+
+        (function(){
+            let pause = false;
+            let b = []; let pt = []; let s = 1; let x = 0;
+            let set_pop; let set_zero; let set_ip; let set_ap; let set_dp;
+
+            const plot = (ctx = "plot") => {
+                this.canvas = document.getElementById(ctx)
+                this.gdi = this.canvas.getContext("2d");
+                this.gdi.fillStyle = "white";
+                this.gdi.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                const fx = (a) => Math.floor(a * this.canvas.height);
+
+                pt.map(function(v, i) {
+                    this.gdi.beginPath();
+                    this.gdi.moveTo(i, 0);
+                    this.gdi.lineTo(i, fx(v[0]));
+                    this.gdi.strokeStyle = "lightgray";
+                    this.gdi.stroke();
+                    this.gdi.beginPath();
+                    this.gdi.moveTo(i, fx(v[0]));
+                    this.gdi.lineTo(i, fx(v[1]));
+                    this.gdi.strokeStyle = "green";
+                    this.gdi.stroke();
+                    this.gdi.beginPath();
+                    this.gdi.moveTo(i, fx(v[1]));
+                    this.gdi.lineTo(i, this.canvas.height);
+                    this.gdi.strokeStyle = "red";
+                    this.gdi.stroke();
+                });
+
+                this.gdi.closePath();
+            }   // plot the distribution
+
+            const restart = () => {
+                b = []; pt = []; x = 0;     // clear the array
+
+                for (let i = 0; i < set_pop; ++i) {
+                    b.push(new Particle("pop", 2,
+                        (Math.random() > 0.5) ? -1 * s : s,
+                        (Math.random() > 0.5) ? -1 * s : s, "green"));
+                }   // generate new particles
+
+                for (let j = 0; j < set_zero; ++j) {
+                    (b[Math.floor(Math.random() * b.length)]).color = "red";
+                }   // randomly assigned initially infected; patient zeros
+            }   // reset the simulation
+
+            const start = () => {
+                let s_red = 0; let s_green = 0;
+                let gdi = document.getElementById("pop").getContext("2d");
+                gdi.fillStyle = "white";
+                gdi.fillRect(0, 0,
+                    document.getElementById("pop").width,
+                    document.getElementById("pop").height);
+                b.map((v) => v.run());
+
+                for (let i = 0; i < b.length; ++i) {
+                    for (let j = i; j < b.length; ++j) {
+                        let d = Math.sqrt(Math.pow(b[i].x - b[j].x, 2) + Math.pow(b[i].y - b[j].y, 2));
+
+                        if (d > ((b[i].r + b[j].r) * 2.0)) {
+                            continue;
+                        }   // collision detection; euclidean distance
+
+                        if (Math.random() > set_ip) {
+                            continue;
+                        }   // infection event
+
+                        (b[i]).test((b[j]).color);  // test for infection
+                    }
+
+                    s_green += (b[i].color == "green") ? 1 : 0;
+                    s_red += (b[i].color == "red") ? 1 : 0;
+                }   // update the status of the infection
+
+                document.getElementById("t_inf").innerHTML = `Infected: ${s_red}`;
+                document.getElementById("t_rev").innerHTML = `Recovered: ${b.length - s_red - s_green}`;
+                document.getElementById("t_sus").innerHTML = `Susceptible: ${s_green}`;
+                document.getElementById("t_pop").innerHTML = `Population: ${b.length}`;
+                pt.push([(b.length - s_red - s_green) / b.length, (b.length - s_red) / b.length]);
+                plot(); x++;
+
+                if (x > document.getElementById("plot").width) {
+                    pt.shift();
+                }   // remove old records
+
+                if (Math.random() < set_dp) {
+                    b.shift();
+                }   // randomly remove the first element; departure probability
+
+                if (Math.random() < set_ap) {
+                    b.push(new Particle("pop", 2,
+                        (Math.random() > 0.5) ? -1 * s : s,
+                        (Math.random() > 0.5) ? -1 * s : s,
+                        (Math.random() > 0.5) ? "green": "red"));
+                }   // randomly add new members to the population; arrival probability
+            }   // run the simulations
+
+            const reset = () => {
+                set_pop = 500; set_zero = 10;
+                set_ip = 0.9; set_ap = 0; set_dp = 0;
+                document.getElementById("in_pop").value = set_pop;      // population size
+                document.getElementById("in_zero").value = set_zero;    // number of patient zero
+                document.getElementById("in_ip").value = set_ip;        // infection probability
+                document.getElementById("in_ap").value = set_ap;        // arrival probability
+                document.getElementById("in_dp").value = set_dp;        // departure probability
+            }   // reset to the default values
+
+            const animate = () => {
+                window.requestAnimationFrame(animate);
+
+                if (!pause)
+                    start();
+            }   // run the animation
+
+            bt_set.onclick = function() {
+                set_pop = document.getElementById("in_pop").value;      // population size
+                set_zero = document.getElementById("in_zero").value;    // number of patient zero
+                set_ip = document.getElementById("in_ip").value;        // infection probability
+                set_ap = document.getElementById("in_ap").value;        // arrival probability
+                set_dp = document.getElementById("in_dp").value;        // departure probability
+            }   // set the simulation parameters
+
+            bt_reset.onclick = function() {
+                reset();
+            }   // reset the simulation parameters
+
+            rst.onclick = function() {
+                document.getElementById("ctl").innerHTML = "Stop";
+                document.getElementById("ctl").className = "ui red button";
+                restart(); pause = false;
+            }   // restart the simulation
+
+            ctl.onclick = function() {
+                pause = !pause;
+                this.innerHTML = pause ? "Start" : "Stop";
+                this.className = pause ? "ui green button" : "ui red button";
+            }   // toggle the simulation
+
+            set.onclick = function() {
+                let ps = pause; pause = true;
+
+                $('.ui.modal').modal({
+                    onHidden: function() {pause = ps;}
+                }).modal('show');
+            }   // set the parameters
+
+            reset(); restart(); animate();
+        })();   // document ready
+    </script>
+</body>
+</html>
