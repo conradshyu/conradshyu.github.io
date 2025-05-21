@@ -7,41 +7,36 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>HTML Table Pagination</title>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
 
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
 </head>
 
 <body style="font-size: 14px; font-family: Arial, Helvetica, sans-serif; padding: 20px 20px 20px 20px">
     <div class="ui segment">
-        <b>HTML Table with Pagination and Dynamic Loading</b>
+        <b>HTML Table with Dynamic Loading</b>
     </div>
     <table id="data" class="ui celled striped table" style="width:100%">
-        <div class="ui grid">
-            <div class="twelve wide column" style="text-align: left;">
+        <div class="ui menu">
+            <div class="ui dropdown item">
+                Import Data<i class="dropdown icon"></i>
                 <div class="ui menu">
-                    <div class="ui dropdown item">
-                        Import Data<i class="dropdown icon"></i>
-                        <div class="ui menu">
-                            <a class="item" onclick="$(this).children('input').click();">
-                                <i class="table icon"></i>Open a CSV File ...
-                                <input type="file" onclick="event.stopPropagation();" accept=".csv" onchange="load_file(this, ',');" hidden />
-                            </a>
-                            <a class="item" onclick="$(this).children('input').click();">
-                                <i class="sticky note outline icon"></i>Open a TSV File ...
-                                <input type="file" onclick="event.stopPropagation();" accept=".txt, .tsv" onchange="load_file(this, '\t');" hidden />
-                            </a>
-                            <div class="ui divider"></div>
-                            <a class="item" onclick="load_example();">
-                                <i class="list alternate outline icon"></i>Load Example Data
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="four wide column" style="text-align: right;">
-                <div class="ui pagination menu" id="page">
+                    <a class="item" onclick="$(this).children('input').click();">
+                        <i class="table icon"></i>Open a CSV File ...
+                        <input type="file" onclick="event.stopPropagation();" accept=".csv" onchange="load_file(this, ',');" hidden />
+                    </a>
+                    <a class="item" onclick="$(this).children('input').click();">
+                        <i class="sticky note outline icon"></i>Open a TSV File ...
+                        <input type="file" onclick="event.stopPropagation();" accept=".txt, .tsv" onchange="load_file(this, '\t');" hidden />
+                    </a>
+                    <div class="ui divider"></div>
+                    <a class="item" onclick="load_example();">
+                        <i class="list alternate outline icon"></i>Load Example Data
+                    </a>
                 </div>
             </div>
         </div>
@@ -53,18 +48,13 @@
     <script>
         let dataTable = null;
 
-        function load_example(m = 50) {
+        function load_example() {
             $.getJSON("territories.json", (r) => {
-                dataTable.draw(r, m);
+                dataTable.draw(r);
             }).fail((e) => {
                 console.log(`Error: ${e}`);
             });
         }   // reload json data
-
-        function redraw(m) {
-            dataTable.set_max(m);   // update max rows per page
-            page(0);
-        }   // update number of rows in table
 
         function order(i, k) {
             if ($(i).hasClass('up')) {
@@ -75,12 +65,8 @@
                 dataTable.order(k, true);
             }
 
-            page(0);
+            dataTable.body();
         }   // sort table data and redraw
-
-        function page(i) {
-            dataTable.body(dataTable.paging(i));
-        }
 
         function load_file(i, s = ",") {
             let reader = new FileReader();
@@ -93,13 +79,13 @@
                     csv.push(b.split(s));
                 });
 
-                $(csv.shift()).each((a, b) => {head.push(b);}); // accumulate column names
+                $(csv.shift()).each((a, b) => { head.push(b); }); // accumulate column names
                 $(csv).each((a, b) => {
-                    let r = {}; $(b).each((i, j) => {r[head[i]] = j;});
+                    let r = {}; $(b).each((i, j) => { r[head[i]] = j; });
                     j.push(r);
                 }); // accumulate data
 
-                dataTable.draw(j, 50);
+                dataTable.draw(j);
             }
 
             reader.onerror = () => {
@@ -109,37 +95,36 @@
 
         class DataTable {
             MASTER = {
-                "table": null, "page": null, "json": [], "max": 50, "range": 0, "index": 0
+                "table": null, "json": []
             };
 
             constructor(i, p) {
                 this.MASTER["table"] = i;   // table jquery
-                this.MASTER["page"] = p;    // pagination jquery
 
                 const blank = [
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"},
-                    {"A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"}];
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" },
+                    { "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;" }];
 
-                this.draw(blank, 50);       // draw blank table
+                this.draw(blank);   // draw blank table
             }   // class constructor; assign jquery to table and pagination
 
             init(j) {
@@ -157,37 +142,12 @@
                 return true;
             }   // initialization; populate table header
 
-            paging(i = 0) {
-                // 0: reset to first page; -1: move left page, decrement; 1: move right page, increment
-                switch (i) {
-                    case -1:
-                        (this.MASTER["index"] === 0) ? this.MASTER["index"] = 0 : this.MASTER["index"] += i;
-                        break;      // move left page; decrement
-                    case 1:
-                        ((this.MASTER["index"] + 1) < this.MASTER["range"]) ?
-                            this.MASTER["index"] += i : this.MASTER["index"] = this.MASTER["range"] - 1;
-                        break;      // move right page; increment
-                    default:
-                        this.MASTER["index"] = 0;   // reset to first page
-                }
+            body() {
+                let w = "";
 
-                //console.log(`i: ${i}, index: ${this.MASTER["index"]}, range: ${this.MASTER["range"]}`);
-                let x = (this.MASTER["index"] + 1) * this.MASTER["max"];
-                x = (x > this.MASTER["json"].length) ? this.MASTER["json"].length : x
-                this.MASTER["page"].empty().html(
-                    '<a class="item" onclick="page(-1);"><i class="angle left icon"></i></a>' +
-                    `<a class="item">${x}/${this.MASTER["json"].length}</a>` +
-                    '<a class="item" onclick="page(1);"><i class="angle right icon"></i></a>');
-
-                return this.MASTER["index"];
-            }   // populate pagination progress bar
-
-            body(p = 0) {
-                let w = ""; let n = p * this.MASTER["max"];
-
-                for (let i = 0; (i < this.MASTER["max"]) && ((i + n) < this.MASTER["json"].length); i++) {
+                for (let i = 0; i < this.MASTER["json"].length; i++) {
                     w += "<tr>";
-                    $.each(this.MASTER["json"][i + n], (a, b) => {w += `<td>${b}</td>`;});
+                    $.each(this.MASTER["json"][i], (a, b) => {w += `<td>${b}</td>`;});
                     w += "</tr>";
                 }
 
@@ -198,24 +158,18 @@
             }   // populate table contents with starting page number
 
             order(k, r = true) {
-                this.MASTER["json"].sort((a, b) => r ? a[k] > b[k] : a[k] < b[k]);
+                this.MASTER["json"].sort((a, b) => {
+                    if (a[k] > b[k]) {return r ? 1 : -1;}
+                    if (a[k] < b[k]) {return r ? -1 : 1;}
+                    return 0;
+                });
 
                 return true;
-            }   // sort data and redraw table contents
+            }   // sort data
 
-            set_max(m) {
-                this.MASTER["index"] = 0;
-                this.MASTER["max"] = m;
-                this.MASTER["range"] = parseInt(this.MASTER["json"].length / this.MASTER["max"]) +
-                    ((this.MASTER["json"].length % this.MASTER["max"]) > 0 ? 1 : 0);
-
-                return this.MASTER["index"];
-            }   // set maximum number of rows per page
-
-            draw(j, m) {
-                this.init(j);       // load json data and draw table headers
-                this.set_max(m);    // number of rows per page
-                this.body(this.paging(0));
+            draw(j) {
+                this.init(j);   // load json data and draw table headers
+                this.body();
 
                 return true;
             }   // draw table with new data
@@ -223,7 +177,7 @@
 
         $(document).ready(function () {
             $('.dropdown').dropdown();
-            dataTable = new DataTable($("#data"), $("#page"));
+            dataTable = new DataTable($("#data"), null);
         });
     </script>
 </body>
