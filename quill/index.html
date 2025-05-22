@@ -21,10 +21,13 @@
     <!-- Create the editor container -->
     <table style="width: 100%;">
         <tr>
-            <td style="width: 70%;">
+            <td style="width: 50%;">
                 <div class="ui header">Quill Text Editor with Load and Download</div>
             </td>
             <td style="text-align: right;">
+                <button class="ui negative basic button" onclick="clear_txt();">
+                    Clear Text
+                </button>
                 <button class="ui primary basic button" onclick="$(this).children('input').click();">
                     Load Text
                     <input type="file" onclick="event.stopPropagation();" accept=".txt" onchange="load_txt(this);" hidden />
@@ -32,7 +35,7 @@
                 <button class="ui positive basic button" onclick="save_txt();" style="display: none;">
                     Save
                 </button>
-                <button class="ui negative basic button" onclick="download();">
+                <button class="ui teal basic button" onclick="download();">
                     Download
                 </button>
             </td>
@@ -90,6 +93,13 @@
             const i = document.getElementById("cl");
             i.innerHTML = `Text: ${s.innerText.length} Character(s), HTML: ${s.innerHTML.length} Character(s)`;
         }   // update status text
+
+        function clear_txt(s) {
+            const txt = document.querySelector("#editor");
+            txt.children[0].innerHTML = "";
+            txt.children[0].innerText = "";
+            show_status(txt.children[0]);
+        }
 
         $(document).ready(function() {
             const quill = new Quill("#editor", {
