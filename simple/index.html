@@ -58,9 +58,11 @@
 
         function order(i, k) {
             if ($(i).hasClass('up')) {
+                console.log("up to down");
                 $(i).removeClass('up').addClass('down');
                 dataTable.order(k, false);
             } else {
+                console.log("down to up");
                 $(i).removeClass('down').addClass('up');
                 dataTable.order(k, true);
             }
@@ -133,7 +135,7 @@
                 // populate table headers
                 let w = "<tr>";
                 $.each(this.MASTER["json"][0], (a, b) => {
-                    w += `<th><i class="sort amount down icon" style="color: green" onclick="order(this, '${a}');" onmouseover="this.style.cursor = 'pointer';"></i>${a}</th>`;
+                    w += `<th><i class="sort amount up icon" style="color: green" onclick="order(this, '${a}');" onmouseover="this.style.cursor = 'pointer';"></i>${a}</th>`;
                 });
 
                 w += "</tr>";
