@@ -133,7 +133,7 @@
                 // populate table headers
                 let w = "<tr>";
                 $.each(this.MASTER["json"][0], (a, b) => {
-                    w += `<th><i class="sort amount up icon" style="color: green" onclick="order(this, '${a}');" onmouseover="this.style.cursor = 'pointer';"></i>${a}</th>`;
+                    w += `<th><i class="sort amount down icon" style="color: green" onclick="order(this, '${a}');" onmouseover="this.style.cursor = 'pointer';"></i>${a}</th>`;
                 });
 
                 w += "</tr>";
@@ -158,9 +158,16 @@
             }   // populate table contents with starting page number
 
             order(k, r = true) {
+                // false: descending, true: ascending
                 this.MASTER["json"].sort((a, b) => {
-                    if (a[k] > b[k]) {return r ? 1 : -1;}
-                    if (a[k] < b[k]) {return r ? -1 : 1;}
+                    if (a[k] > b[k]) {
+                        return r ? 1 : -1;
+                    }
+
+                    if (a[k] < b[k]) {
+                        return r ? -1 : 1;
+                    }
+
                     return 0;
                 });
 
