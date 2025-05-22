@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Quill Online Text Editor</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.snow.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
+
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.js"></script>
+</head>
+
+<body style="font-family: Helvetica, Sans-serif, Serif, Verdana; padding: 10px 10px 10px 10px;">
+    <!-- Create the editor container -->
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 70%;">
+                <div class="ui header">Quill Text Editor with Load and Download</div>
+            </td>
+            <td style="text-align: right;">
+                <button class="ui primary basic button" onclick="$(this).children('input').click();">
+                    Load Text
+                    <input type="file" onclick="event.stopPropagation();" accept=".txt" onchange="load_txt(this);" hidden />
+                </button>
+                <button class="ui positive basic button" onclick="save_txt();" style="display: none;">
+                    Save
+                </button>
+                <button class="ui negative basic button" onclick="download();">
+                    Download
+                </button>
+            </td>
+        </tr>
+    </table>
+    <div class="ui divider"></div>
+    <div id="editor" style="width: 100%; height: calc(100vh - 200px);"></div>
+    <div class="ui segment">
+        <p id="cl">Text Length: 0 Character(s), HTML Length: 0 Character(s)</p>
+    </div>
+    <script>
+        function save_txt() {
+            const txt = document.querySelector("#editor");
+            const xhr = $.ajax({
+                "type": "POST",
+                "url": "save_txt.php",
+                "data": txt.children[0].innerHTML,
+                "contentType": "text/plain",
+                "success": (r) => {
+                    // handle successful response
+                    console.log(`response: ${r}`);
+                },
+                "error": (x, s, e) => {
+                    // handle error
+                    console.log(`status: ${s}`);
+                }
+            });
+        }   // save test file
+
+        function load_txt(i) {
+            const txt = document.querySelector("#editor");
+            const reader = new FileReader();
+            reader.readAsText(i.files[0], "utf-8");
+
+            reader.onload = (msg) => {
+                txt.children[0].innerHTML = msg.target.result.trim();
+                const i = document.getElementById("cl");
+                show_status(txt.children[0]);
+            }
+
+            reader.onerror = () => {
+                window.alert(`Failed to load the file ${reader.files[0].name}.`)
+            }   // failed to load the file
+        }   // load text file
+
+        function download() {
+            const txt = document.querySelector("#editor");
+            const b = new Blob([
+                txt.children[0].innerHTML], {
+                "type": "text/plain;charset=utf-8"});
+            saveAs(b, "newfile.txt");
+        }   // download text to client
+
+        function show_status(s) {
+            const i = document.getElementById("cl");
+            i.innerHTML = `Text: ${s.innerText.length} Character(s), HTML: ${s.innerHTML.length} Character(s)`;
+        }   // update status text
+
+        $(document).ready(function() {
+            const quill = new Quill("#editor", {
+                "module": {
+                    "syntax": true,
+                    "toolbar": "#toolbar"
+                },
+                "placeholder": "Enter text here ...",
+                "readOnly": false,
+                "theme": "snow"
+            });
+
+            const x = document.querySelector("#editor");
+
+            $(x.children[0]).on("keyup", () => {
+                show_status(x.children[0]);
+            });
+        });
+    </script>
+</body>
+</html>
