@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Color Selection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+</head>
+
+<body style="font-size: 14px; font-family: Arial, Helvetica, sans-serif; padding: 20px 20px 20px 20px">
+    <h2 class="ui header">HTML Ccolor Code</h2>
+    <div class="ui segment" id="view">
+        &nbsp;
+    </div>
+    <div class="ui segment">
+        <p>Select Color Codes (RGB)</p>
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>Integer / Hex / Ratio</th>
+                    <th>Slider</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="width: 20%;" id="c1">128 / 80 / 0.50</td>
+                    <td><div id="red" style="background-color: red;"></div></td>
+                </tr>
+                <tr>
+                    <td id="c2">128 / 80 / 0.50</td>
+                    <td><div id="green" style="background-color: green;"></div></td>
+                </tr>
+                <tr>
+                    <td id="c3">128 / 80 / 0.50</td>
+                    <td><div id="blue" style="background-color: blue;"></div></td>
+                </tr>
+            </tbody>
+        </table>        
+    </div>
+
+    <script>
+        let color = {"red": 128, "green": 128, "blue": 128};
+        $("#view").css("background-color", `rgb(${color['red']}, ${color['green']}, ${color['blue']})`);
+
+        $(document).ready(function() {
+            $("#red, #green, #blue").slider({
+                min: 0, max: 255, step: 1, value: 128,
+                slide: function(e, v) {
+                    color[e["target"]["id"]] = v["value"];
+                    $("#view").css("background-color", `rgb(${color['red']}, ${color['green']}, ${color['blue']})`);
+                    $("#c1").text(`${color["red"]} / ${(color["red"]).toString(16)} / ${(color["red"]/255).toFixed(2)}`);
+                    $("#c2").text(`${color["green"]} / ${(color["green"]).toString(16)} / ${(color["green"]/255).toFixed(2)}`);
+                    $("#c3").text(`${color["blue"]} / ${(color["blue"]).toString(16)} / ${(color["blue"]/255).toFixed(2)}`);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
