@@ -20,26 +20,26 @@
     <div class="ui segment">
         <b>HTML Table with Dynamic Loading</b>
     </div>
-    <table id="data" class="ui celled striped table" style="width:100%">
-        <div class="ui menu">
-            <div class="ui dropdown item">
-                Import Data<i class="dropdown icon"></i>
-                <div class="ui menu">
-                    <a class="item" onclick="$(this).children('input').click();">
-                        <i class="table icon"></i>Open a CSV File ...
-                        <input type="file" onclick="event.stopPropagation();" accept=".csv" onchange="load_file(this, ',');" hidden />
-                    </a>
-                    <a class="item" onclick="$(this).children('input').click();">
-                        <i class="sticky note outline icon"></i>Open a TSV File ...
-                        <input type="file" onclick="event.stopPropagation();" accept=".txt, .tsv" onchange="load_file(this, '\t');" hidden />
-                    </a>
-                    <div class="ui divider"></div>
-                    <a class="item" onclick="load_example();">
-                        <i class="list alternate outline icon"></i>Load Example Data
-                    </a>
-                </div>
+    <div class="ui menu">
+        <div class="ui dropdown item">
+            Import Data<i class="dropdown icon"></i>
+            <div class="ui menu">
+                <a class="item" onclick="$(this).children('input').click();">
+                    <i class="table icon"></i>Open a CSV File ...
+                    <input type="file" onclick="event.stopPropagation();" accept=".csv" onchange="load_file(this, ',');" hidden />
+                </a>
+                <a class="item" onclick="$(this).children('input').click();">
+                    <i class="sticky note outline icon"></i>Open a TSV File ...
+                    <input type="file" onclick="event.stopPropagation();" accept=".txt, .tsv" onchange="load_file(this, '\t');" hidden />
+                </a>
+                <div class="ui divider"></div>
+                <a class="item" onclick="load_example();">
+                    <i class="list alternate outline icon"></i>Load Example Data
+                </a>
             </div>
         </div>
+    </div>
+    <table id="data" class="ui celled striped table" style="width:100%">
         <thead>
         </thead>
         <tbody>
