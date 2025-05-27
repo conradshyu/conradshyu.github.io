@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Ideal Gas Particles</title>
+</head>
+<body>
+    <canvas id="canvas" style="background-color: white">
+        Note: Your browser does not support the canvas element.
+    </canvas>
+
+    <script>
+        function Particle(ctx, r = 4, dx = 5, dy = 5, fg = "red") {
+            this.r = r; this.dx = dx; this.dy = dy;
+            this.color = fg;
+            this.canvas = document.getElementById(ctx);
+            this.canvas.width = window.innerWidth - 20;     // set the width
+            this.canvas.height = window.innerHeight - 20;   // set the height
+
+            this.x = Math.round(Math.random() * (this.canvas.width - this.r * 2) + this.r);
+            this.y = Math.round(Math.random() * (this.canvas.height - this.r * 2) + this.r);
+
+            this.run = function() {
+                let cx = this.x + this.dx;
+                let cy = this.y + this.dy;
+                this.dx = ((cx > (this.canvas.width - this.r)) || (cx < this.r)) ? this.dx * -1 : this.dx;
+                this.dy = ((cy > (this.canvas.height - this.r)) || (cy < this.r)) ? this.dy * -1 : this.dy;
+                this.x += this.dx; this.y += this.dy;
+            }   // update the coordinates
+        }
+
+        var b = []; var s = 7; var pause = false;
+
+		window.onresize = () => {
+			b = [];
+
+			for (let i = 0; i < 40; i++) {
+				b.push(new Particle("canvas", 15,
+					(Math.random() > 0.5) ? -1 * s : s,
+					(Math.random() > 0.5) ? -1 * s : s, "blue"));
+			}   // generate new particles
+
+			console.log(`height: ${window.innerHeight}, width: ${window.innerWidth}`);
+		}	// respond to resize event
+
+        const start = () => {
+            let gdi = (document.getElementById("canvas")).getContext("2d");
+            gdi.fillStyle = "white";
+            gdi.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+            for (let d = 0; d < (b.length - 1); ++d) {
+                b[d].run();
+                let grd = gdi.createRadialGradient(
+                    b[d].x - Math.round(b[d].r * 0.5), b[d].y - Math.round(b[d].r * 0.5), 1,
+                    b[d].x - Math.round(b[d].r * 0.5), b[d].y - Math.round(b[d].r * 0.5), b[d].r * 2);
+                grd.addColorStop(0, "white");
+                grd.addColorStop(1, b[d].color);
+
+                gdi.beginPath();
+                gdi.arc(b[d].x, b[d].y, b[d].r, 0, Math.PI * 2.0, false);
+                //gdi.fillStyle = "#FF0000";
+                gdi.fillStyle = grd;
+                gdi.fill();
+                gdi.closePath();
+            }   // draw the particles
+
+            for (let i = 0; i < (b.length - 1); ++i) {
+                for (let j = i + 1; j < b.length; ++j) {
+                    let d = Math.sqrt(Math.pow(b[i].x - b[j].x, 2) + Math.pow(b[i].y - b[j].y, 2));
+
+                    if (d < (b[i].r + b[j].r)) {
+                        b[i].dx = -1 * b[i].dx; b[j].dx = -1 * b[j].dx;
+                    }   // collision detection
+                }
+            }
+        }   // run the simulations
+
+        const animate = () => {
+            window.requestAnimationFrame(animate);
+
+            if (!pause)
+                start();
+        }   // run the animation
+
+        window.onkeydown = () => pause = !pause;    // toggle pause and run
+		window.dispatchEvent(new Event("resize"));
+        animate();
+    </script>
+</body>
+</html>

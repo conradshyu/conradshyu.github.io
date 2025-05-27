@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--
+    written by Conrad Shyu (conrad.shyu@nih.gov)
+    last updated on 8/4/2021
+-->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Slot Machine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+
+    <style>
+        tr, td {
+            font-weight: normal;
+            border: 1px solid lightgray;
+            text-align: center;
+            vertical-align: bottom;
+            border-radius: 4px;
+            width: 120px;
+            height: 100px;
+            color: teal;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="padding: 20px 20px 20px 20px;">
+        <table style="font-size: 64px; border-collapse: collapse;">
+            <tr style="padding: 5px 5px 5px 5px; height: 70px;">
+                <td colspan="4" style="font-size: 20px; padding: 5px 5px 15px 5px; height: 50px;">
+                    <div class="ui header" style="color: gray;">
+                        <i class="chess knight icon" style="color: blue;"></i>
+                        Gambler's Ruin
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 30px;">
+                <td colspan="4" style="color: green; font-size: 18px; height: 20px;">
+                    <p id="h_crd">Credit: 0</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="cell"><i class="chess knight icon"></i></td>
+                <td class="cell"><i class="chess knight icon"></i></td>
+                <td class="cell"><i class="chess knight icon"></i></td>
+                <td class="cell"><i class="chess knight icon"></i></td>
+            </tr>
+            <tr>
+                <td class="cell"><i class="chess knight icon"></i></td>
+                <td class="cell"><i class="chess knight icon"></i></td>
+                <td class="cell"><i class="chess knight icon"></i></td>
+                <td class="cell"><i class="chess knight icon"></i></td>
+            </tr>
+            <tr>
+                <td class="cell"><i class="chess knight icon"></i></td>
+                <td class="cell"><i class="chess knight icon"></i></td>
+                <td class="cell"><i class="chess knight icon"></i></td>
+                <td class="cell"><i class="chess knight icon"></i></td>
+            </tr>
+            <tr style="height: 30px;">
+                <td colspan="4" style="color: red; font-size: 18px; height: 20px;">
+                    <p id="h_win">Win: 0</p>
+                </td>
+            </tr>
+            <tr style="padding: 5px 5px 5px 5px; height: 60px;">
+                <td colspan="4" style="padding: 5px 5px 15px 5px; height: 40px;">
+                    <button id="run" class="ui primary basic labeled icon button">
+                        <i style='color: green' class='play icon'></i>
+                        Spin
+                    </button>
+                    <button id="atx" class="ui primary basic labeled icon button">
+                        <i style='color: green' class="play icon"></i>
+                        Auto
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        (() => {
+            let i_win = 0;
+            let i_crd = 2000;
+            let pause = true;
+            let atx_run = false;
+            const cost = 12;
+            const chess = {
+                '<i class="chess icon"></i>': 0, '<i class="chess bishop icon"></i>': 0,
+                '<i class="star icon"></i>': 0, '<i class="chess king icon"></i>': 0,
+                '<i class="chess knight icon"></i>': 0, '<i class="chess pawn icon"></i>': 0,
+                '<i class="chess queen icon"></i>': 0, '<i class="chess rook icon"></i>': 0,
+                '<i class="shield alternate icon"></i>': 0, '<i class="bug icon"></i>': 0,
+                '<i class="heartbeat icon"></i>': 0, '<i class="cogs icon"></i>': 0};
+
+            $("#h_crd").html(`Credit: ${i_crd}`);
+
+            function start() {
+                let k = Object.keys(chess);
+
+                $(".cell").each((i, v) => {
+                    $(v).html(k[Math.floor(Math.random() * k.length)]);
+                });
+            }   // randomly select pieces
+    
+            const animate = () => {
+                window.requestAnimationFrame(animate);
+    
+                if (!pause) {start();}
+            }   // run the animation
+    
+            run.onclick = () => {
+                let win = chess;
+                pause = pause ? false : true;
+                $(".cell").each((i, v) => {$(v).css("color", "teal");});
+
+                if (pause) {
+                    $("#run").html("<i style='color: green' class='play icon'></i>Spin");
+                    $.each(win, (i, v) => {win[i] = 0;});
+                    $(".cell").each((i, v) => {win[$(v).html()] += 1;});
+                    $(".cell").each((i, v) => {$(v).css("color", (win[$(v).html()] > 2) ? "red" : "teal");});
+                    $.each(win, (i, v) => {i_win += (win[i] > 2) ? win[i] * 3 : 0;});
+                    i_crd += i_win;
+                } else {
+                    $("#run").html("<i style='color: red' class='pause icon'></i>Pause");
+                    i_win = 0; i_crd -= cost;
+                }
+
+                $("#h_crd").html(`Credit: ${i_crd}`);
+                $("#h_win").html(`Win: ${i_win}`);
+            }   // set the parameters
+    
+            atx.onclick = () => {
+                if (i_crd < cost) {
+                    atx_run = false; pause = true;
+                } else {
+                    atx_run = atx_run ? false : true;
+                }   // check money
+
+                $("#atx").html(atx_run ?
+                    "<i style='color: red' class='pause icon'></i>Stop" :
+                    "<i style='color: green' class='play icon'></i>Auto");
+
+                if (atx_run && (i_crd > cost)) {
+                    pause = true;   // pause first
+                    $("#run").trigger("click");
+                    setTimeout(() => {
+                        $("#run").trigger("click");
+
+                        if (atx_run) {
+                            atx_run = false;
+                            setTimeout(() => {$("#atx").trigger("click");}, 750);
+                        }   // continue to run
+                    }, 1000);
+                }
+            }   // automatic run until ruin
+    
+            animate();
+        })();
+    </script>
+</body>
+
+</html>
