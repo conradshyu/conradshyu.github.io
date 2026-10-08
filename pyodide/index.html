@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b1020">
+    <title>Ideal Gas — Python + WebAssembly</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <main class="app">
+      <header class="heading">
+        <div>
+          <p class="eyebrow">PYTHON RUNNING IN WEBASSEMBLY</p>
+          <h1>Ideal gas simulator</h1>
+          <p class="intro">Watch a 2D gas respond to temperature and particle count.</p>
+        </div>
+        <p id="status" class="status" role="status" aria-live="polite">Loading Python runtime…</p>
+      </header>
+
+      <section class="layout" aria-label="Gas simulation">
+        <div class="simulation-panel">
+          <canvas id="gas-canvas" aria-label="Animated gas particles in a container"></canvas>
+          <div class="legend"><span class="particle-dot"></span> Ideal-gas particles</div>
+        </div>
+
+        <aside class="controls">
+          <label for="particle-count">Particles <output id="count-output">160</output></label>
+          <input id="particle-count" type="range" min="20" max="500" step="10" value="160">
+
+          <label for="temperature">Initial temperature <output id="temperature-output">1.0</output></label>
+          <input id="temperature" type="range" min="0.2" max="5" step="0.1" value="1">
+
+          <button id="reset" type="button" disabled>Reset simulation</button>
+          <div class="metrics" aria-live="polite">
+            <div><span>Measured T</span><strong id="measured-temperature">—</strong></div>
+            <div><span>2D pressure</span><strong id="pressure">—</strong></div>
+            <div><span>Kinetic energy</span><strong id="energy">—</strong></div>
+          </div>
+          <p class="hint">Walls reflect particles elastically. There are no particle-particle collisions.</p>
+        </aside>
+      </section>
+
+      <footer>
+        <span>Dimensionless units · k<sub>B</sub> = 1 · P A = N T</span>
+        <span id="runtime">Initializing Pyodide…</span>
+      </footer>
+    </main>
+  </body>
+</html>

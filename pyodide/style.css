@@ -1,0 +1,230 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #0b1020;
+  color: #edf2ff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
+  background:
+    radial-gradient(ellipse at 18% 0%, rgb(54 68 123 / 22%), transparent 40%),
+    #0b1020;
+}
+
+.app {
+  width: min(100%, 1100px);
+}
+
+.heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #89a4ff;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  letter-spacing: -0.045em;
+}
+
+.intro {
+  margin: 10px 0 0;
+  color: #aab5d0;
+}
+
+.status {
+  flex: 0 0 auto;
+  max-width: 280px;
+  color: #aab5d0;
+  font-size: 0.86rem;
+  text-align: right;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 18px;
+}
+
+.simulation-panel,
+.controls {
+  border: 1px solid #27314d;
+  border-radius: 18px;
+  background: rgb(18 25 45 / 92%);
+  box-shadow: 0 18px 60px rgb(0 0 0 / 22%);
+}
+
+.simulation-panel {
+  min-width: 0;
+  overflow: hidden;
+  padding: 14px;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: clamp(320px, 55vh, 560px);
+  border: 1px solid #313e61;
+  border-radius: 10px;
+  background: #0b1225;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 3px 2px;
+  color: #aab5d0;
+  font-size: 0.84rem;
+}
+
+.particle-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #73d5ff;
+  box-shadow: 0 0 11px rgb(115 213 255 / 75%);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 22px;
+}
+
+.controls label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 2px 0 12px;
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+output {
+  color: #9bb1ff;
+  font-variant-numeric: tabular-nums;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin: 0 0 25px;
+  accent-color: #83a1ff;
+}
+
+button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 10px;
+  background: #7895ff;
+  color: #0a1020;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 750;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+button:not(:disabled):hover {
+  background: #9bb0ff;
+}
+
+.metrics {
+  display: grid;
+  gap: 0;
+  margin-top: 20px;
+  border-top: 1px solid #27314d;
+}
+
+.metrics div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid #27314d;
+  color: #aab5d0;
+  font-size: 0.84rem;
+}
+
+.metrics strong {
+  color: #edf2ff;
+  font-variant-numeric: tabular-nums;
+}
+
+.hint {
+  margin: 17px 0 0;
+  color: #818daa;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 15px;
+  color: #818daa;
+  font-size: 0.77rem;
+}
+
+@media (max-width: 760px) {
+  body {
+    place-items: start center;
+    padding: 24px 14px;
+  }
+
+  .heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .status {
+    margin: 0;
+    text-align: left;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .controls {
+    padding: 18px;
+  }
+
+  canvas {
+    height: 48vh;
+    min-height: 260px;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
