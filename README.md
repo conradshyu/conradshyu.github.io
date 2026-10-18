@@ -1,6 +1,8 @@
 # CS::Statistics
 
-CS::Statistics is a static, browser-based educational tool for exploring statistical analyses and creating charts. The project is a collection of HTML, JavaScript, Python, JSON, and image files; it has no server-side application or build pipeline in this checkout. The main page loads the interface and analysis code as static resources, while Pyodide runs the Python analyses in the browser.
+CS::Statistics is a static, browser-based educational tool for exploring statistical analyses and creating charts. The project is a collection of HTML, JavaScript, Python, JSON, and image files; it has no server-side application or build pipeline in this checkout. The main page loads the interface and analysis code as static resources, while Pyodide runs the Python analyses in the browser. This is achieved using WebAssembly.
+
+[WebAssembly](https://webassembly.org/) is a low-level, assembly-like binary instruction format that runs with near-native speed inside web browsers and other sandboxed environments. The primary purpose of WebAssembly (abbreviated as Wasm) is to enable high-performance, near-native speed code execution on the web. It is designed as a portable, compact binary instruction format that serves as a universal compilation target for high-level programming languages like C, C++, Rust, and Go, allowing them to run directly inside web browsers alongside JavaScript.
 
 > **Intended use:** The in-app About page describes this as an educational aid, not a professional or critical-use statistics package. Check results with an appropriate statistical tool before relying on them.
 
