@@ -17,24 +17,6 @@ The main interface (`index.html`) offers:
 
 Analysis dialogs let you choose columns for each procedure, usually by dragging column names into the requested variable areas. Analyses produce a chart and, where implemented, summary or test-statistic tables.
 
-## Getting started
-
-The app uses relative file requests to load its pages, data, and Python modules, so serve the folder over HTTP rather than opening `index.html` directly with a `file://` URL. From the project directory, start a local static server:
-
-```bash
-cd /home/shyu/Projects/html/github.io/conradshyu.github.io
-python3 -m http.server 8000
-```
-
-Then open <http://localhost:8000/> in a modern browser. No application build or Python server is required.
-
-1. Choose **Import Data → Load Example Data**, or upload an `.xlsx` file with **Import Data → Open a XLSX File ...**.
-2. Select an analysis or chart from the menus.
-3. Assign the requested columns in the dialog and choose **Run**.
-4. View the result in its tab. Close a result tab with its **x** control.
-
-The app downloads its browser libraries and Python runtime/packages from external CDNs when it loads, so an internet connection is needed for a complete session.
-
 ## Data and input expectations
 
 The main page's **Load Example Data** action reads `example.json`, which contains 74 records with these columns: `feature`, `label`, `abnormal`, `tuberculosis`, `pneumonia`, `bronchitis`, and `weight`. `iris.json` is another bundled dataset (150 records; sepal and petal measurements, `species`, and `encoding`), but it is not connected to the main page's example-data action.
