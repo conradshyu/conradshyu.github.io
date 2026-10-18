@@ -1,0 +1,153 @@
+<div class="ui grid">
+    <div class="two wide column" style="width: 100%;">
+    </div>
+    <div class="twelve wide column" style="width: 100%; text-align: center;">
+        <canvas></canvas>
+    </div>
+    <div class="two wide column" style="width: 100%;">
+    </div>
+</div>
+<div class="ui accordion">
+    <div class="title">
+        <i class="dropdown icon" style="color: blue;"></i>
+        Control Panel
+    </div>
+    <div class="content">
+        <table class="ui compact celled table" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="width: 25%;">Parameter</th>
+                    <th style="width: 25%;">Value</th>
+                    <th style="width: 25%;">Parameter</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Figure Title</td>
+                    <td>
+                        <div class="ui small input" style="width: 100%;">
+                            <input type="text" placeholder="Figure title ..."
+                                onkeyup="DDX.active.chart.options.plugins.title.text = this.value; DDX.active.chart.update();">
+                        </div>
+                    </td>
+                    <td>Legend Font Size</td>
+                    <td>
+                        <div class="ui small input" style="width: 100%;">
+                            <input type="text" placeholder="Legend font size ..."
+                                onkeyup="DDX.active.chart.options.plugins.legend.labels.font.size = this.value; DDX.active.chart.update();">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Title Font Size</td>
+                    <td>
+                        <div class="ui small input" style="width: 100%;">
+                            <input type="text" placeholder="Title font size ..."
+                                onkeyup="DDX.active.chart.options.plugins.title.font.size = this.value; DDX.active.chart.update();">
+                        </div>
+                    </td>
+                    <td>Legend Position</td>
+                    <td>
+                        <div class="ui small selection dropdown" style="width: 100%;">
+                            <input type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Select Position</div>
+                            <div class="menu">
+                                <div class="item" data-value="top">Top</div>
+                                <div class="item" data-value="bottom">Bottom</div>
+                                <div class="item" data-value="left">Left</div>
+                                <div class="item" data-value="right">Right</div>
+                                <div class="item" data-value="chartArea">Chart Area</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    (() => {
+        window.chartColors = {
+            red: 'rgb(255, 99, 132)',
+            orange: 'rgb(255, 159, 64)',
+            yellow: 'rgb(255, 205, 86)',
+            green: 'rgb(75, 192, 192)',
+            blue: 'rgb(54, 162, 235)',
+            purple: 'rgb(153, 102, 255)',
+            grey: 'rgb(201, 203, 207)'
+        };
+
+        let ctx = DDX["active"]["value"].find("canvas");
+        DDX["active"]["chart"] = new Chart(ctx[0].getContext("2d"), {
+            type: 'radar',
+            data: {},
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    r: {
+                        pointLabels: {
+                            font: {
+                                size: 16,
+                                family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                            },
+                        },
+                    },
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        align: 'center',
+                        labels: {
+                            font: {
+                                weight: "normal",
+                                size: 14,
+                                style: "normal",
+                                family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                            },
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Radar Chart',
+                        position: "top",
+                        color: "teal",
+                        align: "center",
+                        font: {
+                            weight: "normal",
+                            size: 24,
+                            style: "normal",
+                            family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                        }
+                    },
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            }
+        });
+
+        DDX.active.chart.data.labels = DDX["json"].map((i) => i[DDX["label"][1][0]]);
+
+        $.each(DDX["label"][2], (a, b) => {
+            DDX.active.chart.data.datasets.push({label: b, data: DDX["json"].map((i) => i[b])});
+        }); // collect data for plot
+
+        $("#stat_txt").html("Status: radar chart completed.");
+        DDX.active.chart.update();
+
+        $(".dropdown").dropdown({
+            onChange: function (v) {
+                DDX.active.chart.options.plugins.legend.position = v;
+                DDX.active.chart.update();
+            }
+        });
+
+        $('.ui.accordion').accordion();
+        return true;
+    })();
+</script>
