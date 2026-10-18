@@ -73,7 +73,3 @@ For changes, keep the `index.html` menu entries, matching `modal/` and `export/`
 - Statistical methods have assumptions and constraints; review the procedure and its assumptions for the data and question at hand.
 - `index.html` loads libraries and Python packages at runtime from third-party CDNs. Offline use and fully reproducible dependency versions are not configured.
 - The project has no checked-in automated test suite, dependency lockfile, or documented deployment workflow. It is organized as a static site and can be hosted by a static web server that serves the files and subdirectories.
-
-## Contact
-
-The in-app About page invites questions and suggestions at [conradshyu@gmail.com](mailto:conradshyu@gmail.com).
