@@ -2,210 +2,518 @@
 <html lang="en">
 
 <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-KL2LN6WQ');</script>
-    <!-- End Google Tag Manager -->
-
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Web Application Development</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.css" />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.js"></script>
+    <title>CS::Univariate Statistics</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" />
+
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" language="javascript" src="assets/boxplot.js"></script>
 </head>
 
 <body style="font-size: 14px; font-family: Arial, Helvetica, sans-serif; padding: 20px 20px 20px 20px;">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KL2LN6WQ"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
-    <h2 class="ui header" style="color: teal;">
-        Application and Game Development
-    </h2>
-    <div class="ui divider"></div>
+    <table style="width: 100%;">
+        <tr>
+            <td>
+                <div class="ui header">
+                    <i class="chart line icon" style="color: teal;"></i>CS::Univeriate Statistics
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Free online tool to run statistical analysis, and generate figures and charts
+            </td>
+        </tr>
+    </table>
+    <div class="ui menu">
+        <div class="ui dropdown item">
+            Import Data<i class="dropdown icon"></i>
+            <div class="ui menu">
+                <a class="item" onclick="$(this).children('input').click();">
+                    <i class="table icon"></i>Open a XLSX File ...
+                    <input type="file" onclick="event.stopPropagation();" accept=".xlsx" onchange="load_xlsx(this);" hidden />
+                </a>
+                <div class="ui divider"></div>
+                <a class="item" onclick="load_example();">
+                    <i class="list alternate outline icon"></i>Load Example Data
+                </a>
+            </div>
+        </div>
+        <div class="ui dropdown item">
+            Univariate <i class="dropdown icon"></i>
+            <div class="ui menu">
+                <a class="item" onclick="run_action('linear.html');" onmouseout="$(this).children('i').removeClass('open');"
+                    onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Linear Regression
+                </a>
+                <a class="item" onclick="run_action('logistic.html');" onmouseout="$(this).children('i').removeClass('open');"
+                    onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Logistic Regression
+                </a>
+                <a class="item" onclick="run_action('anova.html');" onmouseout="$(this).children('i').removeClass('open');"
+                    onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>One-Way ANOVA
+                </a>
+                <div class="ui dropdown item" onmouseout="$(this).children('i').removeClass('open');"
+                    onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Student's <i>t</i>-Test<i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" onclick="run_action('student0.html');" onmouseout="$(this).children('i').removeClass('open');"
+                            onmouseover="$(this).children('i').addClass('open');">
+                            <i class="folder outline icon"></i>One Sample
+                        </a>
+                        <a class="item" onclick="run_action('student1.html');" onmouseout="$(this).children('i').removeClass('open');"
+                            onmouseover="$(this).children('i').addClass('open');">
+                            <i class="folder outline icon"></i>Two Samples
+                        </a>
+                        <a class="item" onclick="run_action('student2.html');" onmouseout="$(this).children('i').removeClass('open');"
+                            onmouseover="$(this).children('i').addClass('open');">
+                            <i class="folder outline icon"></i>Paired Samples
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui dropdown item">
+            Multivariate <i class="dropdown icon"></i>
+            <div class="ui menu">
+                <a class="item" onclick="run_action('cluster.html');"
+                    onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Cluster Analysis (K-Means)
+                </a>
+                <a class="item" onclick="run_action('mds.html');"
+                    onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Multidimensional Scaling
+                </a>
+                <a class="item" onclick="run_action('manova.html');"
+                    onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Multivariate Analysis of Variance
+                </a>
+                <a class="item" onclick="run_action('pca.html');"
+                    onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Principal Components Analysis
+                </a>
+            </div>
+        </div>
+        <div class="ui dropdown item">
+            Chart <i class="dropdown icon"></i>
+            <div class="ui menu">
+                <a class="item" onclick="run_action('bar_chart.html');"
+                    onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Bar
+                </a>
+                <a class="item" onclick="run_action('box_chart.html');"
+                    onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Box
+                </a>
+                <a class="item" onclick="run_action('line_chart.html');"
+                    onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Line
+                </a>
+                <a class="item" onclick="run_action('pie_chart.html');"
+                    onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Pie
+                </a>
+                <a class="item" onclick="run_action('radar_chart.html');"
+                    onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Radar
+                </a>
+                <a class="item" onclick="run_action('scatter_chart.html');"
+                    onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Scatter
+                </a>
+            </div>
+        </div>
+        <div class="right menu">
+            <a class="item" onclick="$('#action').load('about.html'); $('.ui.modal').modal('show');">
+                <i class="question circle outline icon"></i>About
+            </a>
+        </div>
+    </div>
+    <div class="ui top attached tabular menu">
+        <a class="item active" data-tab="tb0a">
+            Data
+        </a>
+        <a class="item" data-tab="tb0b" style="display: none;" onclick="DDX['active'] = DDX['tab'][0];">
+            <span>Plot:1</span>
+            <i class="x icon" onclick="hide_tab(event);" title="Click here to close the tab ..."></i>
+        </a>
+        <a class="item" data-tab="tb0c" style="display: none;" onclick="DDX['active'] = DDX['tab'][1];">
+            <span>Plot:2</span>
+            <i class="x icon" onclick="hide_tab(event);" title="Click here to close the tab ..."></i>
+        </a>
+        <a class="item" data-tab="tb0d" style="display: none;" onclick="DDX['active'] = DDX['tab'][2];">
+            <span>Plot:3</span>
+            <i class="x icon" onclick="hide_tab(event);" title="Click here to close the tab ..."></i>
+        </a>
+        <a class="item" data-tab="tb0e" style="display: none;" onclick="DDX['active'] = DDX['tab'][3];">
+            <span>Plot:4</span>
+            <i class="x icon" onclick="hide_tab(event);" title="Click here to close the tab ..."></i>
+        </a>
+        <a class="item" data-tab="tb0f" style="display: none;" onclick="DDX['active'] = DDX['tab'][4];">
+            <span>Plot:5</span>
+            <i class="x icon" onclick="hide_tab(event);" title="Click here to close the tab ..."></i>
+        </a>
+        <a class="item" data-tab="tb0g" style="display: none;" onclick="DDX['active'] = DDX['tab'][5];">
+            <span>Plot:6</span>
+            <i class="x icon" onclick="hide_tab(event);" title="Click here to close the tab ..."></i>
+        </a>
+        <a class="item" data-tab="tb0h" style="display: none;" onclick="DDX['active'] = DDX['tab'][6];">
+            <span>Plot:7</span>
+            <i class="x icon" onclick="hide_tab(event);" title="Click here to close the tab ..."></i>
+        </a>
+        <a class="item" data-tab="tb0i" style="display: none;" onclick="DDX['active'] = DDX['tab'][7];">
+            <span>Plot:8</span>
+            <i class="x icon" onclick="hide_tab(event);" title="Click here to close the tab ..."></i>
+        </a>
+        <a class="item" data-tab="tb0j" style="display: none;" onclick="DDX['active'] = DDX['tab'][8];">
+            <span>Plot:9</span>
+            <i class="x icon" onclick="hide_tab(event);" title="Click here to close the tab ..."></i>
+        </a>
+        <a class="item" data-tab="tb0k" style="display: none;" onclick="DDX['active'] = DDX['tab'][9];">
+            <span>Plot:10</span>
+            <i class="x icon" onclick="hide_tab(event);" title="Click here to close the tab ..."></i>
+        </a>
+        <a class="floated right item" data-tab="tb0y">
+            <span>Tutorial</span>
+        </a>
+        <a class="item" data-tab="tb0z">
+            <span>FAQ</span>
+        </a>
+    </div>
+    <div class="ui bottom attached tab segment active" data-tab="tb0a">
+        <div class="ui grid">
+            <div class="twelve wide column" style="text-align: left;">
+            </div>
+            <div class="four wide column" style="text-align: right;">
+                <div class="ui pagination menu" id="table_page"></div>
+            </div>
+        </div>
+        <table id="table_data" class="ui celled striped table" style="width:100%">
+            <thead>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="tb0b">
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="tb0c">
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="tb0d">
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="tb0e">
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="tb0f">
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="tb0g">
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="tb0h">
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="tb0i">
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="tb0j">
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="tb0k">
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="tb0y">
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="tb0z">
+    </div>
+    <div class="ui modal" id="action"></div>
     <div class="ui grid">
         <div class="eight wide column">
-            <div class="ui segment">
-                <h4 class="ui header" style="color: gray;">
-                    <i class="hospital outline icon"  style="color: teal;"></i>
-                    Virus Outbreak Simulation
-                </h4>
-                <div class="ui divider"></div>
-                <p>
-                    <b>Synopsis</b>: This program simulates the spread of virus in a close or open community based on the
-                    <a href="https://en.wikipedia.org/wiki/Compartmental_models_(epidemiology)" target="_blank">
-                    SIR compartmental model</a>. The model is based on the idea that a population during an outbreak
-                    can be divided into three groups, namely susceptible (S), infected (I), and recovered (R).
-                    There are options to specify the probabilities for infection and recovery.
-                </p>
-                <p>
-                    For more information, please visit <a href="virus/index.html" target="_blank">this page</a>.
-                </p>
+            <div class="ui segment" style="width: 100%;">
+                <p id="stat_txt">Status: ready</p>
             </div>
         </div>
-        <div class="eight wide column">
-            <div class="ui segment">
-                <h4 class="ui header" style="color: gray;">
-                    <i class="sitemap icon"  style="color: teal;"></i>
-                    Ideal Gas Simulation
-                </h4>
-                <div class="ui divider"></div>
-                <p>
-                    <b>Synopsis</b>: The simulation was implemented using WebAssembly. WebAssembly is a low-level,
-                    assembly-like binary format that runs high-performance code written in Python (run through
-                    Pyodide) directly in web browsers and other environment at near-native speed. Pyodide is a
-                    port of CPython to WebAssembly/Emscripten that allows seamless data exchange and function calls
-                    between JavaScript and Python.
-                </p>
-                <p>
-                    For more information, please visit <a href="pyodide/index.html" target="_blank">this page</a>.
-                </p>
-            </div>
-        </div>
-        <div class="eight wide column">
-            <div class="ui segment">
-                <h4 class="ui header" style="color: gray;">
-                    <i class="sitemap icon"  style="color: teal;"></i>
-                    3D Protein Structure Viewer
-                </h4>
-                <div class="ui divider"></div>
-                <p>
-                    <b>Synopsis</b>: The viewer displays protein 3D structure highlighting mutation(s). It shows
-                    annotated protein sequence with and overlay the annotations over a corresponding
-                    experimental or predicted protein structure. The view also provides sequence
-                    annotation provided by <a href="https://github.com/ebi-uniprot/ProtVista" target="_blank">
-                    ProtVista</a>.
-                </p>
-                <p>
-                    For more information, please visit <a href="sunlit/index.html" target="_blank">this page</a>.
-                </p>
-            </div>
-        </div>
-        <div class="eight wide column">
-            <div class="ui segment">
-                <h4 class="ui header" style="color: gray;">
-                    <i class="chess bishop icon" style="color: teal;"></i>
-                    Statistical Analysis
-                </h4>
-                <div class="ui divider"></div>
-                <p>
-                    <b>Synopsis</b>: This is a web based statistical analysis that utilizes WebAssembly to perform computations
-                    in the browser. It provides a user-friendly interface for conducting various statistical tests and visualizing
-                    results.
-                </p>
-                <p>
-                    For more information, please visit <a href="statistics/index.html" target="_blank">this page</a>.
-                </p>
-            </div>
-        </div>
-        <div class="eight wide column">
-            <div class="ui segment">
-                <h4 class="ui header" style="color: gray;">
-                    <i class="pencil alternate icon" style="color: teal;"></i>
-                    Quill Online Text Editor
-                </h4>
-                <div class="ui divider"></div>
-                <p>
-                    <b>Synopsis</b>: <a href="https://quilljs.com/" target="_blank">Quill Rich Text Editor</a>
-                    is an open source text editor. I have implemented an example with load and download
-                    functions that allow users to load text files and download/save the contents to a
-                    text file. The status bar shows the number of text and HTML characters. There is also
-                    a clear text button to remove text in the editor.
-                </p>
-                <p>
-                    For more information, please visit <a href="quill/index.html" target="_blank">this page</a>.
-                </p>
-            </div>
-        </div>
-        <div class="eight wide column">
-            <div class="ui segment">
-                <h4 class="ui header" style="color: gray;">
-                    <i class="th icon" style="color: teal;"></i>
-                    Sudoku
-                </h4>
-                <div class="ui divider"></div>
-                <p>
-                    <b>Synopsis</b>: I have developed an algorithm that generates and solves Sudoku matrices
-                    using random or stochastic processes. The processes randomly search the possible space
-                    solution and try to find an optimal solution. The algorithm theoretically can generate an
-                    infinite number of unique Sudoku puzzles and solve them.
-                </p>
-                <p>
-                    For more information, please visit <a href="sudoku/index.html" target="_blank">this page</a>.
-                </p>
-            </div>
-        </div>
-        <div class="eight wide column">
-            <div class="ui segment">
-                <h4 class="ui header" style="color: gray;">
-                    <i class="barcode icon" style="color: teal;"></i>
-                    Barcode and QR Code
-                </h4>
-                <div class="ui divider"></div>
-                <p>
-                    <b>Synopsis</b>: This application generates barcodes and QR codes based on different
-                    symbologies. The descriptions provide some example text to generate correct barcodes.
-                </p>
-                <p>
-                    For more information, please visit <a href="barcode/index.html" target="_blank">this page</a>.
-                </p>
-            </div>
-        </div>
-        <div class="eight wide column">
-            <div class="ui segment">
-                <h4 class="ui header" style="color: gray;">
-                    <i class="paint brush icon" style="color: teal;"></i>
-                    HTML Color Slider
-                </h4>
-                <div class="ui divider"></div>
-                <p>
-                    <b>Synopsis</b>: Find the perfect color. The color is presented as an RGB triplet.
-                    Use the slider to find the required color.
-                </p>
-                <p>
-                    For more information, please visit <a href="color.html" target="_blank">this page</a>.
-                </p>
-            </div>
-        </div>
-        <div class="eight wide column">
-            <div class="ui segment">
-                <h4 class="ui header" style="color: gray;">
-                    <i class="chess bishop icon" style="color: teal;"></i>
-                    Shuffle Match
-                </h4>
-                <div class="ui divider"></div>
-                <p>
-                    <b>Synopsis</b>: This is a sliding blocks logic game. The objective is to shuffle the squares
-                    on the right matrix, so that the layout matches the matrix on the left.
-                </p>
-                <p>
-                    For more information, please visit <a href="match/index.html" target="_blank">this page</a>.
-                </p>
-            </div>
-        </div>
-        <div class="eight wide column">
-            <div class="ui segment">
-                <h4 class="ui header" style="color: gray;">
-                    <i class="chess knight icon" style="color: teal;"></i>
-                    Gambler's Ruin
-                </h4>
-                <div class="ui divider"></div>
-                <p>
-                    <b>Synopsis</b>: Gambler's Ruin is the simulation that a gambler playing a game with
-                    negative expected value will eventually go bankrupt, regardless of their betting system.
-                </p>
-                <p>
-                    For more information, please visit <a href="gambler.html" target="_blank">this page</a>.
-                </p>
+        <div class="eight wide column" style="width: 100%;">
+            <div class="ui segment" style="width: 100%; text-align: right;">
+                Suggestions? or Comments? Please <a href="mailto:conradshyu@gmail.com">email us</a>.
             </div>
         </div>
     </div>
+    <script>
+        const MAX_ROW = 25;
+        let DDX = {
+            "tab": [
+                {"text": $(".item[data-tab='tb0b']"), "value": $(".tab[data-tab='tb0b']"), "chart": {},},
+                {"text": $(".item[data-tab='tb0c']"), "value": $(".tab[data-tab='tb0c']"), "chart": {},},
+                {"text": $(".item[data-tab='tb0d']"), "value": $(".tab[data-tab='tb0d']"), "chart": {},},
+                {"text": $(".item[data-tab='tb0e']"), "value": $(".tab[data-tab='tb0e']"), "chart": {},},
+                {"text": $(".item[data-tab='tb0f']"), "value": $(".tab[data-tab='tb0f']"), "chart": {},},
+                {"text": $(".item[data-tab='tb0g']"), "value": $(".tab[data-tab='tb0g']"), "chart": {},},
+                {"text": $(".item[data-tab='tb0h']"), "value": $(".tab[data-tab='tb0h']"), "chart": {},},
+                {"text": $(".item[data-tab='tb0i']"), "value": $(".tab[data-tab='tb0i']"), "chart": {},},
+                {"text": $(".item[data-tab='tb0j']"), "value": $(".tab[data-tab='tb0j']"), "chart": {},},
+                {"text": $(".item[data-tab='tb0k']"), "value": $(".tab[data-tab='tb0k']"), "chart": {},}
+            ],  // tabs for analysis and graph
+            "data": {
+                "text": $(".item[data-tab='tb0a']"), "value": null
+            },  // primary data table
+            "json": [], "label": [], "header": [], "post": {}, "pyodide": null,
+            "file": null, "update": null, "drag": null, "lambda": null, "active": null,
+        };  // dynamic data exchange
+
+        function run_action(i) {
+            if (DDX["json"].length == 0) {
+                window.alert(
+                    "Please load a dataset first. " +
+                    "If you do not have one, use the example dataset from the dropdown menu.");
+                return false;
+            }
+
+            $('#action').empty().load(`modal/${i}`);
+
+            $(".ui.modal").modal({
+                transition: "scale",
+                autofocus: true,
+                useFlex: "auto",
+                detachable: true,
+                closable: true,
+                onHide: (e) => {
+                    // called after a modal starts to hide
+                    //console.log("Modal: Hide Event");
+                },
+                onHidden: () => {
+                    // called after a modal has finished hiding animation
+                    //console.log("Modal: Hidden Event");
+                    if (DDX["active"] == null) {
+                        return false;
+                    }   // user cancel action
+
+                    const tb = DDX["active"]["text"].data("tab");
+                    $('.item').tab('change tab', tb);
+
+                    if ($(`.item[data-tab='${tb}']`).css("display") == "none") {
+                        $(".item").tab("change tab", "tb0a");
+                    }   // previous tab has been closed; show first tab
+                },
+                onShow: () => {
+                    // called when a modal starts to show
+                    //console.log("Modal: Show Event");
+                },
+                onDeny: (e) => {
+                    // called after a negative, deny or cancel button is pressed
+                    //console.log("Modal: Deny Event");
+                },
+                onApprove: (e) => {
+                    // called after a positive, approve or ok button is pressed
+                    DDX["active"]["value"].load(`export/${i}`);
+                    //console.log("Modal: Approve Event");
+                }
+            }).modal("show");
+        }   // active modal dialog and run analysis
+
+        function hide_tab(e) {
+            DDX["active"]["text"].css("display", "none");
+            DDX["active"]["value"].empty();
+            $('.item').tab('change tab', "tb0a");
+            e.stopPropagation();
+        }   // hide tab
+
+        function redraw(m) {
+            DDX["data"]["value"].set_max(m);    // update max rows per page
+            page(0);
+        }   // update number of rows in table
+
+        function order(i, k) {
+            if ($(i).hasClass('up')) {
+                $(i).removeClass('up').addClass('down');
+                DDX["data"]["value"].order(k, false);
+            } else {
+                $(i).removeClass('down').addClass('up');
+                DDX["data"]["value"].order(k, true);
+            }
+
+            page(0);
+        }   // sort table data and redraw
+
+        function page(i) {
+            DDX["data"]["value"].body(DDX["data"]["value"].paging(i));
+        }   // update paging
+
+        class DataTable {
+            TABLE = {
+                "table": null, "page": null, "json": [], "max": MAX_ROW, "range": 0, "index": 0,
+            };
+
+            constructor(i, p) {
+                this.TABLE["table"] = i;   // table jquery
+                this.TABLE["page"] = p;    // pagination jquery
+                let blank = [];
+
+                for (let a = 0; a < 20; a++) {
+                    blank.push({
+                        "A": "&nbsp;", "B": "&nbsp;", "C": "&nbsp;", "D": "&nbsp;", "E": "&nbsp;", "F": "&nbsp;"
+                    }); // empty table
+                }
+
+                this.draw(blank, this.TABLE["max"]);   // draw blank table
+            }   // class constructor; assign jquery to table and pagination
+
+            init(j) {
+                this.TABLE["json"] = j;    // json data
+
+                // populate table headers
+                let w = "<tr>";
+                $.each(this.TABLE["json"][0], (a, b) => {
+                    w += `<th><i class="sort up icon" style="color: green" onclick="order(this, '${a}');" onmouseover="this.style.cursor = 'pointer';"></i>${a}</th>`;
+                });
+
+                w += "</tr>";
+                this.TABLE["table"].children("thead").empty().html(w);
+
+                return true;
+            }   // initialization; populate table header
+
+            paging(i = 0) {
+                // 0: reset to first page; -1: move left page, decrement; 1: move right page, increment
+                switch (i) {
+                    case -1:
+                        (this.TABLE["index"] === 0) ? this.TABLE["index"] = 0 : this.TABLE["index"] += i;
+                        break;      // move left page; decrement
+                    case 1:
+                        ((this.TABLE["index"] + 1) < this.TABLE["range"]) ?
+                            this.TABLE["index"] += i : this.TABLE["index"] = this.TABLE["range"] - 1;
+                        break;      // move right page; increment
+                    default:
+                        this.TABLE["index"] = 0;   // reset to first page
+                }
+
+                //console.log(`i: ${i}, index: ${this.TABLE["index"]}, range: ${this.TABLE["range"]}`);
+                let x = (this.TABLE["index"] + 1) * this.TABLE["max"];
+                x = (x > this.TABLE["json"].length) ? this.TABLE["json"].length : x
+                this.TABLE["page"].empty().html(
+                    '<a class="item" onclick="page(-1);"><i class="angle left icon"></i></a>' +
+                    `<a class="item">${x}/${this.TABLE["json"].length}</a>` +
+                    '<a class="item" onclick="page(1);"><i class="angle right icon"></i></a>');
+
+                return this.TABLE["index"];
+            }   // populate pagination progress bar
+
+            body(p = 0) {
+                let w = ""; let n = p * this.TABLE["max"];
+
+                for (let i = 0; (i < this.TABLE["max"]) && ((i + n) < this.TABLE["json"].length); i++) {
+                    w += "<tr>";
+                    $.each(this.TABLE["json"][i + n], (a, b) => { w += `<td>${b}</td>`; });
+                    w += "</tr>";
+                }
+
+                this.TABLE["table"].children("tbody").empty().html(w);
+                //console.log($(this.TABLE["table"].children("tbody").html()));
+
+                return true;
+            }   // populate table contents with starting page number
+
+            order(k, r = true) {
+                this.TABLE["json"].sort((a, b) => {
+                    if (a[k] > b[k]) { return r ? 1 : -1; }
+                    if (a[k] < b[k]) { return r ? -1 : 1; }
+                    return 0;
+                });
+
+                return true;
+            }   // sort data and redraw table contents
+
+            set_max(m) {
+                this.TABLE["max"] = m;
+                this.TABLE["index"] = 0;
+                this.TABLE["range"] = parseInt(this.TABLE["json"].length / this.TABLE["max"]) +
+                    ((this.TABLE["json"].length % this.TABLE["max"]) > 0 ? 1 : 0);
+
+                return this.TABLE["index"];
+            }   // set maximum number of rows per page
+
+            draw(j, m) {
+                this.init(j);       // load json data and draw table headers
+                this.set_max(m);
+                this.body(this.paging(0));
+
+                return true;
+            }   // draw table with new data
+        }
+
+        function load_example(m = MAX_ROW) {
+            $.getJSON("example.json", (r) => {
+                DDX["json"] = r;
+                DDX["data"]["value"].draw(DDX["json"], MAX_ROW);
+                DDX["header"] = [];
+
+                $.each(DDX["json"][0], (a, b) => {
+                    DDX["header"].push(a);
+                }); // accumulate column names
+
+                DDX["file"] = "Sample Data";
+                DDX["data"]["text"].html(`File: ${DDX["file"]}`);
+                $("#stat_txt").html("Status: sample data loaded.");
+            }).fail((e) => {
+                console.log(`Error: ${e}`);
+            });
+        }   // reload json data
+
+        async function load_xlsx(i) {
+            const tmp_xlsx = "/tmp/example.xlsx";
+            const source = await fetch("execs/xlsx2json.py");
+            const xlsx = new Uint8Array(await i.files[0].arrayBuffer());
+            DDX["pyodide"].FS.writeFile(tmp_xlsx, xlsx);
+            DDX["pyodide"].runPython(await source.text());
+            DDX["json"] = JSON.parse(DDX["pyodide"].globals.get("run")(tmp_xlsx));
+            DDX["data"]["value"].draw(DDX["json"], MAX_ROW);
+            DDX["header"] = [];
+
+            $.each(DDX["json"][0], (a, b) => {
+                DDX["header"].push(a);
+            }); // accumulate column names
+
+            DDX["file"] = i.files[0].name;
+            DDX["data"]["text"].html(`File: ${DDX["file"]}`);
+            $("#stat_txt").html(`Status: sample file <q>${DDX["file"]}</q> loaded.`);
+        }
+
+        $(document).ready(function() {
+            $('.dropdown').dropdown();
+            $(".tab[data-tab='tb0y']").load("help.html");
+            $(".tab[data-tab='tb0z']").load("faq.html");
+
+            $(".menu .item").tab({
+                onFirstLoad: () => {
+                    // callback only the first time a tab is loaded
+                    //console.log("Tab: First Load Event");
+                },
+                onLoad: (t, b) => {
+                    // callback every time a tab is loaded
+                    //console.log("Tab: Load Event");
+                },
+                onRequest: () => {
+                    // called when a tab begins loading remote
+                    //console.log("Tab: Request Event");
+                },
+                onVisible: () => {
+                    // called after a tab becomes visible
+                    //console.log("Tab: Visible Event");
+                }
+            });
+
+            DDX["data"]["value"] = new DataTable($("#table_data"), $("#table_page"));
+
+            (async () => {
+                DDX["pyodide"] = await loadPyodide();
+                await DDX["pyodide"].loadPackage([
+                    "scikit-learn", "pandas", "micropip"]);
+                await DDX["pyodide"].runPythonAsync(`
+                    import micropip
+                    await micropip.install("openpyxl")
+                    await micropip.install("statsmodels")
+                `);
+            })();
+        });
+    </script>
 </body>
-</html>
