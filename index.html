@@ -72,9 +72,6 @@
             </td>
         </tr>
     </table>
-    <div class="loader-container" style="width: 100%;">
-        <div class="spinner"></div>
-    </div>
     <div class="ui menu">
         <div class="ui dropdown item">
             Import Data<i class="dropdown icon"></i>
@@ -504,10 +501,10 @@
         }   // reload json data
 
         async function load_xlsx(i) {
-            document.querySelector('.loader-container').style.display = 'block';
             const tmp_xlsx = "/tmp/example.xlsx";
             const source = await fetch("execs/xlsx2json.py");
             const xlsx = new Uint8Array(await i.files[0].arrayBuffer());
+
             DDX["pyodide"].FS.writeFile(tmp_xlsx, xlsx);
             DDX["pyodide"].runPython(await source.text());
             DDX["json"] = JSON.parse(DDX["pyodide"].globals.get("run")(tmp_xlsx));
@@ -520,14 +517,10 @@
 
             DDX["file"] = i.files[0].name;
             DDX["data"]["text"].html(`File: ${DDX["file"]}`);
-
-            document.querySelector('.loader-container').style.display = 'none';
             $("#stat_txt").html(`Status: sample file <q>${DDX["file"]}</q> loaded.`);
         }
 
         $(document).ready(function() {
-            document.querySelector('.loader-container').style.display = 'none';
-
             $('.dropdown').dropdown();
             $(".tab[data-tab='tb0y']").load("help.html");
             $(".tab[data-tab='tb0z']").load("faq.html");
