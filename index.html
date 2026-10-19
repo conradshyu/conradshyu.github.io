@@ -58,6 +58,9 @@
 </head>
 
 <body style="font-size: 14px; font-family: Arial, Helvetica, sans-serif; padding: 20px 20px 20px 20px;">
+    <div class="loader-container">
+        <div class="spinner"></div>
+    </div>
     <table style="width: 100%;">
         <tr>
             <td>
@@ -279,10 +282,6 @@
                 Suggestions? or Comments? Please <a href="mailto:conradshyu@gmail.com">email us</a>.
             </div>
         </div>
-    </div>
-    <!-- Waiting Animation Structure -->
-    <div class="loader-container">
-        <div class="spinner"></div>
     </div>
     <script>
         const MAX_ROW = 25;
@@ -522,7 +521,7 @@
             DDX["file"] = i.files[0].name;
             DDX["data"]["text"].html(`File: ${DDX["file"]}`);
 
-            document.querySelector('.loader-container').style.display = 'block';
+            document.querySelector('.loader-container').style.display = 'none';
             $("#stat_txt").html(`Status: sample file <q>${DDX["file"]}</q> loaded.`);
         }
 
