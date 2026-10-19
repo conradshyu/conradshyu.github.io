@@ -296,6 +296,9 @@
         }
 
         (async () => {
+            let modal = document.getElementById('loadingModal');
+            modal.classList.add('active');
+
             try {
                 const source = await fetch("execs/student.py");
                 DDX["pyodide"].runPython(await source.text());
@@ -311,6 +314,8 @@
             } finally {
                 $("#stat_txt").html("Status: student's <i>t</i>-Test paired sample completed.");
             }
+
+            model.classList.remove('active');
         })();
 
         $(".dropdown").dropdown({

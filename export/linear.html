@@ -288,6 +288,9 @@
         });
 
         (async () => {
+            let modal = document.getElementById('loadingModal');
+            modal.classList.add('active');
+
             try {
                 const source = await fetch("execs/linear.py");
                 DDX["pyodide"].runPython(await source.text());
@@ -303,6 +306,8 @@
             } finally {
                 $("#stat_txt").html("Status: linear regression completed.");
             }
+
+            modal.classList.remove('active');
         })();
 
         $('.ui.accordion').accordion();

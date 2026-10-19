@@ -293,6 +293,9 @@
         });
 
         (async () => {
+            let modal = document.getElementById('loadingModal');
+            modal.classList.add('active');
+
             try {
                 const source = await fetch('execs/logistic.py');
                 DDX["pyodide"].runPython(await source.text());
@@ -307,6 +310,8 @@
             } finally {
                 $("#stat_txt").html("Status: logistic regression completed.");
             }
+
+            modal.classList.remove('active');
         })();
 
         $('.ui.accordion').accordion();
