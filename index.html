@@ -365,6 +365,8 @@
                     //console.log("Modal: Approve Event");
                 }
             }).modal("show");
+
+            $(window).trigger("resize");    // trigger window resize event
         }   // active modal dialog and run analysis
 
         function hide_tab(e) {
