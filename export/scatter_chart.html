@@ -227,6 +227,7 @@
 
         DDX.active.chart.update();
         $("#stat_txt").html("Status: scatter chart completed.");
+        $(window).trigger("resize");
 
         $(".dropdown").dropdown({
             onChange: function (v) {
