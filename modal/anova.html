@@ -14,8 +14,7 @@
                     Select Variables
                 </strong>
                 <div class="ui segment">
-                    <div class="dnd_var" ondrop="DDX['lambda'](event);" ondragover="event.preventDefault();"
-                        style="text-align: center;">
+                    <div class="dnd_var" ondrop="DDX['lambda'](event);" ondragover="event.preventDefault();" style="text-align: center;">
                     </div>
                 </div>
             </div>
@@ -24,8 +23,7 @@
                     Group
                 </strong>
                 <div class="ui segment">
-                    <div class="dnd_var" ondrop="DDX['lambda'](event);" ondragover="event.preventDefault();"
-                        style="text-align: center;">
+                    <div class="dnd_var" ondrop="DDX['lambda'](event);" ondragover="event.preventDefault();" style="text-align: center;">
                     </div>
                 </div>
             </div>
@@ -45,7 +43,7 @@
     (() => {
         DDX["lambda"] = (e) => {
             e.preventDefault();
-            $(e.target).append($(DDX["drag"]).get(0));
+            $(e.target).closest(".dnd_var").append($(DDX["drag"]).get(0));
 
             $(".dnd_var").each((i, v) => {
                 DDX["label"][i] = [];

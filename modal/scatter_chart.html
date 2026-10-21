@@ -60,7 +60,7 @@
     (() => {
         DDX["lambda"] = (e) => {
             e.preventDefault();
-            $(e.target).append($(DDX["drag"]).get(0));
+            $(e.target).closest(".dnd_var").append($(DDX["drag"]).get(0));
 
             $(".dnd_var").each((i, v) => {
                 DDX["label"][i] = [];
