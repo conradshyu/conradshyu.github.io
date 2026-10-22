@@ -1,0 +1,107 @@
+<i class="close icon"></i>
+<div class="header">
+    Ensemble: Random Forest
+</div>
+<div class="content" style="width: 100%;">
+    <div class="ui segment" style="width: 100%;">
+        <b>NOTE</b>: Drag and drop <b>only one</b> variable with numerical values for the response variable. Select
+        <b>at least two</b> variable with numerical values for the predictor</i>.
+    </div>
+    <div class="ui grid">
+        <div class="three column row" style="width: 100%; padding: 10px 10px 10px 10px;">
+            <div class="column" style="text-align: center;">
+                <strong>
+                    Select Variables
+                </strong>
+                <div class="ui segment">
+                    <div class="dnd_var" ondrop="DDX['lambda'](event);" ondragover="event.preventDefault();"
+                        style="text-align: center;">
+                    </div>
+                </div>
+            </div>
+            <div class="column" style="text-align: center;">
+                <strong>
+                    Response
+                </strong>
+                <div class="ui segment">
+                    <div class="dnd_var" ondrop="DDX['lambda'](event);" ondragover="event.preventDefault();"
+                        style="text-align: center;">
+                    </div>
+                </div>
+            </div>
+            <div class="column" style="text-align: center;">
+                <strong>
+                    Predictors
+                </strong>
+                <div class="ui segment">
+                    <div class="dnd_var" ondrop="DDX['lambda'](event);" ondragover="event.preventDefault();"
+                        style="text-align: center;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="actions">
+    <div class="ui black deny button">
+        Cancel
+    </div>
+    <div class="ui positive right labeled icon button" onclick="DDX['update']();">
+        Run
+        <i class="checkmark icon"></i>
+    </div>
+</div>
+<script>
+    (() => {
+        DDX["lambda"] = (e) => {
+            e.preventDefault();
+            $(e.target).append($(DDX["drag"]).get(0));
+
+            $(".dnd_var").each((i, v) => {
+                DDX["label"][i] = [];
+                $.each($(v).children(), (a, b) => {
+                    DDX["label"][i].push($(b).text().trim());
+                });
+            });
+        }   // dynamically define function to handle drop event base on selection
+
+        DDX["update"] = () => {
+            if (DDX["label"][1].length > 1) {
+                window.alert("ERROR: Select only one variable with numerical values for response.");
+                return false;
+            }   // only one variable for response
+
+            if (DDX["label"][2].length < 2) {
+                window.alert("ERROR: Select at least two variables with numerical values for predictors.");
+                return false;
+            }   // at least one variable for predictors
+
+            let pid = null;
+
+            for (let i = 0; i < DDX["tab"].length; i++) {
+                if (DDX["tab"][i]["text"].css("display") == "none") {
+                    pid = DDX["tab"][i]; break;
+                }
+            }   // find first tab with display none
+
+            DDX["active"] = pid;
+            pid["text"].css("display", "block");
+            pid["text"].children("span").html("Ensemble: Random Forest");  // update tab text
+
+            DDX["post"] = {
+                "y": DDX["label"][1].join(" "),
+                "x": DDX["label"][2].join(" "),
+                "data": DDX["json"],
+            };  // send data to server
+        }
+
+        $(".dnd_var").each((a, b) => {
+            $(b).css("height", `${DDX["header"].length * 35}px`);
+        }); // set height
+
+        $.each(DDX["header"], (a, b) => {
+            $($(".dnd_var")[0]).append(
+                `<button class="fluid compact ui labeled icon basic button" style="margin-bottom: 5px;" draggable="true" ondragstart="DDX['drag'] = this;"><i class="pause icon"></i>${b}</button>`);
+        });
+    })();
+</script>
