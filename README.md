@@ -1,77 +1,86 @@
 # CS::Statistics
 
-CS::Statistics is a static, browser-based educational tool for exploring statistical analyses and creating charts. The project is a collection of HTML, JavaScript, Python, JSON, and image files; it has no server-side application or build pipeline in this checkout. The main page loads the interface and analysis code as static resources, while Pyodide runs the Python analyses in the browser. This is achieved using WebAssembly.
+CS::Statistics is a static, browser-based educational application for exploring statistical analyses and creating charts. It combines an HTML and JavaScript interface with Python calculations executed in the browser through Pyodide (Python compiled to WebAssembly). The application does not require an application server or send analyses to a project backend.
 
-[WebAssembly](https://webassembly.org/) is a low-level, assembly-like binary instruction format that runs with near-native speed inside web browsers and other sandboxed environments. The primary purpose of WebAssembly (abbreviated as Wasm) is to enable high-performance, near-native speed code execution on the web. It is designed as a portable, compact binary instruction format that serves as a universal compilation target for high-level programming languages like C, C++, Rust, and Go, allowing them to run directly inside web browsers alongside JavaScript.
-
-> **Intended use:** The in-app About page describes this as an educational aid, not a professional or critical-use statistics package. Check results with an appropriate statistical tool before relying on them.
+> **Educational use only:** The in-app About page says this tool is not intended for professional or critical applications. Statistical output depends on the method, input data, and assumptions; verify results with an appropriate, validated tool before relying on them.
 
 ## Features
 
-The main interface (`index.html`) offers:
+Open `index.html` to use the main application. Its menus provide:
 
-- **Data import:** Load the bundled example dataset or upload an `.xlsx` workbook.
-- **Univariate analyses:** Linear regression, logistic regression, one-way ANOVA, and one-sample, independent two-sample, and paired-sample Student's *t*-tests.
-- **Multivariate analyses:** K-means clustering, multidimensional scaling (MDS), multivariate analysis of variance (MANOVA), and principal components analysis (PCA).
-- **Charts:** Bar, box, line, pie, radar, and scatter charts.
-- **Results workspace:** View analyses in separate tabs, with up to ten result tabs available at a time. The data table is sortable and paginated (25 rows per page).
-- **Tutorial and FAQ:** In-app guidance is available from the Tutorial and FAQ tabs.
+- **Univariate analyses:** linear regression, logistic regression, one-way ANOVA, and one-sample, independent two-sample, and paired-sample Student's *t*-tests.
+- **Multivariate analyses:** K-means clustering, multidimensional scaling (MDS), multivariate analysis of variance (MANOVA), and principal component analysis (PCA).
+- **Ensemble and predictive methods:** decision tree, Naive Bayes, random forest, and support vector machine (SVM).
+- **Charts:** bar, box, line, pie, radar, and scatter plots.
+- **Data import:** load the bundled example data or upload an Excel `.xlsx` workbook.
 
-Analysis dialogs let you choose columns for each procedure, usually by dragging column names into the requested variable areas. Analyses produce a chart and, where implemented, summary or test-statistic tables.
+Choose a procedure after loading data, then assign columns to the roles described in its dialog. Most dialogs use drag and drop. Analysis results appear in separate tabs with charts and, where implemented, statistical summaries. Up to ten result tabs can be open. The data table supports sorting and displays 25 rows per page. Chart result pages include controls for titles, axes, legends, and other presentation options.
 
-## Data and input expectations
+The Tutorial and FAQ tabs are available in the application. The tutorial uses the bundled example data to illustrate variable selection and reading results.
 
-The main page's **Load Example Data** action reads `example.json`, which contains 74 records with these columns: `feature`, `label`, `abnormal`, `tuberculosis`, `pneumonia`, `bronchitis`, and `weight`. `iris.json` is another bundled dataset (150 records; sepal and petal measurements, `species`, and `encoding`), but it is not connected to the main page's example-data action.
+## Run locally
 
-The upload control accepts `.xlsx` files. `execs/xlsx2json.py` reads the workbook through pandas/openpyxl and converts its records to JSON; spaces in column names are replaced with underscores. Choose variables with values appropriate to the requested role (for example, numeric columns for measurements and predictors, and categorical columns where a grouping or label is required). The dialogs display the role and count of columns expected for each analysis.
+Serve the project directory over HTTP so the page can load its HTML fragments, data, and Python modules:
 
-## How it works
+```sh
+cd /path/to/github.io
+python3 -m http.server 8000
+```
 
-1. `index.html` builds the interface, loads the selected modal from `modal/`, and places results in an available tab.
-2. For statistical procedures, the result page in `export/` fetches the corresponding Python module from `execs/` and invokes it through Pyodide.
-3. Python modules use scientific Python packages to calculate results and return JSON for the page.
-4. Chart.js renders the plots; `assets/boxplot.js` registers box-plot and violin-plot chart types used by the chart integration.
+Then open <http://localhost:8000/> in a modern browser. The application loads JavaScript libraries, Pyodide, and Python packages from external CDNs at runtime, so an internet connection is required on first use and for any resources not cached by the browser. Opening the HTML directly as a `file://` URL may prevent the browser from loading the required local resources.
 
-The analysis and workbook conversion happen in the browser; this repository contains no application API or backend service. The browser still needs network access to retrieve the externally hosted runtime and library assets referenced by the HTML.
+`default.html` is an older alternate page, not the recommended entry point. Its spreadsheet upload flow posts to `upload.php`, which is not included in this repository. Use `index.html`, whose workbook conversion runs in the browser.
 
-## Project layout
+## Data
+
+- `example.json` is the dataset used by **Import Data → Load Example Data**. It contains 74 records with the columns `feature`, `label`, `abnormal`, `tuberculosis`, `pneumonia`, `bronchitis`, and `weight`.
+- `iris.json` contains 150 Iris records with `sepal_length`, `sepal_width`, `petal_length`, `petal_width`, `species`, and `encoding`. It is included as additional sample data but is not connected to the main page's example-data action.
+- The upload control accepts `.xlsx` files. `execs/xlsx2json.py` reads the workbook with pandas and openpyxl and converts the worksheet records to JSON. It replaces spaces in column names with underscores. The reader uses pandas' default worksheet selection (the first worksheet).
+
+Select variables that fit the role requested by each analysis or chart. For example, measurements and predictors generally need numeric values, while some procedures use a categorical grouping or label. The dialogs describe their expected variables; the application does not provide a general-purpose data-cleaning workflow.
+
+## How the application works
+
+1. `index.html` initializes the interface and data table, loads `modal/` dialogs and the Tutorial/FAQ fragments, and creates result tabs.
+2. An analysis result page in `export/` fetches its matching Python module from `execs/`, passes the selected columns and dataset to Pyodide, then renders the returned results.
+3. Chart.js renders the plots. `assets/boxplot.js` adds box-plot and violin-plot chart types used by the chart integration.
+4. The workbook conversion is also performed in Pyodide; no workbook is uploaded to a project server by `index.html`.
+
+The main page loads Pyodide 0.27.7 and requests the `scikit-learn`, `pandas`, and `micropip` packages. It uses `micropip` to install `openpyxl` and `statsmodels`; the Python modules also import NumPy and SciPy. jQuery 3.7.1 and Semantic UI 2.5.0 provide interface behavior, while Chart.js is loaded from jsDelivr without a version specified in the page. These external runtime dependencies are not vendored or locked in this repository.
+
+## Project structure
 
 ```text
 .
-├── index.html          Main app page and client-side application logic
-├── default.html        Alternate app shell (see note below)
-├── about.html          About modal content
-├── help.html           Tutorial loaded by the main app
-├── faq.html            FAQ loaded by the main app
-├── example.json        Dataset used by “Load Example Data”
-├── iris.json           Additional bundled dataset
+├── index.html                 Main application entry point and client-side logic
+├── default.html               Older alternate page; references a missing upload.php
+├── about.html                 About dialog content
+├── help.html                  Tutorial loaded by index.html
+├── faq.html                   FAQ loaded by index.html
+├── example.json               Dataset loaded by the example-data action
+├── iris.json                  Additional Iris dataset
+├── favicon.ico                Site icon
+├── LICENSE                    Apache License 2.0
 ├── assets/
-│   ├── boxplot.js      Chart.js box-plot/violin-plot integration
-│   ├── help.html       Additional tutorial copy
-│   ├── modal/          Screenshots of analysis/chart dialogs
-│   └── export/         Screenshots of example results
-├── modal/              Variable-selection dialogs
-├── export/             Analysis result and chart pages
-└── execs/              Python analysis and XLSX conversion modules
+│   ├── boxplot.js             Chart.js box-plot/violin-plot integration
+│   ├── help.html              Copy of the tutorial page
+│   ├── modal/                 Tutorial screenshots of selection dialogs
+│   └── export/                Tutorial screenshots of example results
+├── modal/                     Variable-selection dialogs loaded by the app
+├── export/                    Result and chart pages loaded by the app
+└── execs/                     Python analysis and XLSX conversion modules
 ```
 
-The `modal/` and `export/` folders contain templates for the procedures and charts exposed by the main page. They also include a volcano-chart template that is not linked from `index.html`. `default.html` is an alternate shell with extra Ensemble menu links (decision tree, Naive Bayes, random forest, and SVM); the corresponding modal, result, and Python implementation files are not present in this checkout. Use `index.html` for the available, wired feature set.
+The `modal/` and `export/` directories each contain pages for ANOVA, Naive Bayes, bar/box/line/pie/radar/scatter charts, clustering, random forest, linear/logistic regression, MANOVA, MDS, PCA, the three *t*-tests, SVM, and decision tree. They also contain `volcano.html` templates that are not linked from the main page's menu. The corresponding analysis modules in `execs/` are `anova.py`, `bayes.py`, `cluster.py`, `forest.py`, `linear.py`, `logistic.py`, `manova.py`, `mds.py`, `pca.py`, `student.py`, `svm.py`, and `tree.py`; `xlsx2json.py` handles workbook conversion. The three *t*-test pages share `student.py`.
 
-## Runtime dependencies
+When adding or changing a feature, keep its menu entry in `index.html`, selection dialog in `modal/`, result page in `export/`, and any required Python module in `execs/` consistent. Confirm that imports are available in the Pyodide runtime and that local resources load when served over HTTP.
 
-There is no `package.json`, requirements file, or build configuration in the project. Dependencies are declared or loaded by the HTML at runtime:
+## Development notes and limitations
 
-- jQuery 3.7.1 and Semantic UI 2.5.0
-- Pyodide 0.27.7
-- Chart.js (loaded from jsDelivr without an explicit version in the page)
-- Pyodide packages: scikit-learn, pandas, and micropip; `openpyxl` and `statsmodels` are installed through micropip
-- Scientific modules import NumPy, SciPy, scikit-learn, pandas, and statsmodels as needed
+- This is a static site: the repository has no package manifest, Python requirements file, build configuration, automated test suite, or checked-in deployment workflow.
+- The runtime depends on third-party CDNs and dynamically fetched Python packages. Offline operation and fully reproducible dependency versions are not configured.
+- Statistical methods have assumptions and input requirements. Review those requirements for the data and question at hand; the application is an educational aid rather than validated software for consequential decisions.
 
-For changes, keep the `index.html` menu entries, matching `modal/` and `export/` templates, and any required `execs/` modules in sync. Confirm that runtime package imports are available in the configured Pyodide environment.
+## License
 
-## Guidance and limitations
-
-- This project is presented as an educational demonstration, not validated statistical software for clinical, financial, safety-critical, or other consequential decisions.
-- Statistical methods have assumptions and constraints; review the procedure and its assumptions for the data and question at hand.
-- `index.html` loads libraries and Python packages at runtime from third-party CDNs. Offline use and fully reproducible dependency versions are not configured.
-- The project has no checked-in automated test suite, dependency lockfile, or documented deployment workflow. It is organized as a static site and can be hosted by a static web server that serves the files and subdirectories.
+The project includes an Apache License 2.0 in `LICENSE`.
