@@ -55,7 +55,7 @@
     (() => {
         DDX["lambda"] = (e) => {
             e.preventDefault();
-            $(e.target).append($(DDX["drag"]).get(0));
+            $(e.target).closest(".dnd_var").append($(DDX["drag"]).get(0));
 
             $(".dnd_var").each((i, v) => {
                 DDX["label"][i] = [];
@@ -89,8 +89,8 @@
             pid["text"].children("span").html("Ensemble: Random Forest");  // update tab text
 
             DDX["post"] = {
-                "y": DDX["label"][1].join(" "),
-                "x": DDX["label"][2].join(" "),
+                "y": DDX["label"][1],
+                "x": DDX["label"][2],
                 "data": DDX["json"],
             };  // send data to server
         }

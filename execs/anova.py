@@ -1,11 +1,11 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import json
 import numpy
 from scipy import stats
 
-def run(input):
+def run(input: str) -> str:
     """ main procedure begin here """
     j = json.loads(input)
     s = [[float(i[k]) for i in j["data"]] for k in j["g"]]

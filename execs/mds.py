@@ -1,8 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import json
 import numpy
 from sklearn.manifold import MDS
 
-def run(input):
+def run(input: str) -> str:
     j = json.loads(input)
     mds = MDS(n_init=5, n_components=2)     # fit MDS model to data
     r = mds.fit_transform(numpy.array([[i[k] for k in j["group"]] for i in j["data"]]))

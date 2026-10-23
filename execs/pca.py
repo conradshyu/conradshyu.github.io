@@ -1,12 +1,15 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import json
 import numpy
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
-def run(input):
+def run(input: str) -> str:
     j = json.loads(input)
 
-    x = StandardScaler().fit_transform([[i[k] for k in j["group"]] for i in j["data"]])
+    x = StandardScaler().fit_transform(numpy.array([[i[k] for k in j["group"]] for i in j["data"]]))
     pca = PCA(n_components = 2)
     r = pca.fit_transform(x)
 

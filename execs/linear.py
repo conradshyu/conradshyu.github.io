@@ -1,8 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import json
 import numpy
 from sklearn import linear_model
 
-def run(js):
+def run(js: str) -> str:
     """ main procedure begin here """
     input = json.loads(js)
     j = sorted(input["data"], key = lambda i: i[input["y"][0]])

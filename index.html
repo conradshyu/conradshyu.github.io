@@ -9,11 +9,11 @@
     <title>CS::Statistics</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" />
 
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="text/javascript" language="javascript" src="assets/boxplot.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/boxplot.js"></script>
 
     <style>
         /* Modal Overlay (Background background) */
@@ -149,6 +149,27 @@
                 <a class="item" onclick="run_action('pca.html');"
                     onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
                     <i class="folder outline icon"></i>Principal Components Analysis
+                </a>
+            </div>
+        </div>
+        <div class="ui dropdown item">
+            Ensemble <i class="dropdown icon"></i>
+            <div class="ui menu">
+                <a class="item" onclick="run_action('tree.html');"
+                    onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Decision Tree
+                </a>
+                <a class="item" onclick="run_action('bayes.html');"
+                    onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Na&#239ve Bayes Classifier
+                </a>
+                <a class="item" onclick="run_action('forest.html');"
+                    onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Random Forest
+                </a>
+                <a class="item" onclick="run_action('svm.html');"
+                    onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Support Vector Machine
                 </a>
             </div>
         </div>

@@ -1,9 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import json
 import math
 import numpy
 from sklearn import linear_model
 
-def run(input):
+def run(input: str) -> str:
     """ main procedure begin here """
     s = json.loads(input)
     j = s["data"]

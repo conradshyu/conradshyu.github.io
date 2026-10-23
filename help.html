@@ -162,8 +162,7 @@
             a sample mean is significantly different from a known population mean, i.e., \( \mu = 0 \). The null hypothesis
             states there is no significant difference between the sample mean and the population mean (\( \mu = 0 \)). The
             alternative hypothesis assumes there a significant difference between the sample mean and population mean, as
-            indicated by the \( p \) value. The \( t \) statistic is calculated as: \( t = \frac{\bar{X} - \mu}{s / \sqrt{n}} \),
-            where \( \bar{x} \) is the sample mean, \( \mu \) is the population mean, \( s \) is the sample standard.
+            indicated by the \( p \) value.
         </p>
         <p>
             To run the one-sample \( t \)-test, click <b>Univariate</b>, <b>Student's \( t \)-Test</b>, and then select
@@ -197,12 +196,7 @@
         <p>
             <b>Student's \( t \)-Test Two Samples</b> (also know as the independent samples \( t \)-test) evaluates
             whether the unknown population means of two groups are equal or not. This test assumes data are independent
-            and randomly sampled from two normal populations and two independent groups hae equal variances.  The \( t \)
-            statistic is calculated as: \( t = \frac{\bar{X_1} - \bar{X_2}}{\sqrt{s^2_1 / n_1 + s^2_2 / n_2}} \), where
-            \( \bar{X_1} \) and \( \bar{X_2} \) are the sample means of the two groups, \( s^2_1 \) and \( s^2_2 \) are
-            the sample variances, and \( n_1 \) and \( n_2 \) are the sample sizes of the two groups. The null hypothesis
-            states that the two population means are equal (\( \mu_1 = \mu_2 \)), while the alternative hypothesis
-            states that the two population means are not equal (\( \mu_1 \neq \mu_2 \)).
+            and randomly sampled from two normal populations and two independent groups hae equal variances.
         </p>
         <p>
             To run the two-sample \( t \)-test, click <b>Univariate</b>, <b>Student's \( t \)-Test</b>, and then select
@@ -238,9 +232,7 @@
             used to compare measurements from the sample subjects under different conditions. The null hypothesis
             typically assumes that the true mean difference between the paired samples is zero, meaning there's no
             significant difference. The test assumes that the differences between the paired observations are normally
-            distributed. The \( t \) statistic is calculated as: \( t = \frac{\bar{d}}{s_d / \sqrt{n}} \),
-            where \( \bar{d} \) is the mean of the differences between the paired observations, \( s_d \) is the standard
-            deviation of the differences, and \( n \) is the number of pairs.
+            distributed.
         </p>
         <p>
             To run the paired-sample \( t \)-test, click <b>Univariate</b>, <b>Student's \( t \)-Test</b>, and then
@@ -383,6 +375,116 @@
         <p>
         <div style="width: 90%; text-align: center; margin: auto;">
             <img src="assets/export/pca.png" alt="Principal Components Analysis (PCA)" style="width: 100%; height: auto;">
+        </div>
+        </p>
+    </div>
+    <p>
+        <b>How to run ensemble learning?</b>
+    </p>
+    <p>
+        Ensemble learning is a machine learning technique that combines multiple individual models (also known as weak
+        learners) to produce a more accurate and robust prediction than any single model could achieve alone. It
+        leverages the collective intelligence of multiple models to overcome the limitations and biases of individual
+        models. Ensemble learning rests on the principle that a collectivity of learners yields greater overall accuracy
+        than an individual learner.
+    </p>
+    <p>
+        To run an analysis, first run <b>Load Example Data</b> and then select the procedure from the dropdown menu
+        <b>Ensemble</b>. The application will automatically add a tab with the results. You can also run multiple
+        analyses at the same time. The results will be displayed in separate tabs, and you can switch between them by
+        clicking on the tab. The results will be displayed with a figure and table.
+    </p>
+    <div class="title">
+        <i class="dropdown icon" style="color: blue;"></i>
+        Ensemble: Decision Tree
+    </div>
+    <div class="content">
+        <p>
+            A decision tree is a nonparametric supervised learning algorithm, which is utilized for both classification
+            and regression tasks. It has a hierarchical tree structure, which consists of a root node, branches,
+            internal nodes and leaf nodes. Decision tree learning employs a divide and conquers strategy by conducting
+            a greedy search to identify the optimal split points within a tree. This process of splitting is then
+            repeated in a top-down, recursive manner until all, or most records have been classified under specific
+            class labels.
+        </p>
+        <p>
+        <div style="width: 60%; text-align: center; margin: auto;">
+            <img src="assets/modal/tree.png" alt="Decision Tree" style="width: 100%; height: auto;">
+        </div>
+        </p>
+        <p>
+        <div style="width: 90%; text-align: center; margin: auto;">
+            <img src="assets/export/tree.png" alt="Decision Tree" style="width: 100%; height: auto;">
+        </div>
+        </p>
+    </div>
+    <div class="title">
+        <i class="dropdown icon" style="color: blue;"></i>
+        Ensemble: Na&#239;ve Bayes
+    </div>
+    <div class="content">
+        <p>
+            Na&#239;ve Bayes is a supervised machine learning algorithm, specifically a classification algorithm, that
+            uses probability and Bayes' theorem to predict the category a data point belongs to. It's called na&#239;ve
+            because it assumes that the features used in the prediction are independent of each other, even if that's
+            not always true in reality. This simplification makes it computationally efficient, especially for large
+            datasets, and allows it to perform well in various applications like spam filtering and text classification.
+        </p>
+        <p>
+        <div style="width: 60%; text-align: center; margin: auto;">
+            <img src="assets/modal/bayes.png" alt="Naive Bayes" style="width: 100%; height: auto;">
+        </div>
+        </p>
+        <p>
+        <div style="width: 90%; text-align: center; margin: auto;">
+            <img src="assets/export/bayes.png" alt="Naive Bayes" style="width: 100%; height: auto;">
+        </div>
+        </p>
+    </div>
+    <div class="title">
+        <i class="dropdown icon" style="color: blue;"></i>
+        Ensemble: Random Forest
+    </div>
+    <div class="content">
+        <p>
+            The random forest algorithm is the combination of tree predictors such that each tree depends on the values
+            of a random vector sampled independently and with the same distribution for all trees in the forest. It can
+            be applied to different machine learning tasks, in particular, classification and regression. Random forest
+            uses an ensemble of decision trees as a basis and therefore has all advantages of decision trees, such as
+            high accuracy, easy usage, and no necessity of scaling data. Moreover, it also has a very important
+            additional benefit, namely perseverance of overfitting (unlike simple decision tree).
+        </p>
+        <p>
+        <div style="width: 60%; text-align: center; margin: auto;">
+            <img src="assets/modal/forest.png" alt="Random Forest" style="width: 100%; height: auto;">
+        </div>
+        </p>
+        <p>
+        <div style="width: 90%; text-align: center; margin: auto;">
+            <img src="assets/export/forest.png" alt="Random Forest" style="width: 100%; height: auto;">
+        </div>
+        </p>
+    </div>
+    <div class="title">
+        <i class="dropdown icon" style="color: blue;"></i>
+        Ensemble: Support Vector Machine (SVM)
+    </div>
+    <div class="content">
+        <p>
+            A support vector machine (SVM) is a supervised machine learning algorithm that classifies data by finding
+            an optimal line or hyperplane that maximizes the distance between each class in a high dimensional space.
+            Technically, the primary objective of the SVM algorithm is to identify a hyperplane that distinguishably
+            segregates the data points of different classes. The hyperplane is localized in such a manner that the
+            largest margin separates the classes under consideration.
+        </p>
+        <p>
+        <div style="width: 60%; text-align: center; margin: auto;">
+            <img src="assets/modal/svm.png" alt="Support Vector Machine (SVM)" style="width: 100%; height: auto;">
+        </div>
+        </p>
+        <p>
+        <div style="width: 90%; text-align: center; margin: auto;">
+            <img src="assets/export/svm.png" alt="Support Vector Machine (SVM)" style="width: 100%; height: auto;">
         </div>
         </p>
     </div>

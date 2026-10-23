@@ -267,24 +267,27 @@
             return true;
         }
 
-        fetch('bayes.php', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(DDX["post"]),
-        }).then((r) => {
-            if (!r.ok) {
-                window.alert(`HTTP error! Status: ${r.status}`);
-                return {};
-            }   // handle HTTP errors (e.g., 404, 500)
+        (async () => {
+            let modal = document.getElementById('loadingModal');
+            modal.classList.add('active');
 
-            return r.json();    // parse the response body as JSON
-        }).then((j) => {
-            load_plot(j);
-            bayes_table(j);
-            $("#stat_txt").html("Status: naive bayes completed.");
-        }).catch((e) => {
-            window.alert(`Error: ${e}`);
-        });
+            try {
+                const source = await fetch('execs/bayes.py');
+                DDX["pyodide"].runPython(await source.text());
+
+                const j = JSON.stringify(DDX["post"]);
+                const r = DDX["pyodide"].globals.get("run")(j);
+                const w = JSON.parse(r);
+                load_plot(w);
+                bayes_table(w);
+            } catch (e) {
+                window.alert(`Error: ${e}`);
+            } finally {
+                $("#stat_txt").html("Status: naive bayes completed.");
+            }
+
+            modal.classList.remove('active');
+        })();
 
         $(".dropdown").dropdown({
             onChange: function (v) {

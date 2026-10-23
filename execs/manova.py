@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import json
 import pandas
 from statsmodels.multivariate.manova import MANOVA
@@ -6,14 +9,14 @@ MANOVA_TH = ["Value", "Num DF", "Den DF", "<i>F</i> Statistic", "<i>p</i> Value"
 MANOVA_TR = ["Wilks' Lambda", "Pillai's Trace", "Hotelling-Lawley Trace", "Roy's Greatest Root"]
 MANOVA_TD = ["Value","Num DF", "Den DF", "F Value", "Pr > F"]
 
-def html_table(h, s):
+def html_table(h: str, s: list):
     """ generate manova table """
     return {
         "thead": f"<tr><th>{h}</th>" + "".join([f"<th>{i}</th>" for i in MANOVA_TH]) + "</tr>",
         "tbody": "".join([f"<tr><td>{MANOVA_TR[i]}</td>" + "".join([f"<td>{s[i][j]:0.2f}</td>" for j in MANOVA_TD]) \
             + "</tr>" for i in range(len(s))]),}
 
-def run(input):
+def run(input: str) -> str:
     """ main procedure begin here """
     j = json.loads(input)
     s = {j["x"][0]: [i[j["x"][0]] for i in j["data"]]}

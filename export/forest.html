@@ -268,31 +268,27 @@
             return true;
         }
 
-        fetch('forest.php', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(DDX["post"]),
-        }).then((r) => {
-            if (!r.ok) {
-                window.alert(`HTTP error! Status: ${r.status}`);
-                return {};
-            }   // handle HTTP errors (e.g., 404, 500)
+        (async () => {
+            let modal = document.getElementById('loadingModal');
+            modal.classList.add('active');
 
-            return r.json();    // parse the response body as JSON
-        }).then((j) => {
-            load_plot(j["data"]);
-            load_table(j);
-            $("#stat_txt").html("Status: random forest completed.");
-        }).catch((e) => {
-            window.alert(`Error: ${e}`);
-        });
+            try {
+                const source = await fetch('execs/forest.py');
+                DDX["pyodide"].runPython(await source.text());
 
-        $(".dropdown").dropdown({
-            onChange: function (v) {
-                DDX.active.chart.options.plugins.legend.position = v;
-                DDX.active.chart.update();
+                const j = JSON.stringify(DDX["post"]);
+                const r = DDX["pyodide"].globals.get("run")(j);
+                const w = JSON.parse(r);
+                load_plot(w["data"]);
+                load_table(w);
+            } catch (e) {
+                window.alert(`Error: ${e}`);
+            } finally {
+                $("#stat_txt").html("Status: random forest completed.");
             }
-        });
+
+            modal.classList.remove('active');
+        })();
 
         $('.ui.accordion').accordion();
         return true;

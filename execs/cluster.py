@@ -1,8 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import json
 import numpy
 from sklearn.cluster import KMeans
 
-def run(input):
+def run(input: str) -> str:
     """ main procedure begin here """
     j = json.loads(input)
     x = [[i[k] for k in j["x"]] for i in j["data"]]
