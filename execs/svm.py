@@ -4,9 +4,9 @@
 import json
 import numpy
 import pandas
+import sklearn.metrics
 from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, accuracy_score
 
 def run(input: str) -> str:
     """ main procedure begin here """
@@ -18,7 +18,7 @@ def run(input: str) -> str:
 
     r = SVC(kernel = "linear", random_state = 17)
     r.fit(x_train, y_train)
-    p = r.predict(x_test)
+    y_pred = r.predict(x_test)
     j = u["data"]
 
     return json.dumps({
@@ -28,14 +28,19 @@ def run(input: str) -> str:
                 f"<td>{b.min():0.2f}</td><td>{b.max():0.2f}</td><td>{b.mean():0.2f}</td><td>{b.var():0.2f}</td></tr>" \
                 for a, b in ({i: numpy.array([d[i] for d in j]) for i in u["x"]}).items()]),
         },
-        "error": [
-            f"{mean_absolute_error(y_test, p):0.2f}",
-            f"{mean_squared_error(y_test, p):0.2f}",
-            f"{r2_score(y_test, p):0.2f}",
-            f"{accuracy_score(y_test, p):0.2f}",
-        ],
+        "error": {
+            "thead": "<tr><th style='width: 60%;'>Metric Name</th><th>Value</th></tr>",
+            "tbody": "".join([
+                f"<tr><td>Accuracy</td><td>{sklearn.metrics.accuracy_score(y_test, y_pred):0.3f}</td></tr>",
+                f"<tr><td>Balanced Accuracy</td><td>{sklearn.metrics.balanced_accuracy_score(y_test, y_pred, adjusted=True):0.3f}</td></tr>",
+                f"<tr><td>Mean Absolute Error</td><td>{sklearn.metrics.mean_absolute_error(y_test, y_pred, multioutput='raw_values')[0]:0.3f}</td></tr>",
+                f"<tr><td>Mean Squared Error</td><td>{sklearn.metrics.mean_squared_error(y_test, y_pred):0.3f}</td></tr>",
+                f"<tr><td>Root Mean Squared Error</td><td>{sklearn.metrics.root_mean_squared_error(y_test, y_pred):0.3f}</td></tr>",
+                f"<tr><td><em>R²</em></td><td>{sklearn.metrics.r2_score(y_test, y_pred):0.3f}</td></tr>",
+            ]),
+        },
         "data": {
             "observed": [{"x": i[0], "y": int(i[1])} for i in zip(x_test[u["x"][0]], y_test)],
-            "predicted": [{"x": i[0], "y": int(i[1])} for i in zip(x_test[u["x"][0]], p)],
+            "predicted": [{"x": i[0], "y": int(i[1])} for i in zip(x_test[u["x"][0]], y_pred)],
         },
     })

@@ -16,6 +16,15 @@
                     <tbody>
                     </tbody>
                 </table>
+                <div class="ui header" style="text-align: center;">
+                    Evaluation Metrics
+                </div>
+                <table class="ui celled table" style="width: 100;">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
             <div class="eight wide column" style="width: 100%;">
                 <div class="ui header" style="text-align: center;">
@@ -151,8 +160,11 @@
             // summary table
             $(tb[0]).children("thead").empty().html(j["table"]["thead"]);
             $(tb[0]).children("tbody").empty().html(j["table"]["tbody"]);
-            $(tb[0]).parent().append(
-                `<p>MAE: ${j["error"][0]}, MSE: ${j["error"][1]}, R<sup>2</sup>: ${j["error"][2]}, Accuracy: ${j["error"][3]}</p>`);
+
+            // evaluation metrics table
+            $(tb[1]).children("thead").empty().html(j["error"]["thead"]);
+            $(tb[1]).children("tbody").empty().html(j["error"]["tbody"]);
+
             return true;
         }
 
