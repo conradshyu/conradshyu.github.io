@@ -37,7 +37,7 @@ def run(input: str) -> str:
             ]),
         },
         "feature": {
-            "thead": "<tr><th>Feature</th><th>Importance</th></tr>",
+            "thead": "<tr><th style='width: 60%;'>Feature</th><th>Importance</th></tr>",
             "tbody": "".join([f"<tr><td>{a}</td><td>{b:0.3f}</td></tr>" for a, b in zip(u["x"], r.feature_importances_)])
         },
         "data": {
