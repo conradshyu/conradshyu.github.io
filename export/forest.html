@@ -8,7 +8,7 @@
         <div class="ui grid">
             <div class="eight wide column" style="width: 100%;">
                 <div class="ui header" style="text-align: center;">
-                    Summary
+                    Summary Statistics
                 </div>
                 <table class="ui celled table" style="width: 100;">
                     <thead>
@@ -18,6 +18,15 @@
                 </table>
                 <div class="ui header" style="text-align: center;">
                     Evaluation Metrics
+                </div>
+                <table class="ui celled table" style="width: 100%;">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <div class="ui header" style="text-align: center;">
+                    Feature Importance
                 </div>
                 <table class="ui celled table" style="width: 100%;">
                     <thead>
@@ -164,6 +173,10 @@
             // evaluation metrics table
             $(tb[1]).children("thead").empty().html(j["error"]["thead"]);
             $(tb[1]).children("tbody").empty().html(j["error"]["tbody"]);
+
+            // feature importance table
+            $(tb[2]).children("thead").empty().html(j["feature"]["thead"]);
+            $(tb[2]).children("tbody").empty().html(j["feature"]["tbody"]);
 
             return true;
         }

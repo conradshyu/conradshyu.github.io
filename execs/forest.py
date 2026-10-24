@@ -11,9 +11,11 @@ from sklearn.model_selection import train_test_split
 def run(input: str) -> str:
     """ main procedure begin here """
     u = json.loads(input)
-    s = pandas.read_json(json.dumps(u["data"]))
+    s = pandas.DataFrame(u["data"])
+    y_label = list(set([str(i[u["y"][0]]) for i in u["data"]]))
     x_train, x_test, y_train, y_test = train_test_split(
-        s[u["x"]], s[u["y"][0]], test_size = 0.25, random_state = 17)
+        s[u["x"]], [y_label.index(i[u["y"][0]]) for i in s.to_dict(orient="records")],
+        test_size = 0.25, random_state = 17)
     r = RandomForestRegressor(n_estimators = 10, max_depth = 10, random_state = 13)
     r.fit(x_train, y_train)
     y_pred = r.predict(x_test)
@@ -33,6 +35,10 @@ def run(input: str) -> str:
                 f"<tr><td>Mean Squared Error</td><td>{sklearn.metrics.mean_squared_error(y_test, y_pred):0.3f}</td></tr>",
                 f"<tr><td><em>R²</em></td><td>{sklearn.metrics.r2_score(y_test, y_pred):0.3f}</td></tr>",
             ]),
+        },
+        "feature": {
+            "thead": "<tr><th>Feature</th><th>Importance</th></tr>",
+            "tbody": "".join([f"<tr><td>{a}</td><td>{b:0.3f}</td></tr>" for a, b in zip(u["x"], r.feature_importances_)])
         },
         "data": {
             "observed": [{"x": i[0], "y": int(i[1])} for i in zip(x_test[u["x"][0]], y_test)],
