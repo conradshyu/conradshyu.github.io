@@ -6,19 +6,27 @@ import numpy
 import pandas
 import sklearn.metrics
 from sklearn.naive_bayes import GaussianNB
+from sklearn.inspection import permutation_importance
 from sklearn.model_selection import train_test_split
 
 def run(input: str) -> str:
     """ main procedure begin here """
     u = json.loads(input)
     s = pandas.DataFrame(u["data"])
+    y_label = list(set([str(i[u["y"][0]]) for i in u["data"]]))
     x_train, x_test, y_train, y_test = train_test_split(
-        s[u["x"]], s[u["y"][0]], test_size = 0.25, random_state = 17)
-
+        s[u["x"]], [y_label.index(i[u["y"][0]]) for i in s.to_dict(orient="records")],
+        test_size = 0.25, random_state = 17)
     r = GaussianNB()    # gaussian naive bayes
     r.fit(x_train, y_train)
     y_pred = r.predict(x_test)
     j = u["data"]
+
+    # calculate permutation importance
+    result = permutation_importance(r, x_test, y_test, n_repeats=10, random_state=42, n_jobs=-1)
+    idx = result.importances_mean.argsort()
+    i_mean = result.importances_mean[idx]
+    label = [u["x"][i] for i in idx]
 
     return json.dumps({
         "table": {
@@ -37,6 +45,10 @@ def run(input: str) -> str:
                 f"<tr><td>Root Mean Squared Error</td><td>{sklearn.metrics.root_mean_squared_error(y_test, y_pred):0.3f}</td></tr>",
                 f"<tr><td><em>R²</em></td><td>{sklearn.metrics.r2_score(y_test, y_pred):0.3f}</td></tr>",
             ]),
+        },
+        "feature": {
+            "thead": "<tr><th style='width: 60%;'>Feature</th><th>Importance</th></tr>",
+            "tbody": "".join([f"<tr><td>{a}</td><td>{b:0.3f}</td></tr>" for a, b in zip(label, i_mean)])
         },
         "data": {
             "observed": [{"x": i[0], "y": int(i[1])} for i in zip(x_test[u["x"][0]], y_test)],

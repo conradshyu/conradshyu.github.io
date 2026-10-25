@@ -10,7 +10,7 @@
                 <div class="ui header" style="text-align: center;">
                     Summary Statistics
                 </div>
-                <table class="ui celled table" style="width: 100;">
+                <table class="ui celled compact table" style="width: 100;">
                     <thead>
                     </thead>
                     <tbody>
@@ -19,7 +19,16 @@
                 <div class="ui header" style="text-align: center;">
                     Evaluation Metrics
                 </div>
-                <table class="ui celled table" style="width: 100;">
+                <table class="ui celled compact table" style="width: 100;">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <div class="ui header" style="text-align: center;">
+                    Permutation Importance
+                </div>
+                <table class="ui celled compact table" style="width: 100;">
                     <thead>
                     </thead>
                     <tbody>
@@ -164,6 +173,10 @@
             // evaluation metrics table
             $(tb[1]).children("thead").empty().html(j["error"]["thead"]);
             $(tb[1]).children("tbody").empty().html(j["error"]["tbody"]);
+
+            // permutation importance table
+            $(tb[2]).children("thead").empty().html(j["feature"]["thead"]);
+            $(tb[2]).children("tbody").empty().html(j["feature"]["tbody"]);
 
             return true;
         }
