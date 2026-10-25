@@ -12,7 +12,7 @@ def run(input: str) -> str:
     """ main procedure begin here """
     """ main procedure begin here """
     u = json.loads(input)
-    s = pandas.read_json(json.dumps(u["data"]))
+    s = pandas.DataFrame(u["data"])
     x_train, x_test, y_train, y_test = train_test_split(
         s[u["x"]], s[u["y"][0]], test_size = 0.25, random_state = 17)
 
