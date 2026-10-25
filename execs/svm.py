@@ -12,13 +12,17 @@ def run(input: str) -> str:
     """ main procedure begin here """
     u = json.loads(input)
     s = pandas.DataFrame(u["data"])
+    y_label = list(set([str(i[u["y"][0]]) for i in u["data"]]))
     x_train, x_test, y_train, y_test = train_test_split(
-        s[u["x"]], s[u["y"][0]], test_size = 0.25, random_state = 17)
-
+        s[u["x"]], [y_label.index(i[u["y"][0]]) for i in s.to_dict(orient="records")],
+        test_size = 0.25, random_state = 17)
     r = SVC(kernel = "linear", random_state = 17)
     r.fit(x_train, y_train)
     y_pred = r.predict(x_test)
     j = u["data"]
+
+    w = numpy.abs(r.coef_[0])       # Use magnitude for absolute importance
+    idx = numpy.argsort(w)[::-1]    # Sort in descending order
 
     return json.dumps({
         "table": {
@@ -37,6 +41,10 @@ def run(input: str) -> str:
                 f"<tr><td>Root Mean Squared Error</td><td>{sklearn.metrics.root_mean_squared_error(y_test, y_pred):0.3f}</td></tr>",
                 f"<tr><td><em>R²</em></td><td>{sklearn.metrics.r2_score(y_test, y_pred):0.3f}</td></tr>",
             ]),
+        },
+        "feature": {
+            "thead": "<tr><th style='width: 60%;'>Feature</th><th>Importance</th></tr>",
+            "tbody": "".join([f"<tr><td>{u['x'][a]}</td><td>{w[a]:0.3f}</td></tr>" for a in idx])
         },
         "data": {
             "observed": [{"x": i[0], "y": int(i[1])} for i in zip(x_test[u["x"][0]], y_test)],
