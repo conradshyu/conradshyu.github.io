@@ -30,16 +30,16 @@ class Student:
 
         return json.dumps({
             "table": [{
-                "thead": "<tr><th>Variable</th><th>Mean</th><th>Variance</th><th>Minimum</th><th>Maximum</th></tr>",
-                "tbody": f"<tr><td>{self.t[0]}</td><td>{numpy.array(self.z[0]).mean():0.4f}</td>" + 
-                    f"<td>{numpy.array(self.z[0]).var():0.4f}</td><td>{min(self.z[0]):0.4f}</td><td>{max(self.z[0]):0.4f}</td></tr>",
+                "thead": "<tr><th style='width: 40%;'>Variable</th><th style='width: 15%;'>Mean</th><th style='width: 15%;'>Variance</th><th style='width: 15%;'>Maximum</th><th>Minimum</th></tr>",
+                "tbody": f"<tr><td>{self.t[0]}</td><td>{numpy.array(self.z[0]).mean():0.3f}</td>" + 
+                    f"<td>{numpy.array(self.z[0]).var():0.3f}</td><td>{min(self.z[0]):0.3f}</td><td>{max(self.z[0]):0.3f}</td></tr>",
             }, {
-                "thead": "<tr><th>Description</th><th>Value</th></tr>",
-                "tbody": f"<tr><td><i>t</i> Statistics</td><td>{s.statistic:0.4f}</td></tr>" +
-                    f"<tr><td><i>p</i> Value</td><td>{s.pvalue:0.4f}</td></tr>" +
-                    f"<tr><td>Upper Critical <i>t</i> Value</td><td>{stats.t.ppf(1.0 - 0.95 * 0.5, len(self.z[0]) - 1):0.4f}</td></tr>" +
-                    f"<tr><td>Lower Critical <i>t</i> Value</td><td>{stats.t.ppf(0.05 * 0.5, len(self.z[0]) - 1):0.4f}</td></tr>" +
-                    f"<tr><td>One-Tail Upper Critical <i>t</i> Value</td><td>{stats.t.ppf(0.95, len(self.z[0]) - 1):0.4f}</td></tr>",
+                "thead": "<tr><th style='width: 60%;'>Description</th><th>Value</th></tr>",
+                "tbody": f"<tr><td><i>t</i> Statistics</td><td>{s.statistic:0.3f}</td></tr>" +
+                    f"<tr><td><i>p</i> Value</td><td>{s.pvalue:0.3f}</td></tr>" +
+                    f"<tr><td>Upper Critical <i>t</i> Value</td><td>{stats.t.ppf(1.0 - 0.95 * 0.5, len(self.z[0]) - 1):0.3f}</td></tr>" +
+                    f"<tr><td>Lower Critical <i>t</i> Value</td><td>{stats.t.ppf(0.05 * 0.5, len(self.z[0]) - 1):0.3f}</td></tr>" +
+                    f"<tr><td>One-Tail Upper Critical <i>t</i> Value</td><td>{stats.t.ppf(0.95, len(self.z[0]) - 1):0.3f}</td></tr>",
             }],
             "data": {
                 "standard": [{"x": i[0], "y": i[1]} for i in zip(x, t1)],
@@ -69,15 +69,15 @@ class Student:
 
         return json.dumps({
             "table": [{
-                "thead": "<tr><th>Variable</th><th>Mean</th><th>Variance</th><th>Minimum</th><th>Maximum</th></tr>",
-                "tbody": f"<tr><td>{self.t[0]}</td><td>{numpy.array(self.z[0]).mean():0.4f}</td>" + 
-                    f"<td>{numpy.array(self.z[0]).var():0.4f}</td><td>{min(self.z[0]):0.4f}</td><td>{max(self.z[0]):0.4f}</td></tr>" +
-                    f"<tr><td>{self.t[1]}</td><td>{numpy.array(self.z[1]).mean():0.4f}</td>" +
-                    f"<td>{numpy.array(self.z[1]).var():0.4f}</td><td>{min(self.z[1]):0.4f}</td><td>{max(self.z[1]):0.4f}</td></tr>",
+                "thead": "<tr><th style='width: 40%;'>Variable</th><th style='width: 15%;'>Mean</th><th style='width: 15%;'>Variance</th><th style='width: 15%;'>Minimum</th><th>Maximum</th></tr>",
+                "tbody": f"<tr><td>{self.t[0]}</td><td>{numpy.array(self.z[0]).mean():0.3f}</td>" + 
+                    f"<td>{numpy.array(self.z[0]).var():0.3f}</td><td>{min(self.z[0]):0.3f}</td><td>{max(self.z[0]):0.3f}</td></tr>" +
+                    f"<tr><td>{self.t[1]}</td><td>{numpy.array(self.z[1]).mean():0.3f}</td>" +
+                    f"<td>{numpy.array(self.z[1]).var():0.3f}</td><td>{min(self.z[1]):0.3f}</td><td>{max(self.z[1]):0.3f}</td></tr>",
             }, {
-                "thead": "<tr><th>Description</th><th>Value</th></tr>",
-                "tbody": f"<tr><td><i>t</i> Statistics</td><td>{s.statistic:0.4f}</td></tr>" +
-                    f"<tr><td><i>p</i> Value</td><td>{s.pvalue:0.4f}</td></tr>",
+                "thead": "<tr><th style='width: 60%;'>Description</th><th>Value</th></tr>",
+                "tbody": f"<tr><td><i>t</i> Statistics</td><td>{s.statistic:0.3f}</td></tr>" +
+                    f"<tr><td><i>p</i> Value</td><td>{s.pvalue:0.3f}</td></tr>",
             }],
             "data": {
                 "standard": [{"x": i[0], "y": i[1]} for i in zip(x, t0)],
@@ -106,15 +106,15 @@ class Student:
 
         return json.dumps({
             "table": [{
-                "thead": "<tr><th>Variable</th><th>Mean</th><th>Variance</th><th>Minimum</th><th>Maximum</th></tr>",
-                "tbody": f"<tr><td>{self.t[0]}</td><td>{numpy.array(self.z[0]).mean():0.4f}</td>" + 
-                    f"<td>{numpy.array(self.z[0]).var():0.4f}</td><td>{min(self.z[0]):0.4f}</td><td>{max(self.z[0]):0.4f}</td></tr>" +
-                    f"<tr><td>{self.t[1]}</td><td>{numpy.array(self.z[1]).mean():0.4f}</td>" +
-                    f"<td>{numpy.array(self.z[1]).var():0.4f}</td><td>{min(self.z[1]):0.4f}</td><td>{max(self.z[1]):0.4f}</td></tr>",
+                "thead": "<tr><th style='width: 40%;'>Variable</th><th style='width: 15%;'>Mean</th><th style='width: 15%;'>Variance</th><th style='width: 15%;'>Minimum</th><th>Maximum</th></tr>",
+                "tbody": f"<tr><td>{self.t[0]}</td><td>{numpy.array(self.z[0]).mean():0.3f}</td>" + 
+                    f"<td>{numpy.array(self.z[0]).var():0.3f}</td><td>{min(self.z[0]):0.3f}</td><td>{max(self.z[0]):0.3f}</td></tr>" +
+                    f"<tr><td>{self.t[1]}</td><td>{numpy.array(self.z[1]).mean():0.3f}</td>" +
+                    f"<td>{numpy.array(self.z[1]).var():0.3f}</td><td>{min(self.z[1]):0.3f}</td><td>{max(self.z[1]):0.3f}</td></tr>",
             }, {
-                "thead": "<tr><th>Description</th><th>Value</th></tr>",
-                "tbody": f"<tr><td><i>t</i> Statistics</td><td>{s.statistic:0.4f}</td></tr>" +
-                    f"<tr><td><i>p</i> Value</td><td>{s.pvalue:0.4f}</td></tr>",
+                "thead": "<tr><th style='width: 60%;'>Description</th><th>Value</th></tr>",
+                "tbody": f"<tr><td><i>t</i> Statistics</td><td>{s.statistic:0.3f}</td></tr>" +
+                    f"<tr><td><i>p</i> Value</td><td>{s.pvalue:0.3f}</td></tr>",
             }],
             "data": {
                 "paired": [{"x": i[0], "y": i[1]} for i in zip(w, t1)],

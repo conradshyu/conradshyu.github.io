@@ -13,7 +13,7 @@ def html_table(h: str, s: list):
     """ generate manova table """
     return {
         "thead": f"<tr><th>{h}</th>" + "".join([f"<th>{i}</th>" for i in MANOVA_TH]) + "</tr>",
-        "tbody": "".join([f"<tr><td>{MANOVA_TR[i]}</td>" + "".join([f"<td>{s[i][j]:0.2f}</td>" for j in MANOVA_TD]) \
+        "tbody": "".join([f"<tr><td>{MANOVA_TR[i]}</td>" + "".join([f"<td>{s[i][j]:0.3f}</td>" for j in MANOVA_TD]) \
             + "</tr>" for i in range(len(s))]),}
 
 def run(input: str) -> str:

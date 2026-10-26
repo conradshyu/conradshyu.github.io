@@ -28,7 +28,7 @@ def run(input: str) -> str:
         "table": {
             "thead": "<tr><th style='width: 40%;'>Variable</th><th style='width: 15%;'>Min</th><th style='width: 15%;'>Max</th><th style='width: 15%;'>Mean</th><th>Variance</th></tr>",
             "tbody": "".join([f"<tr><td>{a}</td>" + \
-                f"<td>{b.min():0.2f}</td><td>{b.max():0.2f}</td><td>{b.mean():0.2f}</td><td>{b.var():0.2f}</td></tr>" \
+                f"<td>{b.min():0.3f}</td><td>{b.max():0.3f}</td><td>{b.mean():0.3f}</td><td>{b.var():0.3f}</td></tr>" \
                 for a, b in ({i: numpy.array([d[i] for d in j]) for i in u["x"]}).items()]),
         },
         "error": {
