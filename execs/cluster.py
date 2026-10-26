@@ -23,8 +23,8 @@ def run(input: str) -> str:
         "table": {
             a: {
                 "thead": "<tr><th style='width: 40%;'>Variable</th><th style='width: 15%;'>Min</th><th style='width: 15%;'>Max</th><th style='width: 15%;'>Mean</th><th>Variance</th></tr>",
-                "tbody": "".join([f"<tr><td>{k}</td><td>{v.min():0.2f}</td><td>{v.max():0.2f}</td>" + \
-                    f"<td>{v.mean():0.2f}</td><td>{v.var():0.2f}</td></tr>" for k, v in b.items()]),
+                "tbody": "".join([f"<tr><td>{k}</td><td>{v.min():0.3f}</td><td>{v.max():0.3f}</td>" + \
+                    f"<td>{v.mean():0.3f}</td><td>{v.var():0.3f}</td></tr>" for k, v in b.items()]),
             } for a, b in s.items()
         },
         "data": d,
