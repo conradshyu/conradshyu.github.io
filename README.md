@@ -129,8 +129,6 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 └── assets/
     ├── boxplot.js               Chart.js box/violin chart integration
     ├── help.html                Additional copy of tutorial content
-    ├── *.py                     Standalone statistical/demo scripts
-    ├── *.png                    Example/demo figures
     ├── export/*.png             Tutorial result screenshots
     └── modal/*.png              Tutorial dialog screenshots
 ```
