@@ -586,6 +586,9 @@
             DDX["data"]["value"] = new DataTable($("#table_data"), $("#table_page"));
 
             (async () => {
+                let modal = document.getElementById('loadingModal');
+                modal.classList.add('active');
+
                 DDX["pyodide"] = await loadPyodide();
                 await DDX["pyodide"].loadPackage([
                     "scikit-learn", "pandas", "micropip"]);
@@ -594,6 +597,8 @@
                     await micropip.install("openpyxl")
                     await micropip.install("statsmodels")
                 `);
+
+                modal.classList.remove('active');
             })();
         });
     </script>
