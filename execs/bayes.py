@@ -43,7 +43,6 @@ def run(input: str) -> str:
                 f"<tr><td>Mean Absolute Error</td><td>{sklearn.metrics.mean_absolute_error(y_test, y_pred, multioutput='raw_values')[0]:0.3f}</td></tr>",
                 f"<tr><td>Mean Squared Error</td><td>{sklearn.metrics.mean_squared_error(y_test, y_pred):0.3f}</td></tr>",
                 f"<tr><td>Root Mean Squared Error</td><td>{sklearn.metrics.root_mean_squared_error(y_test, y_pred):0.3f}</td></tr>",
-                f"<tr><td><em>R²</em></td><td>{sklearn.metrics.r2_score(y_test, y_pred):0.3f}</td></tr>",
             ]),
         },
         "feature": {
