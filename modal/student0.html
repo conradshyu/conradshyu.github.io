@@ -82,8 +82,14 @@
             DDX["post"] = {
                 "t": "single",
                 "g": DDX["label"][1],
-                "data": DDX["json"],
+                "data": [],
             };  // send data to server
+
+            $.each(DDX["json"], (i, v) => {
+                let x = {}
+                $.each(DDX["label"][1], (a, b) => {x[b] = v[b]});
+                DDX["post"]["data"].push(x);
+            });
         }
 
         $(".dnd_var").each((a, b) => {
