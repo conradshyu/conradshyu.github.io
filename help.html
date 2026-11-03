@@ -10,7 +10,8 @@
     </p>
     <p>
         <i class="chart line icon" style="color: teal;"></i>CS::Statistics is a free online tool for statistical
-        analysis. You can run analyses such as <b>Linear Regression</b>, <b>Logistic Regression</b>, and <b>One-Way
+        analysis. You can run analyses such as <b>Linear Regression</b>, <b>Lasso Regression</b>,
+        <b>Logistic Regression</b>, and <b>One-Way
         ANOVA</b>. You can also generate charts such as <b>Line Chart</b>, <b>Pie Chart</b>, or even <b>Radar Chart</b>.
         If you do not have your own dataset, please use the one in the dropdown menu <b>Import Data</b>/<b>Load Example
         Data</b>. The tutorials will be based on this example dataset.
@@ -70,6 +71,31 @@
         <p>
         <div style="width: 90%; text-align: center; margin: auto;">
             <img src="assets/export/linear.png" alt="Linear Regression" style="width: 100%; height: auto;">
+        </div>
+        </p>
+    </div>
+    <div class="title">
+        <i class="dropdown icon" style="color: blue;"></i>
+        Univariate: Lasso Regression
+    </div>
+    <div class="content">
+        <p>
+            <b>Lasso Regression</b> models a numerical response as a linear combination of numerical predictors while
+            adding an L1 penalty to the residual sum of squares:
+            \( \frac{1}{2n}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2 + \alpha\sum_{j=1}^{p}|\beta_j| \).
+            The penalty can shrink some predictor coefficients exactly to zero, which performs feature selection.
+            A larger alpha applies stronger shrinkage. Because the penalty depends on coefficient scale, standardize
+            predictors before fitting when they use different units.
+        </p>
+        <p>
+            To run Lasso Regression, click <b>Univariate</b> and select <b>Lasso Regression</b>. Choose one numerical
+            response variable (\(Y\)), one or more numerical predictors (\(X_i\)), and a non-negative alpha value.
+            The default alpha is 0.01. The results show the fitted coefficients and \(R^2\), and plot observed
+            responses against the model's predictions.
+        </p>
+        <p>
+        <div style="width: 90%; text-align: center; margin: auto;">
+            <img src="assets/export/lasso.svg" alt="Illustrative Lasso regression observed-versus-predicted chart and model summary" style="width: 100%; height: auto;">
         </div>
         </p>
     </div>

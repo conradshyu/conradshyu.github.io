@@ -10,7 +10,7 @@ Open `index.html` to use the main application. It provides:
 
 | Area | Available procedures |
 | --- | --- |
-| Univariate analysis | Linear regression, logistic regression, one-way ANOVA, and Student's t-tests (one-sample, independent two-sample, and paired-sample) |
+| Univariate analysis | Linear regression, Lasso regression, logistic regression, one-way ANOVA, and Student's t-tests (one-sample, independent two-sample, and paired-sample) |
 | Multivariate analysis | K-means clustering, multidimensional scaling (MDS), multivariate analysis of variance (MANOVA), and principal component analysis (PCA) |
 | Predictive/classification methods | Decision tree, Naive Bayes, random forest, and support vector machine (SVM) |
 | Charts | Bar, box, line, pie, radar, and scatter plots |
@@ -45,7 +45,7 @@ Open <http://localhost:8000/> in a modern browser. An internet connection is nee
 
 The import control accepts `.xlsx` files. `execs/xlsx2json.py` reads the workbook using pandas and openpyxl, converts rows to JSON records, and replaces spaces in column names with underscores. It uses pandas' default worksheet selection (the first worksheet). The workbook is read in the browser; `index.html` does not post it to a project server.
 
-Choose columns that match the selected method's requirements. For example, regression and dimensionality-reduction procedures generally need numeric values, while classification and group-comparison procedures may also require categorical labels or grouping variables. The dialogs provide role guidance; this project is not a general-purpose data-cleaning tool.
+Choose columns that match the selected method's requirements. For example, regression and dimensionality-reduction procedures generally need numeric values, while classification and group-comparison procedures may also require categorical labels or grouping variables. Lasso regression accepts a non-negative alpha value (default `0.01`); standardize predictors first when their scales or units differ. The dialogs provide role guidance; this project is not a general-purpose data-cleaning tool.
 
 ## How it works
 
@@ -77,6 +77,7 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 │   ├── forest.html
 │   ├── line_chart.html
 │   ├── linear.html
+│   ├── lasso.html
 │   ├── logistic.html
 │   ├── manova.html
 │   ├── mds.html
@@ -99,6 +100,7 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 │   ├── forest.html
 │   ├── line_chart.html
 │   ├── linear.html
+│   ├── lasso.html
 │   ├── logistic.html
 │   ├── manova.html
 │   ├── mds.html
@@ -118,6 +120,7 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 │   ├── cluster.py
 │   ├── forest.py
 │   ├── linear.py
+│   ├── lasso.py
 │   ├── logistic.py
 │   ├── manova.py
 │   ├── mds.py
@@ -129,6 +132,7 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 └── assets/
     ├── boxplot.js               Chart.js box/violin chart integration
     ├── help.html                Additional copy of tutorial content
+    ├── export/lasso.svg         Lasso regression tutorial illustration
     ├── export/*.png             Tutorial result screenshots
     └── modal/*.png              Tutorial dialog screenshots
 ```

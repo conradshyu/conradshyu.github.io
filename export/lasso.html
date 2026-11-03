@@ -1,0 +1,142 @@
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8KPG39WEM0');
+</script>
+<canvas></canvas>
+<div class="ui accordion">
+    <div class="title">
+        <i class="dropdown icon" style="color: blue;"></i>
+        Summary Tables and Control Panel
+    </div>
+    <div class="content">
+        <div class="ui grid">
+            <div class="eight wide column" style="width: 100%;">
+                <div class="ui header" style="text-align: center;">Analysis</div>
+                <table class="ui celled compact table" style="width: 100%;">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+                <div class="ui header" style="text-align: center;">Summary Statistics</div>
+                <table class="ui celled compact table" style="width: 100%;">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="eight wide column" style="width: 100%;">
+                <div class="ui header" style="text-align: center;">Control Panel</div>
+                <table class="ui compact celled table" style="width: 100%;">
+                    <thead>
+                        <tr><th style="width: 40%;">Parameter</th><th>Value</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Figure Title</td>
+                            <td><div class="ui small input" style="width: 100%;">
+                                <input type="text" placeholder="Figure title ..."
+                                    onkeyup="DDX.active.chart.options.plugins.title.text = this.value; DDX.active.chart.update();">
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <td>Legend Position</td>
+                            <td>
+                                <div class="ui small selection dropdown" style="width: 100%;">
+                                    <input type="hidden">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Select Position</div>
+                                    <div class="menu">
+                                        <div class="item" data-value="top">Top</div>
+                                        <div class="item" data-value="bottom">Bottom</div>
+                                        <div class="item" data-value="left">Left</div>
+                                        <div class="item" data-value="right">Right</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    (() => {
+        function load_table(tables) {
+            const table = DDX.active.value.find("table");
+            $(table[0]).children("thead").html(tables.analysis.thead);
+            $(table[0]).children("tbody").html(tables.analysis.tbody);
+            $(table[1]).children("thead").html(tables.summary.thead);
+            $(table[1]).children("tbody").html(tables.summary.tbody);
+        }
+
+        function load_plot(data) {
+            Chart.defaults.font.size = 14;
+            Chart.defaults.font.family = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
+            const ctx = DDX.active.value.find("canvas");
+            DDX.active.chart = new Chart(ctx[0].getContext("2d"), {
+                type: "scatter",
+                data: {
+                    datasets: [{
+                        label: "Observed",
+                        type: "scatter",
+                        pointRadius: 5,
+                        data: data.observe.sort((a, b) => a.x - b.x),
+                    }, {
+                        label: "Predicted",
+                        type: "line",
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        data: data.predict.sort((a, b) => a.x - b.x),
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        x: {title: {display: true, text: "Predicted Y"}},
+                        y: {title: {display: true, text: "Observed Y"}},
+                    },
+                    plugins: {
+                        legend: {display: true, position: "bottom"},
+                        title: {
+                            display: true,
+                            text: "Lasso Regression",
+                            position: "top",
+                            color: "teal",
+                            align: "center",
+                            font: {weight: "normal", size: 20},
+                        },
+                    },
+                },
+            });
+        }
+
+        $(".dropdown").dropdown({
+            onChange: function (value) {
+                DDX.active.chart.options.plugins.legend.position = value;
+                DDX.active.chart.update();
+            }
+        });
+
+        (async () => {
+            const modal = document.getElementById("loadingModal");
+            modal.classList.add("active");
+            try {
+                const source = await fetch("execs/lasso.py");
+                DDX.pyodide.runPython(await source.text());
+                const result = DDX.pyodide.globals.get("run")(JSON.stringify(DDX.post));
+                const output = JSON.parse(result);
+                load_plot(output.data);
+                load_table(output.table);
+            } catch (error) {
+                window.alert(`Error: ${error}`);
+            } finally {
+                $("#stat_txt").html("Status: lasso regression completed.");
+                modal.classList.remove("active");
+            }
+        })();
+
+        $(".ui.accordion").accordion();
+    })();
+</script>
