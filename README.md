@@ -11,12 +11,12 @@ Open `index.html` to use the main application. It provides:
 | Area | Available procedures |
 | --- | --- |
 | Univariate analysis | Linear regression, Lasso regression, Ridge regression, logistic regression, one-way ANOVA, and Student's t-tests (one-sample, independent two-sample, and paired-sample) |
-| Multivariate analysis | K-means clustering, multidimensional scaling (MDS), multivariate analysis of variance (MANOVA), and principal component analysis (PCA) |
+| Multivariate analysis | K-means and Ward hierarchical clustering, multidimensional scaling (MDS), multivariate analysis of variance (MANOVA), and principal component analysis (PCA) |
 | Predictive/classification methods | Decision tree, Naive Bayes, random forest, and support vector machine (SVM) |
-| Charts | Bar, box, line, pie, radar, and scatter plots |
+| Charts | Bar, box, line, pie, radar, and scatter plots, plus a Ward-clustering dendrogram |
 | Data import | Bundled example data or an Excel `.xlsx` workbook |
 
-Load data first, then choose a procedure from the menu. The procedure dialog describes the columns to select and their roles. Results and charts are displayed in tabs alongside the data table. The table shows 25 records per page.
+Load data first, then choose a procedure from the menu. The procedure dialog describes the columns to select and their roles. Ward clustering accepts numeric measurement columns, an optional row-label column, and a requested cluster count; it displays a dendrogram and a summary of cluster sizes and means. Results and charts are displayed in tabs alongside the data table. The table shows 25 records per page.
 
 ## Run locally
 
@@ -50,16 +50,15 @@ Choose columns that match the selected method's requirements. For example, regre
 1. `index.html` initializes the interface, data table, and Pyodide runtime. It loads the Tutorial (`help.html`), FAQ (`faq.html`), and analysis-selection dialogs (`modal/`) as needed.
 2. Selecting an action loads its result page from `export/`. The page uses the selected data and columns and, for statistical analyses, calls the relevant Python module from `execs/` through Pyodide.
 3. Chart.js renders visualizations. `assets/boxplot.js` adds box-plot and violin-plot chart types for the chart integration.
-4. Workbook conversion also runs in Pyodide. `execs/xlsx2json.py` reads the workbook with pandas/openpyxl and returns JSON for the main page.
+4. Workbook conversion also runs in Pyodide. `execs/xlsx2json.py` reads the workbook with pandas/openpyxl and returns JSON for the main page. `assets/coi-serviceworker.js` supplies cross-origin isolation headers needed by the browser runtime where the hosting origin does not provide them.
 
-The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `micropip`; it uses `micropip` to install `openpyxl` and `statsmodels`. The analysis scripts also use NumPy and SciPy. The interface uses jQuery 3.7.1 and Semantic UI 2.5.0; charts use Chart.js loaded from jsDelivr. The tutorial pages load MathJax from a CDN. These runtime dependencies are external and are not vendored or locked to exact versions in this project.
+The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `micropip`; it uses `micropip` to install `openpyxl` and `statsmodels`. The analysis scripts also use NumPy and SciPy, including SciPy's hierarchical clustering for Ward analysis. The interface uses jQuery 3.7.1 and Semantic UI 2.5.0; charts use Chart.js loaded from jsDelivr. The tutorial pages load MathJax from a CDN. These runtime dependencies are external and are not vendored or locked to exact versions in this project.
 
 ## Project layout
 
 ```text
 .
 ├── index.html                 Main application and browser-side orchestration
-├── default.html               Older alternate page; references missing upload.php
 ├── about.html                 About dialog content
 ├── help.html                  In-app tutorial
 ├── faq.html                   In-app FAQ
@@ -89,7 +88,8 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 │   ├── student2.html           Paired-sample t-test dialog
 │   ├── svm.html
 │   ├── tree.html
-│   └── volcano.html            Template not linked from the main menu
+│   ├── volcano.html            Template not linked from the main menu
+│   └── ward.html               Ward hierarchical clustering dialog
 ├── export/                    Result and chart pages loaded by the app
 │   ├── anova.html
 │   ├── bar_chart.html
@@ -113,7 +113,8 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 │   ├── student2.html           Paired-sample t-test result
 │   ├── svm.html
 │   ├── tree.html
-│   └── volcano.html            Template not linked from the main menu
+│   ├── volcano.html            Template not linked from the main menu
+│   └── ward.html               Ward dendrogram and cluster summary
 ├── execs/                     Python modules used by result pages
 │   ├── anova.py
 │   ├── bayes.py
@@ -129,26 +130,24 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 │   ├── student.py              Shared implementation for the three t-tests
 │   ├── svm.py
 │   ├── tree.py
+│   ├── ward.py                 Ward hierarchical clustering
 │   └── xlsx2json.py             XLSX-to-JSON conversion
 └── assets/
     ├── boxplot.js               Chart.js box/violin chart integration
+    ├── coi-serviceworker.js     Cross-origin isolation service worker
+    ├── coi-serviceworker.min.js Minified service worker
     ├── help.html                Additional copy of tutorial content
-    ├── export/lasso.svg         Lasso regression tutorial illustration
-    ├── export/ridge.svg         Ridge regression tutorial illustration
-    ├── modal/ridge.svg          Ridge variable-selection dialog illustration
-    ├── export/*.png             Tutorial result screenshots
-    └── modal/*.png              Tutorial dialog screenshots
+    ├── export/                  Tutorial result screenshots and illustrations
+    └── modal/                   Tutorial dialog screenshots and illustrations
 ```
 
-The `assets/` scripts and images are supplementary examples and tutorial material; the interactive application uses the Python modules in `execs/`. Its standalone Python examples are `decision_tree.py`, `driver.py`, `mds_metrics.py`, `naive_bayes.py`, `random_forest.py`, `svm_linear.py`, and `svm_nonlinear.py`. The root-level PNGs in `assets/` are `mds_metrics.png`, `naive_bayes.png`, and `svm_linear.png`; `assets/export/` and `assets/modal/` contain tutorial screenshots corresponding to result pages and selection dialogs. `assets/help.html` is a copy of the root tutorial `help.html`.
-
-The analysis and chart features are wired across the menu in `index.html`, a dialog in `modal/`, a result page in `export/`, and (for statistical methods) a Python module in `execs/`. Ridge regression uses scikit-learn's L2-regularized linear model. The three t-test pages share `execs/student.py`.
+The files in `assets/` provide chart integration and tutorial material; the interactive application's analysis modules are in `execs/`. The analysis and chart features are wired across the menu in `index.html`, a dialog in `modal/`, a result page in `export/`, and (for statistical methods) a Python module in `execs/`. Ridge regression uses scikit-learn's L2-regularized linear model. The three t-test pages share `execs/student.py`.
 
 ## Development notes and limitations
 
 - This is a static site: there is no package manifest, Python requirements file, build configuration, automated test suite, or checked-in deployment workflow in the project.
 - Runtime libraries and Python packages are downloaded from external CDNs/package sources. Offline use and fully reproducible dependency versions are not configured.
-- The main page's workbook conversion is client-side, but the older `default.html` flow expects an absent `upload.php`.
+- The cross-origin isolation service worker requires a secure context; local development should use `http://localhost` rather than opening the page directly as a file.
 - Statistical procedures have method-specific input requirements and assumptions. Review those requirements and validate outputs with an appropriate tool before relying on them.
 
 ## License
