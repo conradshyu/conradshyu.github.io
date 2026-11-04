@@ -47,7 +47,7 @@ def run(input: str) -> str:
             "tbody": "".join([f"<tr><td>{u['x'][a]}</td><td>{w[a]:0.3f}</td></tr>" for a in idx])
         },
         "data": {
-            "observed": [{"x": i[0], "y": int(i[1])} for i in zip(x_test[u["x"][0]], y_test)],
-            "predicted": [{"x": i[0], "y": int(i[1])} for i in zip(x_test[u["x"][0]], y_pred)],
+            "observe": [{"x": i[0], "y": int(i[1])} for i in zip(x_test[u["x"][0]], y_test)],
+            "predict": [{"x": i[0], "y": int(i[1])} for i in zip(x_test[u["x"][0]], y_pred)],
         },
     })

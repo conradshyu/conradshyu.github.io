@@ -12,6 +12,7 @@ def run(input: str) -> str:
     x = [[float(row[k]) for k in s["x"]] for row in data]
     y = [float(row[s["y"][0]]) for row in data]
     alpha = float(s.get("alpha", 0.01))
+
     if not numpy.isfinite(alpha) or alpha < 0:
         raise ValueError("Alpha must be a finite, non-negative number.")
 
@@ -41,9 +42,7 @@ def run(input: str) -> str:
             },
         },
         "data": {
-            "observe": [{"x": float(prediction), "y": actual}
-                        for prediction, actual in zip(fitted, y)],
-            "predict": [{"x": float(value), "y": float(value)}
-                        for value in numpy.linspace(plot_min, plot_max, 100)],
+            "observe": [{"x": float(prediction), "y": actual} for prediction, actual in zip(fitted, y)],
+            "predict": [{"x": float(value), "y": float(value)} for value in numpy.linspace(plot_min, plot_max, 100)],
         },
     })
