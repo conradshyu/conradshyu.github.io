@@ -29,8 +29,6 @@ python3 -m http.server 8000
 
 Open <http://localhost:8000/> in a modern browser. An internet connection is needed to download the external JavaScript libraries, Pyodide runtime, and Python packages used by the app. Opening `index.html` directly with a `file://` URL may prevent the browser from loading local resources correctly.
 
-`default.html` is an older alternate page, not the recommended entry point. Its spreadsheet upload handler posts to `upload.php`, which is not present in this project. The main `index.html` page instead reads the selected workbook in the browser and converts it with Pyodide.
-
 ## Data
 
 `example.json` is the data loaded by **Import Data → Load Example Data**. It contains 74 records with these fields:
