@@ -1,0 +1,129 @@
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8KPG39WEM0');
+</script>
+<i class="close icon"></i>
+<div class="header">
+    Univariate: Ridge Regression
+</div>
+<div class="content" style="width: 100%;">
+    <div class="ui segment" style="width: 100%;">
+        <p>
+            <b>Ridge Regression</b> fits a linear model while applying an L2 penalty that shrinks predictor
+            coefficients toward zero.
+        </p>
+        <p>
+            <b>NOTE</b>: Select one numerical response variable (<i>Y</i>) and one or more numerical predictors
+            (<i>X<sub>i</sub></i>). Predictor scales affect the penalty, so standardize predictors first when they
+            use different units. Alpha must be non-negative; larger values apply stronger regularization.
+        </p>
+    </div>
+    <div class="ui grid">
+        <div class="three column row" style="width: 100%; padding: 10px;">
+            <div class="column" style="text-align: center;">
+                <strong>Select Variables</strong>
+                <div class="ui segment">
+                    <div class="dnd_var" ondrop="DDX['lambda'](event);" ondragover="event.preventDefault();"
+                        style="text-align: center;"></div>
+                </div>
+            </div>
+            <div class="column" style="text-align: center;">
+                <strong>Response (<i>Y</i>)</strong>
+                <div class="ui segment">
+                    <div class="dnd_var" ondrop="DDX['lambda'](event);" ondragover="event.preventDefault();"
+                        style="text-align: center;"></div>
+                </div>
+            </div>
+            <div class="column" style="text-align: center;">
+                <strong>Predictor(s) (<i>X<sub>i</sub></i>)</strong>
+                <div class="ui segment">
+                    <div class="dnd_var" ondrop="DDX['lambda'](event);" ondragover="event.preventDefault();"
+                        style="text-align: center;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="width: 100%; padding: 0 10px 10px;">
+            <div class="column" style="width: 100%;">
+                <label for="ridge-alpha"><strong>Alpha (L2 penalty)</strong></label>
+                <div class="ui input" style="width: 100%; margin-top: 5px;">
+                    <input id="ridge-alpha" type="number" min="0" step="any" value="1.0">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="actions">
+    <div class="ui black deny button">
+        Cancel
+    </div>
+    <div class="ui positive right labeled icon button" onclick="DDX['update']();">
+        Run
+        <i class="checkmark icon"></i>
+    </div>
+</div>
+<script>
+    (() => {
+        DDX["lambda"] = (e) => {
+            e.preventDefault();
+            $(e.target).closest(".dnd_var").append($(DDX["drag"]).get(0));
+            $(".dnd_var").each((i, v) => {
+                DDX["label"][i] = [];
+                $.each($(v).children(), (a, b) => {
+                    DDX["label"][i].push($(b).text().trim());
+                });
+            });
+        };
+
+        DDX["update"] = () => {
+            if (DDX["label"][1].length != 1) {
+                window.alert("ERROR: Select only one variable with numerical values for response (Y).");
+                return false;
+            }
+            if (DDX["label"][2].length < 1) {
+                window.alert("ERROR: Select at least one variable with numerical values for predictors (X).");
+                return false;
+            }
+
+            const alphaValue = $("#ridge-alpha").val();
+            const alpha = Number(alphaValue);
+            if (alphaValue === "" || !Number.isFinite(alpha) || alpha < 0) {
+                window.alert("ERROR: Alpha must be a finite, non-negative number.");
+                return false;
+            }
+
+            let pid = null;
+            for (let i = 0; i < DDX["tab"].length; i++) {
+                if (DDX["tab"][i]["text"].css("display") == "none") {
+                    pid = DDX["tab"][i]; break;
+                }
+            }
+
+            DDX["active"] = pid;
+            pid["text"].css("display", "block");
+            pid["text"].children("span").html("Univariate: Ridge Regression");
+            DDX["post"] = {
+                "y": DDX["label"][1],
+                "x": DDX["label"][2],
+                "alpha": alpha,
+                "data": [],
+            };
+
+            $.each(DDX["json"], (i, v) => {
+                let row = {};
+                $.each(DDX["label"][1], (a, b) => {row[b] = v[b]});
+                $.each(DDX["label"][2], (a, b) => {row[b] = v[b]});
+                DDX["post"]["data"].push(row);
+            });
+        };
+
+        $(".dnd_var").each((a, b) => {
+            $(b).css("height", `${DDX["header"].length * 35}px`);
+        });
+        $.each(DDX["header"], (a, b) => {
+            $($(".dnd_var")[0]).append(
+                `<button class="fluid compact ui labeled icon basic button" style="margin-bottom: 5px;" draggable="true" ondragstart="DDX['drag'] = this;"><i class="pause icon"></i>${b}</button>`);
+        });
+    })();
+</script>

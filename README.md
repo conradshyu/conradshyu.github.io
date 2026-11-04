@@ -10,7 +10,7 @@ Open `index.html` to use the main application. It provides:
 
 | Area | Available procedures |
 | --- | --- |
-| Univariate analysis | Linear regression, Lasso regression, logistic regression, one-way ANOVA, and Student's t-tests (one-sample, independent two-sample, and paired-sample) |
+| Univariate analysis | Linear regression, Lasso regression, Ridge regression, logistic regression, one-way ANOVA, and Student's t-tests (one-sample, independent two-sample, and paired-sample) |
 | Multivariate analysis | K-means clustering, multidimensional scaling (MDS), multivariate analysis of variance (MANOVA), and principal component analysis (PCA) |
 | Predictive/classification methods | Decision tree, Naive Bayes, random forest, and support vector machine (SVM) |
 | Charts | Bar, box, line, pie, radar, and scatter plots |
@@ -45,7 +45,7 @@ Open <http://localhost:8000/> in a modern browser. An internet connection is nee
 
 The import control accepts `.xlsx` files. `execs/xlsx2json.py` reads the workbook using pandas and openpyxl, converts rows to JSON records, and replaces spaces in column names with underscores. It uses pandas' default worksheet selection (the first worksheet). The workbook is read in the browser; `index.html` does not post it to a project server.
 
-Choose columns that match the selected method's requirements. For example, regression and dimensionality-reduction procedures generally need numeric values, while classification and group-comparison procedures may also require categorical labels or grouping variables. Lasso regression accepts a non-negative alpha value (default `0.01`); standardize predictors first when their scales or units differ. The dialogs provide role guidance; this project is not a general-purpose data-cleaning tool.
+Choose columns that match the selected method's requirements. For example, regression and dimensionality-reduction procedures generally need numeric values, while classification and group-comparison procedures may also require categorical labels or grouping variables. Lasso regression accepts a non-negative alpha value (default `0.01`), and Ridge regression accepts a non-negative alpha value (default `1.0`); standardize predictors first when their scales or units differ. The dialogs provide role guidance; this project is not a general-purpose data-cleaning tool.
 
 ## How it works
 
@@ -78,6 +78,7 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 │   ├── line_chart.html
 │   ├── linear.html
 │   ├── lasso.html
+│   ├── ridge.html
 │   ├── logistic.html
 │   ├── manova.html
 │   ├── mds.html
@@ -101,6 +102,7 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 │   ├── line_chart.html
 │   ├── linear.html
 │   ├── lasso.html
+│   ├── ridge.html
 │   ├── logistic.html
 │   ├── manova.html
 │   ├── mds.html
@@ -121,6 +123,7 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 │   ├── forest.py
 │   ├── linear.py
 │   ├── lasso.py
+│   ├── ridge.py
 │   ├── logistic.py
 │   ├── manova.py
 │   ├── mds.py
@@ -133,13 +136,15 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
     ├── boxplot.js               Chart.js box/violin chart integration
     ├── help.html                Additional copy of tutorial content
     ├── export/lasso.svg         Lasso regression tutorial illustration
+    ├── export/ridge.svg         Ridge regression tutorial illustration
+    ├── modal/ridge.svg          Ridge variable-selection dialog illustration
     ├── export/*.png             Tutorial result screenshots
     └── modal/*.png              Tutorial dialog screenshots
 ```
 
 The `assets/` scripts and images are supplementary examples and tutorial material; the interactive application uses the Python modules in `execs/`. Its standalone Python examples are `decision_tree.py`, `driver.py`, `mds_metrics.py`, `naive_bayes.py`, `random_forest.py`, `svm_linear.py`, and `svm_nonlinear.py`. The root-level PNGs in `assets/` are `mds_metrics.png`, `naive_bayes.png`, and `svm_linear.png`; `assets/export/` and `assets/modal/` contain tutorial screenshots corresponding to result pages and selection dialogs. `assets/help.html` is a copy of the root tutorial `help.html`.
 
-The analysis and chart features are wired across the menu in `index.html`, a dialog in `modal/`, a result page in `export/`, and (for statistical methods) a Python module in `execs/`. The three t-test pages share `execs/student.py`.
+The analysis and chart features are wired across the menu in `index.html`, a dialog in `modal/`, a result page in `export/`, and (for statistical methods) a Python module in `execs/`. Ridge regression uses scikit-learn's L2-regularized linear model. The three t-test pages share `execs/student.py`.
 
 ## Development notes and limitations
 

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" role="img" aria-labelledby="title desc">
+  <title id="title">Ridge regression variable selection dialog</title>
+  <desc id="desc">Illustration of the Ridge Regression dialog with fields for a response, predictors, and the L2 penalty alpha.</desc>
+  <rect width="900" height="420" rx="14" fill="#f3f5f7"/>
+  <rect x="65" y="32" width="770" height="355" rx="12" fill="#fff" stroke="#d7dee5" stroke-width="2"/>
+  <path d="M65 85H835" stroke="#e1e6eb" stroke-width="2"/>
+  <text x="95" y="68" fill="#263746" font-family="Arial, sans-serif" font-size="22" font-weight="bold">Univariate: Ridge Regression</text>
+  <text x="95" y="119" fill="#263746" font-family="Arial, sans-serif" font-size="17" font-weight="bold">Select variables</text>
+  <g font-family="Arial, sans-serif" font-size="15" fill="#394957">
+    <text x="186" y="152" text-anchor="middle" font-weight="bold">Available</text>
+    <text x="444" y="152" text-anchor="middle" font-weight="bold">Response (Y)</text>
+    <text x="700" y="152" text-anchor="middle" font-weight="bold">Predictors (Xᵢ)</text>
+  </g>
+  <g fill="#fff" stroke="#d5dde5" stroke-width="2">
+    <rect x="95" y="165" width="182" height="120" rx="6"/>
+    <rect x="353" y="165" width="182" height="120" rx="6"/>
+    <rect x="609" y="165" width="182" height="120" rx="6"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="15">
+    <rect x="109" y="179" width="154" height="30" rx="4" fill="#f1f3f5"/><text x="122" y="199" fill="#394957">weight</text>
+    <rect x="109" y="216" width="154" height="30" rx="4" fill="#f1f3f5"/><text x="122" y="236" fill="#394957">pneumonia</text>
+    <rect x="367" y="179" width="154" height="30" rx="4" fill="#e2f4f3"/><text x="380" y="199" fill="#226b70">abnormal</text>
+    <rect x="623" y="179" width="154" height="30" rx="4" fill="#e9f0fb"/><text x="636" y="199" fill="#315d94">tuberculosis</text>
+    <rect x="623" y="216" width="154" height="30" rx="4" fill="#e9f0fb"/><text x="636" y="236" fill="#315d94">pneumonia</text>
+  </g>
+  <text x="95" y="323" fill="#263746" font-family="Arial, sans-serif" font-size="15" font-weight="bold">Alpha (L2 penalty)</text>
+  <rect x="95" y="336" width="696" height="34" rx="5" fill="#fff" stroke="#cbd4dd" stroke-width="2"/>
+  <text x="112" y="358" fill="#394957" font-family="Arial, sans-serif" font-size="15">1.0</text>
+  <rect x="715" y="52" width="89" height="24" rx="12" fill="#e5f4ef"/>
+  <text x="759" y="69" text-anchor="middle" fill="#257653" font-family="Arial, sans-serif" font-size="13">Run</text>
+</svg>
