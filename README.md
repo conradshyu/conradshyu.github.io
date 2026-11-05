@@ -59,7 +59,6 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 ## Project layout
 
 ```text
-.
 ├── index.html                  Main application and browser-side orchestration
 ├── about.html                  About dialog content
 ├── help.html                   In-app tutorial
@@ -94,56 +93,54 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 │   ├── volcano.html            Template not linked from the main menu
 │   └── ward.html               Ward hierarchical clustering dialog
 ├── export/                     Result and chart pages loaded by the app
-│   ├── anova.html
+│   ├── anova.html              Analysis of Variance (ANOVA)
 │   ├── bar_chart.html
-│   ├── bayes.html
+│   ├── bayes.html              Naive Bayes Classification
 │   ├── box_chart.html
-│   ├── cluster.html
-│   ├── forest.html
-│   ├── histogram.html          Histogram chart and frequency table
+│   ├── cluster.html            Cluster Analysis (K-Means)
+│   ├── forest.html             Random Forest
+│   ├── histogram.html          Histogram variable and bin selection
 │   ├── line_chart.html
-│   ├── linear.html
-│   ├── lasso.html
-│   ├── ridge.html
-│   ├── logistic.html
-│   ├── manova.html
-│   ├── mds.html
-│   ├── pca.html
+│   ├── linear.html             Linear regression
+│   ├── lasso.html              Lasso regression
+│   ├── ridge.html              Ridge regression
+│   ├── logistic.html           Logistic regression
+│   ├── manova.html             Multivariate Analysis of Variance
+│   ├── mds.html                Multidimensional Scaling
+│   ├── pca.html                Principal Component Analysis
 │   ├── pie_chart.html
 │   ├── radar_chart.html
 │   ├── scatter_chart.html
-│   ├── student0.html           One-sample t-test result
-│   ├── student1.html           Two-sample t-test result
-│   ├── student2.html           Paired-sample t-test result
-│   ├── svm.html
-│   ├── tree.html
+│   ├── student0.html           One-sample t-test dialog
+│   ├── student1.html           Two-sample t-test dialog
+│   ├── student2.html           Paired-sample t-test dialog
+│   ├── svm.html                Support Vector Machine
+│   ├── tree.html               Decision Tree
 │   ├── volcano.html            Template not linked from the main menu
-│   └── ward.html               Ward dendrogram and cluster summary
-├── execs/                     Python modules used by result pages
-│   ├── anova.py
-│   ├── bayes.py
-│   ├── cluster.py
-│   ├── forest.py
-│   ├── histogram.py           Equal-width histogram frequencies
-│   ├── linear.py
-│   ├── lasso.py
-│   ├── ridge.py
-│   ├── logistic.py
-│   ├── manova.py
-│   ├── mds.py
-│   ├── pca.py
+│   └── ward.html               Ward hierarchical clustering dialog
+├── execs/                      Python modules used by result pages
+│   ├── anova.py                scipy: f_oneway
+│   ├── bayes.py                scikit-learn: GaussianNB
+│   ├── cluster.py              scikit-learn: KMeans
+│   ├── forest.py               scikit-learn: RandomForestRegressor
+│   ├── histogram.py            Equal-width histogram frequencies
+│   ├── linear.py               scikit-learn: LinearRegression
+│   ├── lasso.py                scikit-learn: Lasso
+│   ├── logistic.py             scikit-learn: LogisticRegression
+│   ├── ridge.py                scikit-learn: Ridge
+│   ├── manova.py               statsmodels: MANOVA
+│   ├── mds.py                  scikit-learn: MDS
+│   ├── pca.py                  scikit-learn: PCA
 │   ├── student.py              Shared implementation for the three t-tests
-│   ├── svm.py
-│   ├── tree.py
-│   ├── ward.py                 Ward hierarchical clustering
-│   └── xlsx2json.py             XLSX-to-JSON conversion
+│   ├── svm.py                  scikit-learn: SVC
+│   ├── tree.py                 scikit-learn: DecisionTreeClassifier
+│   ├── ward.py                 scikit-learn: AgglomerativeClustering
+│   └── xlsx2json.py            XLSX-to-JSON conversion
 └── assets/
-    ├── boxplot.js               Chart.js box/violin chart integration
-    ├── coi-serviceworker.js     Cross-origin isolation service worker
-    ├── coi-serviceworker.min.js Minified service worker
-    ├── help.html                Additional copy of tutorial content
-    ├── export/                  Tutorial result screenshots and illustrations
-    └── modal/                   Tutorial dialog screenshots and illustrations
+    ├── boxplot.js              Chart.js box/violin chart integration
+    ├── help.html               Additional copy of tutorial content
+    ├── export/                 Tutorial result screenshots and illustrations
+    └── modal/                  Tutorial dialog screenshots and illustrations
 ```
 
 The files in `assets/` provide chart integration and tutorial material; the interactive application's analysis modules are in `execs/`. The analysis and chart features are wired across the menu in `index.html`, a dialog in `modal/`, a result page in `export/`, and (for statistical methods) a Python module in `execs/`. Ridge regression uses scikit-learn's L2-regularized linear model. The three t-test pages share `execs/student.py`.
