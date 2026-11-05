@@ -13,10 +13,12 @@ Open `index.html` to use the main application. It provides:
 | Univariate analysis | Linear regression, Lasso regression, Ridge regression, logistic regression, one-way ANOVA, and Student's t-tests (one-sample, independent two-sample, and paired-sample) |
 | Multivariate analysis | K-means and Ward hierarchical clustering, multidimensional scaling (MDS), multivariate analysis of variance (MANOVA), and principal component analysis (PCA) |
 | Predictive/classification methods | Decision tree, Naive Bayes, random forest, and support vector machine (SVM) |
-| Charts | Bar, box, line, pie, radar, and scatter plots, plus a Ward-clustering dendrogram |
+| Charts | Bar, box, histogram, line, pie, radar, and scatter plots, plus a Ward-clustering dendrogram |
 | Data import | Bundled example data or an Excel `.xlsx` workbook |
 
 Load data first, then choose a procedure from the menu. The procedure dialog describes the columns to select and their roles. Ward clustering accepts numeric measurement columns, an optional row-label column, and a requested cluster count; it displays a dendrogram and a summary of cluster sizes and means. Results and charts are displayed in tabs alongside the data table. The table shows 25 records per page.
+
+**Chart → Histogram** accepts exactly one numerical column and an integer bin count (default `10`, range `1`–`1000`). NumPy computes equal-width bins and observation frequencies in the browser through `execs/histogram.py`; missing, non-numeric, and infinite values are rejected rather than silently omitted. Bins include their lower bound and exclude their upper bound, except the last bin, which includes the maximum. Constant data is binned over a range of 0.5 below and above the value. The result includes adjoining bars, a frequency table, and controls for the figure title, title font size, and axis titles.
 
 ## Run locally
 
@@ -58,45 +60,47 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 
 ```text
 .
-├── index.html                 Main application and browser-side orchestration
-├── about.html                 About dialog content
-├── help.html                  In-app tutorial
-├── faq.html                   In-app FAQ
-├── example.json               Example dataset (74 records)
-├── favicon.ico                Site icon
-├── LICENSE                    Apache License 2.0
-├── modal/                     Variable-selection dialogs loaded by index.html
-│   ├── anova.html
+├── index.html                  Main application and browser-side orchestration
+├── about.html                  About dialog content
+├── help.html                   In-app tutorial
+├── faq.html                    In-app FAQ
+├── example.json                Example dataset (74 records)
+├── favicon.ico                 Site icon
+├── LICENSE                     Apache License 2.0
+├── modal/                      Variable-selection dialogs loaded by index.html
+│   ├── anova.html              Analysis of Variance (ANOVA)
 │   ├── bar_chart.html
-│   ├── bayes.html
+│   ├── bayes.html              Naive Bayes Classification
 │   ├── box_chart.html
-│   ├── cluster.html
-│   ├── forest.html
+│   ├── cluster.html            Cluster Analysis (K-Means)
+│   ├── forest.html             Random Forest
+│   ├── histogram.html          Histogram variable and bin selection
 │   ├── line_chart.html
-│   ├── linear.html
-│   ├── lasso.html
-│   ├── ridge.html
-│   ├── logistic.html
-│   ├── manova.html
-│   ├── mds.html
-│   ├── pca.html
+│   ├── linear.html             Linear regression
+│   ├── lasso.html              Lasso regression
+│   ├── ridge.html              Ridge regression
+│   ├── logistic.html           Logistic regression
+│   ├── manova.html             Multivariate Analysis of Variance
+│   ├── mds.html                Multidimensional Scaling
+│   ├── pca.html                Principal Component Analysis
 │   ├── pie_chart.html
 │   ├── radar_chart.html
 │   ├── scatter_chart.html
 │   ├── student0.html           One-sample t-test dialog
 │   ├── student1.html           Two-sample t-test dialog
 │   ├── student2.html           Paired-sample t-test dialog
-│   ├── svm.html
-│   ├── tree.html
+│   ├── svm.html                Support Vector Machine
+│   ├── tree.html               Decision Tree
 │   ├── volcano.html            Template not linked from the main menu
 │   └── ward.html               Ward hierarchical clustering dialog
-├── export/                    Result and chart pages loaded by the app
+├── export/                     Result and chart pages loaded by the app
 │   ├── anova.html
 │   ├── bar_chart.html
 │   ├── bayes.html
 │   ├── box_chart.html
 │   ├── cluster.html
 │   ├── forest.html
+│   ├── histogram.html          Histogram chart and frequency table
 │   ├── line_chart.html
 │   ├── linear.html
 │   ├── lasso.html
@@ -120,6 +124,7 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 │   ├── bayes.py
 │   ├── cluster.py
 │   ├── forest.py
+│   ├── histogram.py           Equal-width histogram frequencies
 │   ├── linear.py
 │   ├── lasso.py
 │   ├── ridge.py
