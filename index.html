@@ -582,8 +582,8 @@
 
         function export_png(i) {
             const exportCanvas = document.createElement('canvas');
-            exportCanvas.width = i.canvas.width;
-            exportCanvas.height = i.canvas.height;
+            exportCanvas.width = i.canvas.width + 10;
+            exportCanvas.height = i.canvas.height + 10;
             const context = exportCanvas.getContext('2d');
             context.fillStyle = '#fff';
             context.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
