@@ -587,7 +587,7 @@
             const context = exportCanvas.getContext('2d');
             context.fillStyle = '#fff';
             context.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
-            context.drawImage(i.canvas, 0, 0);
+            context.drawImage(i.canvas, 5, 5);
 
             const link = document.createElement('a');
             link.download = 'figure.png';
