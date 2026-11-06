@@ -580,6 +580,21 @@
             $("#stat_txt").html(`Status: sample file <q>${DDX["file"]}</q> loaded.`);
         }
 
+        function export_png(i) {
+            const exportCanvas = document.createElement('canvas');
+            exportCanvas.width = i.canvas.width;
+            exportCanvas.height = i.canvas.height;
+            const context = exportCanvas.getContext('2d');
+            context.fillStyle = '#fff';
+            context.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+            context.drawImage(i.canvas, 0, 0);
+
+            const link = document.createElement('a');
+            link.download = 'figure.png';
+            link.href = exportCanvas.toDataURL('image/png');
+            link.click();
+        };
+
         $(document).ready(function() {
             $('.dropdown').dropdown();
             $(".tab[data-tab='tb0y']").load("help.html");
