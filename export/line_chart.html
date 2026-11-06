@@ -32,7 +32,7 @@
                     <td>Legend Font Size</td>
                     <td>
                         <div class="ui small input" style="width: 100%;">
-                            <input type="text" placeholder="Legend font size ..."
+                            <input type="number" placeholder="Legend font size ..." min="8" max="24"
                                 onkeyup="DDX.active.chart.options.plugins.legend.labels.font.size = this.value; DDX.active.chart.update();">
                         </div>
                     </td>
@@ -41,7 +41,7 @@
                     <td>Title Font Size</td>
                     <td>
                         <div class="ui small input" style="width: 100%;">
-                            <input type="text" placeholder="Title font size ..."
+                            <input type="number" placeholder="Title font size ..." min="8" max="32"
                                 onkeyup="DDX.active.chart.options.plugins.title.font.size = this.value; DDX.active.chart.update();">
                         </div>
                     </td>
@@ -81,14 +81,14 @@
                     <td>X-Axis Font Size</td>
                     <td>
                         <div class="ui small input" style="width: 100%;">
-                            <input type="text" placeholder="X-axis font size ..."
+                            <input type="number" placeholder="X-axis font size ..." min="8" max="24"
                                 onkeyup="DDX.active.chart.options.scales.x.title.font.size = this.value; DDX.active.chart.update();">
                         </div>
                     </td>
                     <td>Y-Axis Font Size</td>
                     <td>
                         <div class="ui small input" style="width: 100%;">
-                            <input type="text" placeholder="Y-axis font size ..."
+                            <input type="number" placeholder="Y-axis font size ..." min="8" max="24"
                                 onkeyup="DDX.active.chart.options.scales.y.title.font.size = this.value; DDX.active.chart.update();">
                         </div>
                     </td>
@@ -97,14 +97,14 @@
                     <td>X-Axis Tick Size</td>
                     <td>
                         <div class="ui small input" style="width: 100%;">
-                            <input type="text" placeholder="X-axis tick font size ..."
+                            <input type="number" placeholder="X-axis tick font size ..." min="8" max="24"
                                 onkeyup="DDX.active.chart.options.scales.x.ticks.font.size = this.value; DDX.active.chart.update();">
                         </div>
                     </td>
                     <td>Y-Axis Tick Size</td>
                     <td>
                         <div class="ui small input" style="width: 100%;">
-                            <input type="text" placeholder="Y-axis tick font size ..."
+                            <input type="number" placeholder="Y-axis tick font size ..." min="8" max="24"
                                 onkeyup="DDX.active.chart.options.scales.y.ticks.font.size = this.value; DDX.active.chart.update();">
                         </div>
                     </td>
