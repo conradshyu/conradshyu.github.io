@@ -205,6 +205,9 @@
                         }
                     },
                     plugins: {
+                        legend: {
+                            display: false
+                        },
                         title: {
                             display: true,
                             text: "Ward Hierarchical Clustering",
@@ -217,7 +220,12 @@
                                 style: "normal",
                                 family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
                             }
-                        }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: (items) => labels[Math.round(items[0].parsed.x)] || "",
+                            },
+                        },
                     },
                     animations: {
                         animateScale: true,
