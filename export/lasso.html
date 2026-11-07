@@ -156,6 +156,10 @@
         function load_plot(data) {
             Chart.defaults.font.size = 14;
             Chart.defaults.font.family = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
+            Chart.defaults.font.style = "normal";
+            Chart.defaults.font.weight = "normal";
+            Chart.defaults.font.lineHeight = 1.2;
+
             const ctx = DDX.active.value.find("canvas");
             DDX.active.chart = new Chart(ctx[0].getContext("2d"), {
                 type: "scatter",

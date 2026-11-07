@@ -42,12 +42,18 @@
                     <div class="dnd_var" ondrop="DDX['lambda'](event);" ondragover="event.preventDefault();"
                         style="text-align: center;"></div>
                 </div>
-                <div class="ui small input" style="width: 100%;">
-                    <label for="wardClusterCount" style="padding: 8px;">Number of clusters</label>
-                    <input id="wardClusterCount" type="number" min="1" value="3" style="width: 80px;">
-                </div>
             </div>
         </div>
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 20%; text-align: right;">
+                    <strong>Number of Clusters:</strong> <span id="ward_text">3</span>
+                </td>
+                <td>
+                    <div id="ward_count" style="background-color: lightgray;"></div>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
 <div class="actions">
@@ -80,7 +86,7 @@
                 return false;
             }
 
-            const clusters = Number($("#wardClusterCount").val());
+            const clusters = Number($("#ward_text").text());
             if (!Number.isInteger(clusters) || clusters < 1 || clusters > DDX["json"].length) {
                 window.alert("ERROR: Number of clusters must be between 1 and the number of observations.");
                 return false;
@@ -125,6 +131,16 @@
         $.each(DDX["header"], (a, b) => {
             $($(".dnd_var")[0]).append(
                 `<button class="fluid compact ui labeled icon basic button" style="margin-bottom: 5px;" draggable="true" ondragstart="DDX['drag'] = this;"><i class="pause icon"></i>${b}</button>`);
+        });
+
+        $("#ward_count").slider({
+            min: 1,
+            max: 20,
+            step: 1,
+            value: 3,
+            slide: (event, ui) => {
+                $("#ward_text").text(ui.value);
+            }
         });
     })();
 </script>

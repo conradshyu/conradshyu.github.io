@@ -22,7 +22,12 @@
             <div class="eight wide column" style="width: 100%;">
                 <div class="ui header" style="text-align: center;">Control Panel</div>
                 <table class="ui compact celled table" style="width: 100%;">
-                    <thead><tr><th style="width: 40%;">Parameter</th><th>Value</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th style="width: 40%;">Parameter</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
                             <td>Figure Title</td>
@@ -40,17 +45,57 @@
                         </tr>
                         <tr>
                             <td>X-Axis Title</td>
-                            <td><div class="ui small input" style="width: 100%;">
-                                <input type="text" placeholder="X-axis title ..."
-                                    onkeyup="DDX.active.chart.options.scales.x.title.text = this.value; DDX.active.chart.update();">
-                            </div></td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="text" placeholder="X-axis title ..."
+                                        onkeyup="DDX.active.chart.options.scales.x.title.text = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>X-Axis Font Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="X-axis font size ..." min="8" max="24"
+                                        onkeyup="DDX.active.chart.options.scales.x.title.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>X-Axis Tick Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="X-axis tick font size ..." min="8" max="24"
+                                        onkeyup="DDX.active.chart.options.scales.x.ticks.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>Y-Axis Title</td>
-                            <td><div class="ui small input" style="width: 100%;">
-                                <input type="text" placeholder="Y-axis title ..."
-                                    onkeyup="DDX.active.chart.options.scales.y.title.text = this.value; DDX.active.chart.update();">
-                            </div></td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="text" placeholder="Y-axis title ..."
+                                        onkeyup="DDX.active.chart.options.scales.y.title.text = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Y-Axis Font Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="Y-axis font size ..." min="8" max="24"
+                                        onkeyup="DDX.active.chart.options.scales.y.title.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Y-Axis Tick Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="Y-axis tick font size ..." min="8" max="24"
+                                        onkeyup="DDX.active.chart.options.scales.y.ticks.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -72,6 +117,12 @@
         }
 
         function loadPlot(tree) {
+            Chart.defaults.font.size = 14;
+            Chart.defaults.font.family = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
+            Chart.defaults.font.style = "normal";
+            Chart.defaults.font.weight = "normal";
+            Chart.defaults.font.lineHeight = 1.2;
+
             const labels = tree.labels;
             const datasets = tree.branches.map((branch) => ({
                 data: branch.data,
@@ -81,6 +132,7 @@
                 showLine: true,
                 fill: false,
             }));
+
             datasets.push({
                 label: "Cluster cut",
                 data: [{x: 0, y: tree.cut_distance}, {x: Math.max(0, labels.length - 1), y: tree.cut_distance}],
@@ -95,7 +147,9 @@
             const canvas = DDX.active.value.find("canvas")[0];
             DDX.active.chart = new Chart(canvas.getContext("2d"), {
                 type: "scatter",
-                data: {datasets},
+                data: {
+                    datasets
+                },
                 options: {
                     responsive: true,
                     maintainAspectRatio: true,
@@ -105,8 +159,23 @@
                             type: "linear",
                             min: 0,
                             max: Math.max(1, labels.length - 1),
-                            title: {display: true, text: "Observations"},
+                            title: {
+                                display: true,
+                                text: "Predicted Y",
+                                font: {
+                                    weight: "normal",
+                                    size: 12,
+                                    style: "normal",
+                                    family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                },
+                            },
                             ticks: {
+                                font: {
+                                    weight: "normal",
+                                    size: 14,
+                                    style: "normal",
+                                    family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                },
                                 stepSize: 1,
                                 autoSkip: true,
                                 maxTicksLimit: 25,
@@ -115,26 +184,46 @@
                         },
                         y: {
                             min: 0,
-                            title: {display: true, text: "Ward Distance"},
-                        },
+                            title: {
+                                display: true,
+                                text: "Ward Distance",
+                                font: {
+                                    weight: "normal",
+                                    size: 12,
+                                    style: "normal",
+                                    family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
+                                }
+                            },
+                            ticks: {
+                                font: {
+                                    weight: "normal",
+                                    size: 14,
+                                    style: "normal",
+                                    family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                }
+                            }
+                        }
                     },
                     plugins: {
-                        legend: {display: false},
                         title: {
                             display: true,
                             text: "Ward Hierarchical Clustering",
                             position: "top",
                             color: "teal",
                             align: "center",
-                            font: {size: 24},
-                        },
-                        tooltip: {
-                            callbacks: {
-                                title: (items) => labels[Math.round(items[0].parsed.x)] || "",
-                            },
-                        },
+                            font: {
+                                weight: "normal",
+                                size: 20,
+                                style: "normal",
+                                family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                            }
+                        }
                     },
-                },
+                    animations: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
             });
         }
 
