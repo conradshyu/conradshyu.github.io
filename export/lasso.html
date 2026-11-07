@@ -28,15 +28,92 @@
                 <div class="ui header" style="text-align: center;">Control Panel</div>
                 <table class="ui compact celled table" style="width: 100%;">
                     <thead>
-                        <tr><th style="width: 40%;">Parameter</th><th>Value</th></tr>
+                        <tr>
+                            <th style="width: 40%;">Parameter</th>
+                            <th>Value</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Figure Title</td>
-                            <td><div class="ui small input" style="width: 100%;">
-                                <input type="text" placeholder="Figure title ..."
-                                    onkeyup="DDX.active.chart.options.plugins.title.text = this.value; DDX.active.chart.update();">
-                            </div></td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="text" placeholder="Figure title ..."
+                                        onkeyup="DDX.active.chart.options.plugins.title.text = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Title Font Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="Title font size ..." min="8" max="32"
+                                        onkeyup="DDX.active.chart.options.plugins.title.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>X-Axis Title</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="text" placeholder="X-axis title ..."
+                                        onkeyup="DDX.active.chart.options.scales.x.title.text = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>X-Axis Font Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="X-axis font size ..." min="8" max="24"
+                                        onkeyup="DDX.active.chart.options.scales.x.title.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>X-Axis Tick Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="X-axis tick font size ..." min="8" max="24"
+                                        onkeyup="DDX.active.chart.options.scales.x.ticks.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Y-Axis Title</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="text" placeholder="Y-axis title ..."
+                                        onkeyup="DDX.active.chart.options.scales.y.title.text = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Y-Axis Font Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="Y-axis font size ..." min="8" max="24"
+                                        onkeyup="DDX.active.chart.options.scales.y.title.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Y-Axis Tick Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="Y-axis tick font size ..." min="8" max="24"
+                                        onkeyup="DDX.active.chart.options.scales.y.ticks.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Legend Font Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="Legend font size ..." min="8" max="24"
+                                        onkeyup="DDX.active.chart.options.plugins.legend.labels.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>Legend Position</td>
@@ -50,6 +127,7 @@
                                         <div class="item" data-value="bottom">Bottom</div>
                                         <div class="item" data-value="left">Left</div>
                                         <div class="item" data-value="right">Right</div>
+                                        <div class="item" data-value="chartArea">Chart Area</div>
                                     </div>
                                 </div>
                             </td>
@@ -99,21 +177,80 @@
                     responsive: true,
                     maintainAspectRatio: true,
                     scales: {
-                        x: {title: {display: true, text: "Predicted Y"}},
-                        y: {title: {display: true, text: "Observed Y"}},
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Predicted Y",
+                                font: {
+                                    weight: "normal",
+                                    size: 12,
+                                    style: "normal",
+                                    family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                },
+                            },
+                            ticks: {
+                                font: {
+                                    weight: "normal",
+                                    size: 14,
+                                    style: "normal",
+                                    family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                },
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: "Observed Y",
+                                font: {
+                                    weight: "normal",
+                                    size: 12,
+                                    style: "normal",
+                                    family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                },
+                            },
+                            ticks: {
+                                font: {
+                                    weight: "normal",
+                                    size: 14,
+                                    style: "normal",
+                                    family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                }
+                            }
+                        }
                     },
                     plugins: {
-                        legend: {display: true, position: "bottom"},
+                        legend: {
+                            display: true,
+                            position: "bottom",
+                            align: "center",
+                            labels: {
+                                font: {
+                                    weight: "normal",
+                                    size: 14,
+                                    style: "normal",
+                                    family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                },
+                            }
+                        },
                         title: {
                             display: true,
                             text: "Lasso Regression",
                             position: "top",
                             color: "teal",
                             align: "center",
-                            font: {weight: "normal", size: 20},
-                        },
+                            font: {
+                                weight: "normal",
+                                size: 20,
+                                style: "normal",
+                                family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                            }
+                        }
                     },
-                },
+                    animations: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
             });
         }
 
