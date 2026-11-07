@@ -44,14 +44,19 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="width: 100%; padding: 0 10px 10px;">
-            <div class="column" style="width: 100%;">
-                <label for="ridge-alpha"><strong>Alpha (L2 penalty)</strong></label>
-                <div class="ui input" style="width: 100%; margin-top: 5px;">
-                    <input id="ridge-alpha" type="number" min="0" step="any" value="1.0">
-                </div>
-            </div>
-        </div>
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 15%; text-align: right;">
+                    <strong>Alpha (<em>L<sub>2</sub></em> penalty):</strong>
+                </td>
+                <td style="width: 5%;">
+                    <p id="alpha_text">0.01</p>
+                </td>
+                <td>
+                    <div id="alpha" style="background-color: lightgray;"></div>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
 <div class="actions">
@@ -86,9 +91,8 @@
                 return false;
             }
 
-            const alphaValue = $("#ridge-alpha").val();
-            const alpha = Number(alphaValue);
-            if (alphaValue === "" || !Number.isFinite(alpha) || alpha < 0) {
+            const alpha = Number($("#alpha_text").text());
+            if (!Number.isFinite(alpha) || alpha < 0) {
                 window.alert("ERROR: Alpha must be a finite, non-negative number.");
                 return false;
             }
@@ -121,9 +125,21 @@
         $(".dnd_var").each((a, b) => {
             $(b).css("height", `${DDX["header"].length * 35}px`);
         });
+
         $.each(DDX["header"], (a, b) => {
             $($(".dnd_var")[0]).append(
                 `<button class="fluid compact ui labeled icon basic button" style="margin-bottom: 5px;" draggable="true" ondragstart="DDX['drag'] = this;"><i class="pause icon"></i>${b}</button>`);
+        });
+
+        $("#alpha").slider({
+            min: 0.0,
+            max: 5.0,
+            step: 0.01,
+            value: 0.01,
+            slide: (event, ui) => {
+                $("#lasso-alpha").val(ui.value);
+                $("#alpha_text").text(ui.value);
+            }
         });
     })();
 </script>

@@ -13,30 +13,113 @@
     <div class="content">
         <div class="ui grid">
             <div class="eight wide column" style="width: 100%;">
-                <div class="ui header" style="text-align: center;">Analysis</div>
+                <div class="ui header" style="text-align: center;">
+                    Analysis
+                </div>
                 <table class="ui celled compact table" style="width: 100%;">
                     <thead></thead>
                     <tbody></tbody>
                 </table>
-                <div class="ui header" style="text-align: center;">Summary Statistics</div>
+                <div class="ui header" style="text-align: center;">
+                    Summary Statistics
+                </div>
                 <table class="ui celled compact table" style="width: 100%;">
                     <thead></thead>
                     <tbody></tbody>
                 </table>
             </div>
             <div class="eight wide column" style="width: 100%;">
-                <div class="ui header" style="text-align: center;">Control Panel</div>
+                <div class="ui header" style="text-align: center;">
+                    Control Panel
+                </div>
                 <table class="ui compact celled table" style="width: 100%;">
                     <thead>
-                        <tr><th style="width: 40%;">Parameter</th><th>Value</th></tr>
+                        <tr>
+                            <th style="width: 40%;">Parameter</th>
+                            <th>Value</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Figure Title</td>
-                            <td><div class="ui small input" style="width: 100%;">
-                                <input type="text" placeholder="Figure title ..."
-                                    onkeyup="DDX.active.chart.options.plugins.title.text = this.value; DDX.active.chart.update();">
-                            </div></td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="text" placeholder="Figure title ..."
+                                        onkeyup="DDX.active.chart.options.plugins.title.text = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Title Font Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="Title font size ..." min="8" max="32"
+                                        onkeyup="DDX.active.chart.options.plugins.title.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>X-Axis Title</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="text" placeholder="X-axis title ..."
+                                        onkeyup="DDX.active.chart.options.scales.x.title.text = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>X-Axis Font Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="X-axis font size ..." min="8" max="24"
+                                        onkeyup="DDX.active.chart.options.scales.x.title.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>X-Axis Tick Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="X-axis tick font size ..." min="8" max="24"
+                                        onkeyup="DDX.active.chart.options.scales.x.ticks.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Y-Axis Title</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="text" placeholder="Y-axis title ..."
+                                        onkeyup="DDX.active.chart.options.scales.y.title.text = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Y-Axis Font Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="Y-axis font size ..." min="8" max="24"
+                                        onkeyup="DDX.active.chart.options.scales.y.title.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Y-Axis Tick Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="Y-axis tick font size ..." min="8" max="24"
+                                        onkeyup="DDX.active.chart.options.scales.y.ticks.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Legend Font Size</td>
+                            <td>
+                                <div class="ui small input" style="width: 100%;">
+                                    <input type="number" placeholder="Legend font size ..." min="8" max="24"
+                                        onkeyup="DDX.active.chart.options.plugins.legend.labels.font.size = this.value; DDX.active.chart.update();">
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>Legend Position</td>
@@ -50,6 +133,7 @@
                                         <div class="item" data-value="bottom">Bottom</div>
                                         <div class="item" data-value="left">Left</div>
                                         <div class="item" data-value="right">Right</div>
+                                        <div class="item" data-value="chartArea">Chart Area</div>
                                     </div>
                                 </div>
                             </td>
@@ -78,6 +162,10 @@
         function load_plot(data) {
             Chart.defaults.font.size = 14;
             Chart.defaults.font.family = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
+            Chart.defaults.font.style = "normal";
+            Chart.defaults.font.weight = "normal";
+            Chart.defaults.font.lineHeight = 1.2;
+
             const ctx = DDX.active.value.find("canvas");
             DDX.active.chart = new Chart(ctx[0].getContext("2d"), {
                 type: "scatter",
@@ -99,21 +187,81 @@
                     responsive: true,
                     maintainAspectRatio: true,
                     scales: {
-                        x: {title: {display: true, text: "Predicted Y"}},
-                        y: {title: {display: true, text: "Observed Y"}},
+                        y: {
+                            title: {
+                                display: true,
+                                text: "Y Axis",
+                                font: {
+                                    weight: "normal",
+                                    size: 12,
+                                    style: "normal",
+                                    family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                }
+                            },
+                            ticks: {
+                                font: {
+                                    weight: "normal",
+                                    size: 14,
+                                    style: "normal",
+                                    family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                }
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: "X Axis",
+                                font: {
+                                    weight: "normal",
+                                    size: 12,
+                                    style: "normal",
+                                    family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                }
+                            },
+                            ticks: {
+                                maxTicksLimit: 25,
+                                font: {
+                                    weight: "normal",
+                                    size: 14,
+                                    style: "normal",
+                                    family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                }
+                            }
+                        }
                     },
                     plugins: {
-                        legend: {display: true, position: "bottom"},
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            align: 'center',
+                            labels: {
+                                font: {
+                                    weight: "normal",
+                                    size: 14,
+                                    style: "normal",
+                                    family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                }
+                            }
+                        },
                         title: {
                             display: true,
-                            text: "Ridge Regression",
+                            text: 'Linear Regression',
                             position: "top",
                             color: "teal",
                             align: "center",
-                            font: {weight: "normal", size: 20},
-                        },
+                            font: {
+                                weight: "normal",
+                                size: 20,
+                                style: "normal",
+                                family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                            }
+                        }
                     },
-                },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
             });
         }
 
