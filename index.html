@@ -207,6 +207,10 @@
                     onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
                     <i class="folder outline icon"></i>Box
                 </a>
+                <a class="item" onclick="run_action('heatmp.html', 'heatmap.html');"
+                    onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
+                    <i class="folder outline icon"></i>Heatmap
+                </a>
                 <a class="item" onclick="run_action('line_chart.html');"
                     onmouseout="$(this).children('i').removeClass('open');" onmouseover="$(this).children('i').addClass('open');">
                     <i class="folder outline icon"></i>Line
@@ -361,7 +365,7 @@
             "file": null, "update": null, "drag": null, "lambda": null, "active": null,
         };  // dynamic data exchange
 
-        function run_action(i) {
+        function run_action(i, exportFile = i) {
             if (DDX["json"].length == 0) {
                 window.alert(
                     "Please load a dataset first. " +
@@ -405,7 +409,7 @@
                 },
                 onApprove: (e) => {
                     // called after a positive, approve or ok button is pressed
-                    DDX["active"]["value"].load(`export/${i}`);
+                    DDX["active"]["value"].load(`export/${exportFile}`);
                     //console.log("Modal: Approve Event");
                 }
             }).modal("show");

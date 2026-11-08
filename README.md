@@ -13,12 +13,14 @@ Open `index.html` to use the main application. It provides:
 | Univariate analysis | Linear regression, Lasso regression, Ridge regression, logistic regression, one-way ANOVA, and Student's t-tests (one-sample, independent two-sample, and paired-sample) |
 | Multivariate analysis | K-means and Ward hierarchical clustering, multidimensional scaling (MDS), multivariate analysis of variance (MANOVA), and principal component analysis (PCA) |
 | Predictive/classification methods | Decision tree, Naive Bayes, random forest, and support vector machine (SVM) |
-| Charts | Bar, box, histogram, line, pie, radar, and scatter plots, plus a Ward-clustering dendrogram |
+| Charts | Bar, box, heatmap, histogram, line, pie, radar, and scatter plots, plus a Ward-clustering dendrogram |
 | Data import | Bundled example data or an Excel `.xlsx` workbook |
 
 Load data first, then choose a procedure from the menu. The procedure dialog describes the columns to select and their roles. Ward clustering accepts numeric measurement columns, an optional row-label column, and a requested cluster count; it displays a dendrogram and a summary of cluster sizes and means. Results and charts are displayed in tabs alongside the data table. The table shows 25 records per page.
 
 **Chart → Histogram** accepts exactly one numerical column and an integer bin count (default `10`, range `1`–`1000`). NumPy computes equal-width bins and observation frequencies in the browser through `execs/histogram.py`; missing, non-numeric, and infinite values are rejected rather than silently omitted. Bins include their lower bound and exclude their upper bound, except the last bin, which includes the maximum. Constant data is binned over a range of 0.5 below and above the value. The result includes adjoining bars, a frequency table, and controls for the figure title, title font size, and axis titles.
+
+**Chart → Heatmap** accepts one record-label column and one or more numerical columns. It displays each record-by-variable value as a colored cell using one shared scale across all selected values; blank, non-numeric, and infinite values are rejected. Hover over a cell to see its exact value, and use the chart control panel to edit the title and axis labels or export a PNG.
 
 ## Run locally
 
@@ -51,7 +53,7 @@ Choose columns that match the selected method's requirements. For example, regre
 
 1. `index.html` initializes the interface, data table, and Pyodide runtime. It loads the Tutorial (`help.html`), FAQ (`faq.html`), and analysis-selection dialogs (`modal/`) as needed.
 2. Selecting an action loads its result page from `export/`. The page uses the selected data and columns and, for statistical analyses, calls the relevant Python module from `execs/` through Pyodide.
-3. Chart.js renders visualizations. `assets/boxplot.js` adds box-plot and violin-plot chart types for the chart integration.
+3. Chart.js renders visualizations. The heatmap uses colored scatter-chart cells and a shared value scale; `assets/boxplot.js` adds box-plot and violin-plot chart types for the chart integration.
 4. Workbook conversion also runs in Pyodide. `execs/xlsx2json.py` reads the workbook with pandas/openpyxl and returns JSON for the main page. `assets/coi-serviceworker.js` supplies cross-origin isolation headers needed by the browser runtime where the hosting origin does not provide them.
 
 The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `micropip`; it uses `micropip` to install `openpyxl` and `statsmodels`. The analysis scripts also use NumPy and SciPy, including SciPy's hierarchical clustering for Ward analysis. The interface uses jQuery 3.7.1 and Semantic UI 2.5.0; charts use Chart.js loaded from jsDelivr. The tutorial pages load MathJax from a CDN. These runtime dependencies are external and are not vendored or locked to exact versions in this project.
@@ -73,6 +75,7 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 │   ├── box_chart.html
 │   ├── cluster.html            Cluster Analysis (K-Means)
 │   ├── forest.html             Random Forest
+│   ├── heatmp.html             Heatmap row labels and value selection
 │   ├── histogram.html          Histogram variable and bin selection
 │   ├── line_chart.html
 │   ├── linear.html             Linear regression
@@ -99,6 +102,7 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 │   ├── box_chart.html
 │   ├── cluster.html            Cluster Analysis (K-Means)
 │   ├── forest.html             Random Forest
+│   ├── heatmap.html            Heatmap result and controls
 │   ├── histogram.html          Histogram variable and bin selection
 │   ├── line_chart.html
 │   ├── linear.html             Linear regression
@@ -140,7 +144,9 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
     ├── boxplot.js              Chart.js box/violin chart integration
     ├── help.html               Additional copy of tutorial content
     ├── export/                 Tutorial result screenshots and illustrations
+    │   └── heatmap.svg         Heatmap tutorial illustration
     └── modal/                  Tutorial dialog screenshots and illustrations
+        └── heatmap.svg         Heatmap selection-dialog illustration
 ```
 
 The files in `assets/` provide chart integration and tutorial material; the interactive application's analysis modules are in `execs/`. The analysis and chart features are wired across the menu in `index.html`, a dialog in `modal/`, a result page in `export/`, and (for statistical methods) a Python module in `execs/`. Ridge regression uses scikit-learn's L2-regularized linear model. The three t-test pages share `execs/student.py`.

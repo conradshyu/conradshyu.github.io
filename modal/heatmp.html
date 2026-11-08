@@ -1,0 +1,109 @@
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8KPG39WEM0');
+</script>
+<i class="close icon"></i>
+<div class="header">
+    Chart: Heatmap
+</div>
+<div class="content" style="width: 100%;">
+    <div class="ui segment" style="width: 100%;">
+        A heatmap displays numerical values as colored cells. Choose one column to identify each record and one or more
+        numerical columns to display.
+        <br>
+        <b>NOTE</b>: Every selected value must be finite and numerical. The color scale is shared across all selected
+        values.
+    </div>
+    <div class="ui grid">
+        <div class="three column row" style="width: 100%; padding: 10px;">
+            <div class="column" style="text-align: center;">
+                <strong>Select Variables</strong>
+                <div class="ui segment">
+                    <div class="dnd_var" ondrop="DDX['lambda'](event);" ondragover="event.preventDefault();"
+                        style="text-align: center;">
+                    </div>
+                </div>
+            </div>
+            <div class="column" style="text-align: center;">
+                <strong>Record Label</strong>
+                <div class="ui segment">
+                    <div class="dnd_var" ondrop="DDX['lambda'](event);" ondragover="event.preventDefault();"
+                        style="text-align: center;">
+                    </div>
+                </div>
+            </div>
+            <div class="column" style="text-align: center;">
+                <strong>Numerical Values</strong>
+                <div class="ui segment">
+                    <div class="dnd_var" ondrop="DDX['lambda'](event);" ondragover="event.preventDefault();"
+                        style="text-align: center;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="actions">
+    <div class="ui black deny button">
+        Cancel
+    </div>
+    <div class="ui positive right labeled icon button" onclick="DDX['update']();">
+        Run
+        <i class="checkmark icon"></i>
+    </div>
+</div>
+<script>
+    (() => {
+        DDX["lambda"] = (e) => {
+            e.preventDefault();
+            $(e.target).closest(".dnd_var").append($(DDX["drag"]).get(0));
+
+            $(".dnd_var").each((i, v) => {
+                DDX["label"][i] = [];
+                $.each($(v).children(), (a, b) => {
+                    DDX["label"][i].push($(b).text().trim());
+                });
+            });
+        };
+
+        DDX["update"] = () => {
+            if (DDX["label"][1].length !== 1) {
+                window.alert("ERROR: Select exactly one record-label variable.");
+                return false;
+            }
+
+            if (DDX["label"][2].length < 1) {
+                window.alert("ERROR: Select at least one numerical variable.");
+                return false;
+            }
+
+            let pid = null;
+            for (let i = 0; i < DDX["tab"].length; i++) {
+                if (DDX["tab"][i]["text"].css("display") === "none") {
+                    pid = DDX["tab"][i];
+                    break;
+                }
+            }
+
+            if (pid === null) {
+                window.alert("ERROR: Close an existing result tab before creating another chart.");
+                return false;
+            }
+
+            DDX["active"] = pid;
+            pid["text"].css("display", "block");
+            pid["text"].children("span").html("Chart: Heatmap");
+        };
+
+        $(".dnd_var").each((a, b) => {
+            $(b).css("height", `${DDX["header"].length * 35}px`);
+        });
+
+        $.each(DDX["header"], (a, b) => {
+            $($(".dnd_var")[0]).append(
+                `<button class="fluid compact ui labeled icon basic button" style="margin-bottom: 5px;" draggable="true" ondragstart="DDX['drag'] = this;"><i class="pause icon"></i>${b}</button>`);
+        });
+    })();
+</script>

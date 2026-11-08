@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600" role="img" aria-labelledby="title description">
+  <title id="title">Heatmap of sample values across records</title>
+  <desc id="description">A colored matrix compares four numeric variables across six labeled records with a low-to-high color scale.</desc>
+  <defs>
+    <linearGradient id="scale" x1="0" x2="0" y1="1" y2="0">
+      <stop offset="0%" stop-color="#eff6ff"/>
+      <stop offset="100%" stop-color="#1e40af"/>
+    </linearGradient>
+  </defs>
+  <rect width="1000" height="600" fill="#fff"/>
+  <text x="500" y="48" font-family="Arial, sans-serif" font-size="27" text-anchor="middle" fill="#008080">Heatmap</text>
+  <text x="520" y="562" font-family="Arial, sans-serif" font-size="17" text-anchor="middle" fill="#333">Variable</text>
+  <text x="48" y="335" font-family="Arial, sans-serif" font-size="17" text-anchor="middle" transform="rotate(-90 48 335)" fill="#333">Record</text>
+  <g font-family="Arial, sans-serif" font-size="15" fill="#333" text-anchor="middle">
+    <text x="300" y="104">abnormal</text>
+    <text x="425" y="104">tuberculosis</text>
+    <text x="550" y="104">pneumonia</text>
+    <text x="675" y="104">weight</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#333" text-anchor="end">
+    <text x="216" y="152">Record 1</text>
+    <text x="216" y="210">Record 2</text>
+    <text x="216" y="268">Record 3</text>
+    <text x="216" y="326">Record 4</text>
+    <text x="216" y="384">Record 5</text>
+    <text x="216" y="442">Record 6</text>
+  </g>
+  <g stroke="#fff" stroke-width="3">
+    <rect x="245" y="122" width="110" height="44" fill="#93c5fd"/><rect x="370" y="122" width="110" height="44" fill="#1e40af"/><rect x="495" y="122" width="110" height="44" fill="#60a5fa"/><rect x="620" y="122" width="110" height="44" fill="#bfdbfe"/>
+    <rect x="245" y="180" width="110" height="44" fill="#dbeafe"/><rect x="370" y="180" width="110" height="44" fill="#3b82f6"/><rect x="495" y="180" width="110" height="44" fill="#93c5fd"/><rect x="620" y="180" width="110" height="44" fill="#eff6ff"/>
+    <rect x="245" y="238" width="110" height="44" fill="#3b82f6"/><rect x="370" y="238" width="110" height="44" fill="#bfdbfe"/><rect x="495" y="238" width="110" height="44" fill="#1e40af"/><rect x="620" y="238" width="110" height="44" fill="#60a5fa"/>
+    <rect x="245" y="296" width="110" height="44" fill="#eff6ff"/><rect x="370" y="296" width="110" height="44" fill="#60a5fa"/><rect x="495" y="296" width="110" height="44" fill="#bfdbfe"/><rect x="620" y="296" width="110" height="44" fill="#3b82f6"/>
+    <rect x="245" y="354" width="110" height="44" fill="#60a5fa"/><rect x="370" y="354" width="110" height="44" fill="#eff6ff"/><rect x="495" y="354" width="110" height="44" fill="#3b82f6"/><rect x="620" y="354" width="110" height="44" fill="#93c5fd"/>
+    <rect x="245" y="412" width="110" height="44" fill="#1e40af"/><rect x="370" y="412" width="110" height="44" fill="#93c5fd"/><rect x="495" y="412" width="110" height="44" fill="#dbeafe"/><rect x="620" y="412" width="110" height="44" fill="#bfdbfe"/>
+  </g>
+  <rect x="805" y="126" width="20" height="330" fill="url(#scale)"/>
+  <text x="841" y="138" font-family="Arial, sans-serif" font-size="14" fill="#333">High</text>
+  <text x="841" y="456" font-family="Arial, sans-serif" font-size="14" fill="#333">Low</text>
+  <text x="500" y="510" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#555">Shared color scale across selected values</text>
+</svg>

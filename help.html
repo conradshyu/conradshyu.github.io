@@ -12,7 +12,7 @@
         <i class="chart line icon" style="color: teal;"></i>CS::Statistics is a free online tool for statistical
         analysis. You can run analyses such as <b>Linear Regression</b>, <b>Lasso Regression</b>, <b>Ridge Regression</b>,
         <b>Logistic Regression</b>, and <b>One-Way  ANOVA</b>. You can also generate charts such as <b>Line Chart</b>,
-        <b>Pie Chart</b>, or even <b>Radar Chart</b>. If you do not have your own dataset, please use the one in the
+        <b>Pie Chart</b>, <b>Radar Chart</b>, or <b>Heatmap</b>. If you do not have your own dataset, please use the one in the
         dropdown menu <b>Import Data</b>/<b>Load Example Data</b>. The tutorials will be based on this example dataset.
     </p>
     <p>
@@ -643,6 +643,34 @@
         <p>
         <div style="width: 90%; text-align: center; margin: auto;">
             <img src="assets/export/box.png" alt="Box Chart" style="width: 100%; height: auto;">
+        </div>
+        </p>
+    </div>
+    <div class="title">
+        <i class="dropdown icon" style="color: blue;"></i>
+        Chart: Heatmap
+    </div>
+    <div class="content">
+        <p>
+            A <b>heatmap</b> displays values in a matrix of colored cells, making patterns across records and
+            numerical variables easy to compare. To generate one, click <b>Chart</b> and select <b>Heatmap</b>.
+            Drag <b>label</b> into <b>Record Label</b>, then drag <b>abnormal</b>, <b>tuberculosis</b>, and
+            <b>pneumonia</b> into <b>Numerical Values</b>. Click <b>Run</b>. Each row represents a record, each
+            column a selected variable, and the shared color scale maps lower values to lighter blue and higher
+            values to darker blue. All selected values must be finite numbers.
+        </p>
+        <p>
+        <div style="width: 60%; text-align: center; margin: auto;">
+            <img src="assets/modal/heatmap.svg" alt="Heatmap variable-selection dialog" style="width: 100%; height: auto;">
+        </div>
+        </p>
+        <p>
+            Hover over any cell to read its exact value. Expand the control panel to edit the chart title and axis
+            labels or export the heatmap as a PNG.
+        </p>
+        <p>
+        <div style="width: 90%; text-align: center; margin: auto;">
+            <img src="assets/export/heatmap.svg" alt="Heatmap of sample values across records" style="width: 100%; height: auto;">
         </div>
         </p>
     </div>

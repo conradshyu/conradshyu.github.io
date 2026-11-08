@@ -1,0 +1,280 @@
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8KPG39WEM0');
+</script>
+<div class="ui grid">
+    <div class="two wide column" style="width: 100%;"></div>
+    <div class="twelve wide column" style="width: 100%; text-align: center;">
+        <div id="heatmap-container" style="width: 100%; height: 480px;">
+            <canvas></canvas>
+        </div>
+    </div>
+    <div class="two wide column" style="width: 100%;"></div>
+</div>
+<div class="ui accordion">
+    <div class="title">
+        <i class="dropdown icon" style="color: blue;"></i>
+        Control Panel
+    </div>
+    <div class="content">
+        <table class="ui compact celled table" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="width: 25%;">Parameter</th>
+                    <th style="width: 25%;">Value</th>
+                    <th style="width: 25%;">Parameter</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Figure Title</td>
+                    <td>
+                        <div class="ui small input" style="width: 100%;">
+                            <input type="text" placeholder="Figure title ..."
+                                oninput="DDX.active.chart.options.plugins.title.text = this.value; DDX.active.chart.update();">
+                        </div>
+                    </td>
+                    <td>Title Font Size</td>
+                    <td>
+                        <div class="ui small input" style="width: 100%;">
+                            <input type="number" placeholder="Title font size ..." min="8" max="32"
+                                oninput="DDX.active.chart.options.plugins.title.font.size = Number(this.value); DDX.active.chart.update();">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>X-Axis Title</td>
+                    <td>
+                        <div class="ui small input" style="width: 100%;">
+                            <input type="text" placeholder="X-axis title ..."
+                                oninput="DDX.active.chart.options.scales.x.title.text = this.value; DDX.active.chart.update();">
+                        </div>
+                    </td>
+                    <td>Y-Axis Title</td>
+                    <td>
+                        <div class="ui small input" style="width: 100%;">
+                            <input type="text" placeholder="Y-axis title ..."
+                                oninput="DDX.active.chart.options.scales.y.title.text = this.value; DDX.active.chart.update();">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Axis Tick Size</td>
+                    <td>
+                        <div class="ui small input" style="width: 100%;">
+                            <input type="number" placeholder="Axis tick font size ..." min="8" max="24"
+                                oninput="DDX.active.chart.options.scales.x.ticks.font.size = Number(this.value); DDX.active.chart.options.scales.y.ticks.font.size = Number(this.value); DDX.active.chart.update();">
+                        </div>
+                    </td>
+                    <td>Color Scale</td>
+                    <td>Shared minimum-to-maximum value range</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="text-align: right;">
+            <button class="ui compact blue button" onclick='export_png(DDX["active"]["chart"]);'>
+                Export PNG
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    (() => {
+        const labelField = DDX["label"][1][0];
+        const valueFields = DDX["label"][2];
+        const rows = DDX["json"];
+        const rowLabels = [];
+        const values = [];
+
+        if (rows.length === 0 || valueFields.length === 0) {
+            window.alert("ERROR: Select a record label and at least one numerical variable.");
+            return false;
+        }
+
+        for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
+            const sourceLabel = rows[rowIndex][labelField];
+            rowLabels.push(sourceLabel == null || String(sourceLabel).trim() === "" ?
+                `Row ${rowIndex + 1}` : String(sourceLabel));
+
+            for (let columnIndex = 0; columnIndex < valueFields.length; columnIndex++) {
+                const field = valueFields[columnIndex];
+                const sourceValue = rows[rowIndex][field];
+                const value = typeof sourceValue === "boolean" || sourceValue == null ||
+                    (typeof sourceValue === "string" && sourceValue.trim() === "") ?
+                    Number.NaN : Number(sourceValue);
+
+                if (!Number.isFinite(value)) {
+                    window.alert(`ERROR: "${field}" must contain finite numerical values. Check row ${rowIndex + 1}.`);
+                    return false;
+                }
+
+                values.push({
+                    x: columnIndex,
+                    y: rowIndex,
+                    value,
+                    rowLabel: rowLabels[rowIndex],
+                    columnLabel: field,
+                });
+            }
+        }
+
+        let minimum = Number.POSITIVE_INFINITY;
+        let maximum = Number.NEGATIVE_INFINITY;
+        values.forEach((cell) => {
+            minimum = Math.min(minimum, cell.value);
+            maximum = Math.max(maximum, cell.value);
+        });
+        const startColor = [239, 246, 255];
+        const endColor = [30, 64, 175];
+        const colorForValue = (value) => {
+            const fraction = maximum === minimum ? 0.5 : (value - minimum) / (maximum - minimum);
+            const channels = startColor.map((start, index) =>
+                Math.round(start + (endColor[index] - start) * fraction));
+            return `rgb(${channels[0]}, ${channels[1]}, ${channels[2]})`;
+        };
+        const formatValue = (value) => Number(value).toLocaleString(undefined, {
+            maximumSignificantDigits: 4,
+        });
+
+        $("#heatmap-container").css("height", `${Math.min(900, Math.max(480, rows.length * 9 + 160))}px`);
+        Chart.defaults.font.family = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
+
+        const canvas = DDX["active"]["value"].find("canvas");
+        DDX["active"]["chart"] = new Chart(canvas[0].getContext("2d"), {
+            type: "scatter",
+            data: {
+                datasets: [{
+                    data: values,
+                    pointRadius: 3,
+                    pointHoverRadius: 4,
+                    pointBackgroundColor: "rgba(0, 0, 0, 0)",
+                    pointBorderColor: "rgba(0, 0, 0, 0)",
+                    pointHoverBackgroundColor: "rgba(0, 0, 0, 0)",
+                    pointHoverBorderColor: "rgba(0, 0, 0, 0)",
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: { right: 78 },
+                },
+                scales: {
+                    x: {
+                        type: "linear",
+                        min: -0.5,
+                        max: valueFields.length - 0.5,
+                        title: {
+                            display: true,
+                            text: "Variable",
+                            font: { size: 12 },
+                        },
+                        ticks: {
+                            stepSize: 1,
+                            autoSkip: false,
+                            maxRotation: 45,
+                            callback: (tick) => valueFields[Math.round(tick)] ?? "",
+                            font: { size: 12 },
+                        },
+                        grid: { display: false },
+                    },
+                    y: {
+                        type: "linear",
+                        min: -0.5,
+                        max: rows.length - 0.5,
+                        reverse: true,
+                        title: {
+                            display: true,
+                            text: "Record",
+                            font: { size: 12 },
+                        },
+                        ticks: {
+                            stepSize: 1,
+                            maxTicksLimit: 30,
+                            callback: (tick) => rowLabels[Math.round(tick)] ?? "",
+                            font: { size: 11 },
+                        },
+                        grid: { display: false },
+                    },
+                },
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: "Heatmap",
+                        position: "top",
+                        color: "teal",
+                        align: "center",
+                        font: { size: 24 },
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: (items) => {
+                                const cell = items[0].raw;
+                                return `${cell.rowLabel} / ${cell.columnLabel}`;
+                            },
+                            label: (context) => `Value: ${formatValue(context.raw.value)}`,
+                        },
+                    },
+                },
+            },
+            plugins: [{
+                id: "heatmapColorScale",
+                beforeDatasetsDraw: (chart) => {
+                    const { ctx, chartArea } = chart;
+                    if (!chartArea) {
+                        return;
+                    }
+
+                    const cellWidth = (chartArea.right - chartArea.left) / valueFields.length;
+                    const cellHeight = (chartArea.bottom - chartArea.top) / rows.length;
+
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.rect(chartArea.left, chartArea.top, chartArea.right - chartArea.left,
+                        chartArea.bottom - chartArea.top);
+                    ctx.clip();
+                    values.forEach((cell) => {
+                        const centerX = chart.scales.x.getPixelForValue(cell.x);
+                        const centerY = chart.scales.y.getPixelForValue(cell.y);
+                        ctx.fillStyle = colorForValue(cell.value);
+                        ctx.fillRect(centerX - cellWidth / 2, centerY - cellHeight / 2,
+                            Math.max(0, cellWidth - 1), Math.max(0, cellHeight - 1));
+                    });
+                    ctx.restore();
+                },
+                afterDraw: (chart) => {
+                    const { ctx, chartArea } = chart;
+                    if (!chartArea) {
+                        return;
+                    }
+
+                    const x = chartArea.right + 10;
+                    const width = 14;
+                    const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+                    gradient.addColorStop(0, colorForValue(minimum));
+                    gradient.addColorStop(1, colorForValue(maximum));
+
+                    ctx.save();
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(x, chartArea.top, width, chartArea.bottom - chartArea.top);
+                    ctx.fillStyle = "#333333";
+                    ctx.font = "11px Arial";
+                    ctx.textAlign = "left";
+                    ctx.textBaseline = "top";
+                    ctx.fillText(formatValue(maximum), x + width + 5, chartArea.top);
+                    ctx.textBaseline = "bottom";
+                    ctx.fillText(formatValue(minimum), x + width + 5, chartArea.bottom);
+                    ctx.restore();
+                },
+            }],
+        });
+
+        $("#stat_txt").html("Status: heatmap chart completed.");
+        $(".ui.accordion").accordion();
+        return true;
+    })();
+</script>
