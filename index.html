@@ -409,6 +409,7 @@
                 },
                 onApprove: (e) => {
                     // called after a positive, approve or ok button is pressed
+                    DDX["active"]["value"].load(`export/${i}`);
                     //console.log("Modal: Approve Event");
                 }
             }).modal("show");
