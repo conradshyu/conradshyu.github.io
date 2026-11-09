@@ -144,9 +144,7 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
     ├── boxplot.js              Chart.js box/violin chart integration
     ├── help.html               Additional copy of tutorial content
     ├── export/                 Tutorial result screenshots and illustrations
-    │   └── heatmap.svg         Heatmap tutorial illustration
     └── modal/                  Tutorial dialog screenshots and illustrations
-        └── heatmap.svg         Heatmap selection-dialog illustration
 ```
 
 The files in `assets/` provide chart integration and tutorial material; the interactive application's analysis modules are in `execs/`. The analysis and chart features are wired across the menu in `index.html`, a dialog in `modal/`, a result page in `export/`, and (for statistical methods) a Python module in `execs/`. Ridge regression uses scikit-learn's L2-regularized linear model. The three t-test pages share `execs/student.py`.
