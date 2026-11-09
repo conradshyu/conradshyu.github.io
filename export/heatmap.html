@@ -62,15 +62,36 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Axis Tick Size</td>
+                    <td>X-Axis Font Size</td>
                     <td>
                         <div class="ui small input" style="width: 100%;">
-                            <input type="number" placeholder="Axis tick font size ..." min="8" max="24"
-                                oninput="DDX.active.chart.options.scales.x.ticks.font.size = Number(this.value); DDX.active.chart.options.scales.y.ticks.font.size = Number(this.value); DDX.active.chart.update();">
+                            <input type="number" placeholder="X-axis font size ..." min="8" max="24"
+                                onkeyup="DDX.active.chart.options.scales.x.title.font.size = this.value; DDX.active.chart.update();">
                         </div>
                     </td>
-                    <td>Color Scale</td>
-                    <td>Shared minimum-to-maximum value range</td>
+                    <td>Y-Axis Font Size</td>
+                    <td>
+                        <div class="ui small input" style="width: 100%;">
+                            <input type="number" placeholder="Y-axis font size ..." min="8" max="24"
+                                onkeyup="DDX.active.chart.options.scales.y.title.font.size = this.value; DDX.active.chart.update();">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>X-Axis Tick Size</td>
+                    <td>
+                        <div class="ui small input" style="width: 100%;">
+                            <input type="number" placeholder="X-axis tick font size ..." min="8" max="24"
+                                onkeyup="DDX.active.chart.options.scales.x.ticks.font.size = this.value; DDX.active.chart.update();">
+                        </div>
+                    </td>
+                    <td>Y-Axis Tick Size</td>
+                    <td>
+                        <div class="ui small input" style="width: 100%;">
+                            <input type="number" placeholder="Y-axis tick font size ..." min="8" max="24"
+                                onkeyup="DDX.active.chart.options.scales.y.ticks.font.size = this.value; DDX.active.chart.update();">
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -170,14 +191,24 @@
                         title: {
                             display: true,
                             text: "Variable",
-                            font: { size: 12 },
+                            font: {
+                                weight: "normal",
+                                size: 12,
+                                style: "normal",
+                                family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                            },
                         },
                         ticks: {
                             stepSize: 1,
                             autoSkip: false,
                             maxRotation: 45,
                             callback: (tick) => valueFields[Math.round(tick)] ?? "",
-                            font: { size: 12 },
+                            font: {
+                                weight: "normal",
+                                size: 14,
+                                style: "normal",
+                                family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                            },
                         },
                         grid: { display: false },
                     },
@@ -189,13 +220,23 @@
                         title: {
                             display: true,
                             text: "Record",
-                            font: { size: 12 },
+                            font: {
+                                weight: "normal",
+                                size: 12,
+                                style: "normal",
+                                family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                            },
                         },
                         ticks: {
                             stepSize: 1,
                             maxTicksLimit: 30,
                             callback: (tick) => rowLabels[Math.round(tick)] ?? "",
-                            font: { size: 11 },
+                            font: {
+                                weight: "normal",
+                                size: 11,
+                                style: "normal",
+                                family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                            },
                         },
                         grid: { display: false },
                     },
@@ -208,7 +249,12 @@
                         position: "top",
                         color: "teal",
                         align: "center",
-                        font: { size: 24 },
+                        font: {
+                            weight: "normal",
+                            size: 24,
+                            style: "normal",
+                            family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                        },
                     },
                     tooltip: {
                         callbacks: {
@@ -220,6 +266,10 @@
                         },
                     },
                 },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                }
             },
             plugins: [{
                 id: "heatmapColorScale",
