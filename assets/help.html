@@ -1,16 +1,19 @@
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8KPG39WEM0');
+</script>
 <div class="ui accordion">
     <p>
         <b>Synopsis</b>
     </p>
     <p>
         <i class="chart line icon" style="color: teal;"></i>CS::Statistics is a free online tool for statistical
-        analysis. You can run analyses such as <b>Linear Regression</b>, <b>Lasso Regression</b>,
-        <b>Ridge Regression</b>,
-        <b>Logistic Regression</b>, and <b>One-Way
-        ANOVA</b>. You can also generate charts such as <b>Line Chart</b>, <b>Pie Chart</b>, <b>Radar Chart</b>, or
-        <b>Heatmap</b>.
-        If you do not have your own dataset, please use the one in the dropdown menu <b>Import Data</b>/<b>Load Example
-        Data</b>. The tutorials will be based on this example dataset.
+        analysis. You can run analyses such as <b>Linear Regression</b>, <b>Lasso Regression</b>, <b>Ridge Regression</b>,
+        <b>Logistic Regression</b>, and <b>One-Way  ANOVA</b>. You can also generate charts such as <b>Line Chart</b>,
+        <b>Pie Chart</b>, <b>Radar Chart</b>, or <b>Heatmap</b>. If you do not have your own dataset, please use the one in the
+        dropdown menu <b>Import Data</b>/<b>Load Example Data</b>. The tutorials will be based on this example dataset.
     </p>
     <p>
         <b>How to run univariate analysis?</b>
@@ -48,11 +51,9 @@
             and drop <b>abnormal</b> as the response variable, <b>tuberculosis</b> and <b>pneumonia</b> as the predictor
             variables. Click the <b>Run</b> button.
         </p>
-        <p>
         <div style="width: 60%; text-align: center; margin: auto;">
-            <img src="assets/modal/linear.png" alt="Linear Regression Modal Dialog" style="width: 100%; height: auto;">
+            <img src="assets/modal/linear.png" style="width: 100%; height: auto;" alt="Linear Regression Modal Dialog">
         </div>
-        </p>
         <p>
             The figure shows the linear regression model with <b>abnormal</b> as the response variable, <b>tuberculosis</b>
             and <b>pneumonia</b> as the predictor (or independent) variables. In the chart, the red dots indicate the
@@ -64,11 +65,9 @@
             <b>tuberculosis</b>. This indicates that <b>tuberculosis</b> is a much better predictor for the response
             variable <b>abnormal</b>.
         </p>
-        <p>
         <div style="width: 90%; text-align: center; margin: auto;">
-            <img src="assets/export/linear.png" alt="Linear Regression" style="width: 100%; height: auto;">
+            <img src="assets/export/linear.png" style="width: 100%; height: auto;" alt="Linear Regression Plot">
         </div>
-        </p>
     </div>
     <div class="title">
         <i class="dropdown icon" style="color: blue;"></i>
@@ -78,7 +77,9 @@
         <p>
             <b>Lasso Regression</b> models a numerical response as a linear combination of numerical predictors while
             adding an L1 penalty to the residual sum of squares:
-            \( \frac{1}{2n}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2 + \alpha\sum_{j=1}^{p}|\beta_j| \).
+            \[
+                \frac{1}{2n}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2 + \alpha\sum_{j=1}^{p}|\beta_j|.
+            \]
             The penalty can shrink some predictor coefficients exactly to zero, which performs feature selection.
             A larger alpha applies stronger shrinkage. Because the penalty depends on coefficient scale, standardize
             predictors before fitting when they use different units.
@@ -89,11 +90,23 @@
             The default alpha is 0.01. The results show the fitted coefficients and \(R^2\), and plot observed
             responses against the model's predictions.
         </p>
-        <p>
-        <div style="width: 90%; text-align: center; margin: auto;">
-            <img src="assets/export/lasso.svg" alt="Illustrative Lasso regression observed-versus-predicted chart and model summary" style="width: 100%; height: auto;">
+        <div style="width: 60%; text-align: center; margin: auto;">
+            <img src="assets/modal/ridge.png" style="width: 100%; height: auto;" alt="Ridge Regression L1 alpha control">
         </div>
+        <p>
+            The figure shows the linear regression model with <b>abnormal</b> as the response variable, <b>tuberculosis</b>
+            and <b>pneumonia</b> as the predictor (or independent) variables. In the chart, the red dots indicate the
+            responses against the model's predictions. The blue points represent the predicted values. This illustrates
+            the relationship between the predictor variable(s) and the response variable. The slope of the line is the
+            change in the response variable for a one-unit change in the predictor variable. The intercept is the value
+            of the response variable when the predictor variable is zero. The regression model fits quite well with
+            \( R^2 = 0.806 \) (maximum 1.0). The coefficient (1.6866) for <b>pneumonia</b> is much larger than that of
+            <b>tuberculosis</b>. This indicates that <b>tuberculosis</b> is a much better predictor for the response
+            variable <b>abnormal</b>.
         </p>
+        <div style="width: 90%; text-align: center; margin: auto;">
+            <img src="assets/export/lasso.png" alt="Lasso Regression Plot" style="width: 100%; height: auto;">
+        </div>
     </div>
     <div class="title">
         <i class="dropdown icon" style="color: blue;"></i>
@@ -103,7 +116,9 @@
         <p>
             <b>Ridge Regression</b> models a numerical response as a linear combination of numerical predictors while
             adding an L2 penalty to the residual sum of squares:
-            \( \sum_{i=1}^{n}(y_i-\hat{y}_i)^2 + \alpha\sum_{j=1}^{p}\beta_j^2 \).
+            \[
+                \sum_{i=1}^{n}(y_i-\hat{y}_i)^2 + \alpha\sum_{j=1}^{p}\beta_j^2.
+            \]
             The penalty shrinks predictor coefficients toward zero but generally does not set them exactly to zero.
             A larger alpha applies stronger shrinkage. Because the penalty depends on coefficient scale, standardize
             predictors before fitting when they use different units; the intercept is not penalized.
@@ -114,14 +129,22 @@
             The default alpha is 1.0. The results show the fitted coefficients and \(R^2\), and plot observed
             responses against the model's predictions.
         </p>
-        <p>
         <div style="width: 60%; text-align: center; margin: auto;">
-            <img src="assets/modal/ridge.svg" alt="Ridge Regression variable-selection dialog with the L2 alpha control" style="width: 100%; height: auto;">
+            <img src="assets/modal/ridge.png" alt="Ridge Regression with L2 penalty" style="width: 100%; height: auto;">
         </div>
-        </p>
         <p>
+            The figure shows the linear regression model with <b>abnormal</b> as the response variable, <b>tuberculosis</b>
+            and <b>pneumonia</b> as the predictor (or independent) variables. In the chart, the red dots indicate the
+            responses against the model's predictions. The blue points represent the predicted values. This illustrates
+            the relationship between the predictor variable(s) and the response variable. The slope of the line is the
+            change in the response variable for a one-unit change in the predictor variable. The intercept is the value
+            of the response variable when the predictor variable is zero. The regression model fits quite well with
+            \( R^2 = 0.818 \) (maximum 1.0). The coefficient (-0.086) for <b>pneumonia</b> is much larger than that of
+            <b>tuberculosis</b>. This indicates that <b>tuberculosis</b> is a much better predictor for the response
+            variable <b>abnormal</b>.
+        </p>
         <div style="width: 90%; text-align: center; margin: auto;">
-            <img src="assets/export/ridge.svg" alt="Illustrative Ridge regression observed-versus-predicted chart and model summary" style="width: 100%; height: auto;">
+            <img src="assets/export/ridge.png" alt="Ridge Regression Plot" style="width: 100%; height: auto;">
         </div>
         </p>
     </div>
@@ -359,6 +382,27 @@
     </div>
     <div class="title">
         <i class="dropdown icon" style="color: blue;"></i>
+        Multivariate: Cluster Analysis (Ward)
+    </div>
+    <div class="content">
+        <p>
+            Ward hierarchical clustering is an agglomerative method that repeatedly merges the two groups whose union
+            causes the smallest increase in within-cluster variance. Its dendrogram displays the merge distances, and
+            cutting the tree at a chosen cluster count provides the groups summarized in the results table.
+        </p>
+        <p>
+        <div style="width: 60%; text-align: center; margin: auto;">
+            <img src="assets/modal/ward.png" alt="Ward clustering variable selection and cluster-count dialog" style="width: 100%; height: auto;">
+        </div>
+        </p>
+        <p>
+        <div style="width: 90%; text-align: center; margin: auto;">
+            <img src="assets/export/ward.png" alt="Illustrative Ward hierarchical clustering dendrogram" style="width: 100%; height: auto;">
+        </div>
+        </p>
+    </div>
+    <div class="title">
+        <i class="dropdown icon" style="color: blue;"></i>
         Multivariate: Multidimensional Scaling (MDS)
     </div>
     <div class="content">
@@ -585,29 +629,6 @@
     </div>
     <div class="title">
         <i class="dropdown icon" style="color: blue;"></i>
-        Chart: Histogram
-    </div>
-    <div class="content">
-        <p>
-            A <b>histogram</b> displays the distribution of a numerical variable by counting observations in
-            equal-width intervals (bins). Unlike a bar chart of categories, adjacent histogram bars represent
-            consecutive numerical intervals.
-        </p>
-        <p>
-            Load a dataset, choose <b>Chart</b> &rarr; <b>Histogram</b>, and drag exactly one numerical variable
-            into <b>Numerical Variable</b>. Set <b>Number of bins</b> (default 10; an integer between 1 and 1000),
-            then click <b>Run</b>. Missing, non-numeric, and infinite values must be corrected first; no rows are omitted.
-        </p>
-        <p>
-            The X-axis shows bin intervals and the Y-axis shows frequencies. Each bin includes its lower bound but
-            excludes its upper bound, except the last bin, which includes both. Constant data uses a range of
-            0.5 below and above the value. Expand <b>Frequency Table and Control Panel</b> to inspect counts or
-            change the figure title, title font size, and axis titles. More bins show finer detail; fewer bins
-            give a broader view of the distribution.
-        </p>
-    </div>
-    <div class="title">
-        <i class="dropdown icon" style="color: blue;"></i>
         Chart: Box
     </div>
     <div class="content">
@@ -650,7 +671,7 @@
         </p>
         <p>
         <div style="width: 60%; text-align: center; margin: auto;">
-            <img src="assets/modal/heatmap.svg" alt="Heatmap variable-selection dialog" style="width: 100%; height: auto;">
+            <img src="assets/modal/heatmap.png" alt="Heatmap variable selection dialog" style="width: 100%; height: auto;">
         </div>
         </p>
         <p>
@@ -659,7 +680,7 @@
         </p>
         <p>
         <div style="width: 90%; text-align: center; margin: auto;">
-            <img src="assets/export/heatmap.svg" alt="Heatmap of sample values across records" style="width: 100%; height: auto;">
+            <img src="assets/export/heatmap.png" alt="Heatmap of weekly traffic condition" style="width: 100%; height: auto;">
         </div>
         </p>
     </div>
