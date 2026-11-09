@@ -75,7 +75,7 @@ The main page loads Pyodide 0.27.7 and requests `scikit-learn`, `pandas`, and `m
 │   ├── box_chart.html
 │   ├── cluster.html            Cluster Analysis (K-Means)
 │   ├── forest.html             Random Forest
-│   ├── heatmp.html             Heatmap row labels and value selection
+│   ├── heatmap.html            Heatmap row labels and value selection
 │   ├── histogram.html          Histogram variable and bin selection
 │   ├── line_chart.html
 │   ├── linear.html             Linear regression
