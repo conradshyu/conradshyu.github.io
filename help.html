@@ -51,11 +51,9 @@
             and drop <b>abnormal</b> as the response variable, <b>tuberculosis</b> and <b>pneumonia</b> as the predictor
             variables. Click the <b>Run</b> button.
         </p>
-        <p>
         <div style="width: 60%; text-align: center; margin: auto;">
-            <img src="assets/modal/linear.png" alt="Linear Regression Modal Dialog" style="width: 100%; height: auto;">
+            <img src="assets/modal/linear.png" style="width: 100%; height: auto;" alt="Linear Regression Modal Dialog">
         </div>
-        </p>
         <p>
             The figure shows the linear regression model with <b>abnormal</b> as the response variable, <b>tuberculosis</b>
             and <b>pneumonia</b> as the predictor (or independent) variables. In the chart, the red dots indicate the
@@ -67,11 +65,9 @@
             <b>tuberculosis</b>. This indicates that <b>tuberculosis</b> is a much better predictor for the response
             variable <b>abnormal</b>.
         </p>
-        <p>
         <div style="width: 90%; text-align: center; margin: auto;">
-            <img src="assets/export/linear.png" alt="Linear Regression" style="width: 100%; height: auto;">
+            <img src="assets/export/linear.png" style="width: 100%; height: auto;" alt="Linear Regression Plot">
         </div>
-        </p>
     </div>
     <div class="title">
         <i class="dropdown icon" style="color: blue;"></i>
@@ -94,13 +90,23 @@
             The default alpha is 0.01. The results show the fitted coefficients and \(R^2\), and plot observed
             responses against the model's predictions.
         </p>
-        <p>
-        <div style="width: 90%; text-align: center; margin: auto;">
-            <img src="assets/export/lasso.svg"
-                alt="Illustrative Lasso regression observed-versus-predicted chart and model summary"
-                style="width: 100%; height: auto;">
+        <div style="width: 60%; text-align: center; margin: auto;">
+            <img src="assets/modal/ridge.png" style="width: 100%; height: auto;" alt="Ridge Regression L1 alpha control">
         </div>
+        <p>
+            The figure shows the linear regression model with <b>abnormal</b> as the response variable, <b>tuberculosis</b>
+            and <b>pneumonia</b> as the predictor (or independent) variables. In the chart, the red dots indicate the
+            responses against the model's predictions. The blue points represent the predicted values. This illustrates
+            the relationship between the predictor variable(s) and the response variable. The slope of the line is the
+            change in the response variable for a one-unit change in the predictor variable. The intercept is the value
+            of the response variable when the predictor variable is zero. The regression model fits quite well with
+            \( R^2 = 0.806 \) (maximum 1.0). The coefficient (1.6866) for <b>pneumonia</b> is much larger than that of
+            <b>tuberculosis</b>. This indicates that <b>tuberculosis</b> is a much better predictor for the response
+            variable <b>abnormal</b>.
         </p>
+        <div style="width: 90%; text-align: center; margin: auto;">
+            <img src="assets/export/lasso.png" alt="Lasso Regression Plot" style="width: 100%; height: auto;">
+        </div>
     </div>
     <div class="title">
         <i class="dropdown icon" style="color: blue;"></i>
@@ -123,18 +129,22 @@
             The default alpha is 1.0. The results show the fitted coefficients and \(R^2\), and plot observed
             responses against the model's predictions.
         </p>
-        <p>
         <div style="width: 60%; text-align: center; margin: auto;">
-            <img src="assets/modal/ridge.svg"
-                alt="Ridge Regression variable-selection dialog with the L2 alpha control"
-                style="width: 100%; height: auto;">
+            <img src="assets/modal/ridge.png" alt="Ridge Regression with L2 penalty" style="width: 100%; height: auto;">
         </div>
-        </p>
         <p>
+            The figure shows the linear regression model with <b>abnormal</b> as the response variable, <b>tuberculosis</b>
+            and <b>pneumonia</b> as the predictor (or independent) variables. In the chart, the red dots indicate the
+            responses against the model's predictions. The blue points represent the predicted values. This illustrates
+            the relationship between the predictor variable(s) and the response variable. The slope of the line is the
+            change in the response variable for a one-unit change in the predictor variable. The intercept is the value
+            of the response variable when the predictor variable is zero. The regression model fits quite well with
+            \( R^2 = 0.818 \) (maximum 1.0). The coefficient (-0.086) for <b>pneumonia</b> is much larger than that of
+            <b>tuberculosis</b>. This indicates that <b>tuberculosis</b> is a much better predictor for the response
+            variable <b>abnormal</b>.
+        </p>
         <div style="width: 90%; text-align: center; margin: auto;">
-            <img src="assets/export/ridge.svg"
-                alt="Illustrative Ridge regression observed-versus-predicted chart and model summary"
-                style="width: 100%; height: auto;">
+            <img src="assets/export/ridge.png" alt="Ridge Regression Plot" style="width: 100%; height: auto;">
         </div>
         </p>
     </div>
@@ -382,12 +392,12 @@
         </p>
         <p>
         <div style="width: 60%; text-align: center; margin: auto;">
-            <img src="assets/modal/ward.svg" alt="Ward clustering variable selection and cluster-count dialog" style="width: 100%; height: auto;">
+            <img src="assets/modal/ward.png" alt="Ward clustering variable selection and cluster-count dialog" style="width: 100%; height: auto;">
         </div>
         </p>
         <p>
         <div style="width: 90%; text-align: center; margin: auto;">
-            <img src="assets/export/ward.svg" alt="Illustrative Ward hierarchical clustering dendrogram" style="width: 100%; height: auto;">
+            <img src="assets/export/ward.png" alt="Illustrative Ward hierarchical clustering dendrogram" style="width: 100%; height: auto;">
         </div>
         </p>
     </div>
@@ -661,7 +671,7 @@
         </p>
         <p>
         <div style="width: 60%; text-align: center; margin: auto;">
-            <img src="assets/modal/heatmap.svg" alt="Heatmap variable-selection dialog" style="width: 100%; height: auto;">
+            <img src="assets/modal/heatmap.png" alt="Heatmap variable selection dialog" style="width: 100%; height: auto;">
         </div>
         </p>
         <p>
@@ -670,7 +680,7 @@
         </p>
         <p>
         <div style="width: 90%; text-align: center; margin: auto;">
-            <img src="assets/export/heatmap.svg" alt="Heatmap of sample values across records" style="width: 100%; height: auto;">
+            <img src="assets/export/heatmap.png" alt="Heatmap of weekly traffic condition" style="width: 100%; height: auto;">
         </div>
         </p>
     </div>
