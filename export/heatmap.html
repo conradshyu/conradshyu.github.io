@@ -4,14 +4,8 @@
     gtag('js', new Date());
     gtag('config', 'G-8KPG39WEM0');
 </script>
-<div class="ui grid">
-    <div class="two wide column" style="width: 100%;"></div>
-    <div class="twelve wide column" style="width: 100%; text-align: center;">
-        <div id="heatmap-container" style="width: 100%; height: 480px;">
-            <canvas></canvas>
-        </div>
-    </div>
-    <div class="two wide column" style="width: 100%;"></div>
+<div style="width: 100%; margin: auto;">
+    <canvas></canvas>
 </div>
 <div class="ui accordion">
     <div class="title">
@@ -104,148 +98,136 @@
 </div>
 <script>
     (() => {
-        const labelField = DDX["label"][1][0];
-        const valueFields = DDX["label"][2];
-        const rows = DDX["json"];
-        const rowLabels = [];
-        const values = [];
-
-        if (rows.length === 0 || valueFields.length === 0) {
-            window.alert("ERROR: Select a record label and at least one numerical variable.");
-            return false;
-        }
-
-        for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
-            const sourceLabel = rows[rowIndex][labelField];
-            rowLabels.push(sourceLabel == null || String(sourceLabel).trim() === "" ?
-                `Row ${rowIndex + 1}` : String(sourceLabel));
-
-            for (let columnIndex = 0; columnIndex < valueFields.length; columnIndex++) {
-                const field = valueFields[columnIndex];
-                const sourceValue = rows[rowIndex][field];
-                const value = typeof sourceValue === "boolean" || sourceValue == null ||
-                    (typeof sourceValue === "string" && sourceValue.trim() === "") ?
-                    Number.NaN : Number(sourceValue);
-
-                if (!Number.isFinite(value)) {
-                    window.alert(`ERROR: "${field}" must contain finite numerical values. Check row ${rowIndex + 1}.`);
-                    return false;
-                }
-
-                values.push({
-                    x: columnIndex,
-                    y: rowIndex,
-                    value,
-                    rowLabel: rowLabels[rowIndex],
-                    columnLabel: field,
-                });
-            }
-        }
-
-        let minimum = Number.POSITIVE_INFINITY;
-        let maximum = Number.NEGATIVE_INFINITY;
-        values.forEach((cell) => {
-            minimum = Math.min(minimum, cell.value);
-            maximum = Math.max(maximum, cell.value);
-        });
-        const startColor = [239, 246, 255];
-        const endColor = [30, 64, 175];
-        const colorForValue = (value) => {
-            const fraction = maximum === minimum ? 0.5 : (value - minimum) / (maximum - minimum);
-            const channels = startColor.map((start, index) =>
-                Math.round(start + (endColor[index] - start) * fraction));
-            return `rgb(${channels[0]}, ${channels[1]}, ${channels[2]})`;
+        window.chartColors = {
+            red: 'rgb(255, 99, 132)',
+            orange: 'rgb(255, 159, 64)',
+            yellow: 'rgb(255, 205, 86)',
+            green: 'rgb(75, 192, 192)',
+            blue: 'rgb(54, 162, 235)',
+            purple: 'rgb(153, 102, 255)',
+            grey: 'rgb(201, 203, 207)'
         };
-        const formatValue = (value) => Number(value).toLocaleString(undefined, {
-            maximumSignificantDigits: 4,
+
+        Chart.defaults.font.size = 14;
+        Chart.defaults.font.family = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
+        Chart.defaults.font.style = "normal";
+        Chart.defaults.font.weight = "normal";
+
+        const xLabels = DDX["label"][2];
+        const yLabels = [];
+
+        $.each(DDX["json"], (a, b) => {
+            yLabels.push(b.Hour);
         });
 
-        $("#heatmap-container").css("height", `${Math.min(900, Math.max(480, rows.length * 9 + 160))}px`);
-        Chart.defaults.font.family = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
+        let maxValue = 0;
+        const rawData = [];
 
-        const canvas = DDX["active"]["value"].find("canvas");
-        DDX["active"]["chart"] = new Chart(canvas[0].getContext("2d"), {
-            type: "scatter",
+        $.each(DDX["json"], (index, item) => {
+            xLabels.forEach((day, x) => {
+                rawData.push({
+                    y: index,
+                    x: x,
+                    v: item[day]
+                });
+
+                maxValue = Math.max(maxValue, item[day]);
+            });
+        });
+
+        let ctx = DDX["active"]["value"].find("canvas");
+        DDX["active"]["chart"] = new Chart(ctx[0].getContext("2d"), {        
+            type: "matrix",
             data: {
                 datasets: [{
-                    data: values,
-                    pointRadius: 3,
-                    pointHoverRadius: 4,
-                    pointBackgroundColor: "rgba(0, 0, 0, 0)",
-                    pointBorderColor: "rgba(0, 0, 0, 0)",
-                    pointHoverBackgroundColor: "rgba(0, 0, 0, 0)",
-                    pointHoverBorderColor: "rgba(0, 0, 0, 0)",
-                }],
+                    label: 'Activity Intensity',
+                    data: rawData,
+                    // Background color callback scales color dynamically based on the value 'v'
+                    backgroundColor(context) {
+                        const value = context.dataset.data[context.dataIndex].v;
+                        return `rgba(75, 192, 192, ${value / maxValue})`; // Teal color block with variable alpha
+                    },
+                    borderColor: 'rgba(255, 255, 255, 1)', // Grid lines between heat block cells
+                    borderWidth: 2,
+                    // Calculate individual block dimensions relative to the grid area
+                    width: ({ chart }) => (chart.chartArea || {}).width / xLabels.length,
+                    height: ({ chart }) => (chart.chartArea || {}).height / yLabels.length
+                }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                layout: {
-                    padding: { right: 78 },
-                },
                 scales: {
                     x: {
                         type: "linear",
-                        min: -0.5,
-                        max: valueFields.length - 0.5,
+                        offset: true,
                         title: {
                             display: true,
-                            text: "Variable",
-                            font: {
-                                weight: "normal",
-                                size: 12,
-                                style: "normal",
-                                family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-                            },
-                        },
-                        ticks: {
-                            stepSize: 1,
-                            autoSkip: false,
-                            maxRotation: 45,
-                            callback: (tick) => valueFields[Math.round(tick)] ?? "",
+                            text: "X Axis",
                             font: {
                                 weight: "normal",
                                 size: 14,
                                 style: "normal",
                                 family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-                            },
+                            }
                         },
-                        grid: { display: false },
-                    },
-                    y: {
-                        type: "linear",
-                        min: -0.5,
-                        max: rows.length - 0.5,
-                        reverse: true,
-                        title: {
+                        ticks: {
+                            stepSize: 1,
                             display: true,
-                            text: "Record",
+                            maxTicksLimit: 25,
+                            align: "center",
+                            callback: (a, b, c) => xLabels[b],
                             font: {
                                 weight: "normal",
                                 size: 12,
                                 style: "normal",
                                 family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-                            },
+                            }
+                        },
+                        grid: {
+                            display: false,
+                            drawTicks: true
+                        }
+                    },
+                    y: {
+                        type: "linear",
+                        offset: true,
+                        title: {
+                            display: true,
+                            text: "Y Axis",
+                            align: "center",
+                            font: {
+                                weight: "normal",
+                                size: 14,
+                                style: "normal",
+                                family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                            }
                         },
                         ticks: {
                             stepSize: 1,
-                            maxTicksLimit: 30,
-                            callback: (tick) => rowLabels[Math.round(tick)] ?? "",
+                            display: true,
+                            callback: (a, b, c) => yLabels[b],
+                            align: "center",
                             font: {
                                 weight: "normal",
-                                size: 11,
+                                size: 12,
                                 style: "normal",
                                 family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-                            },
+                            }
                         },
-                        grid: { display: false },
-                    },
+                        grid: {
+                            display: false,
+                            drawTicks: true
+                        }
+                    }
                 },
                 plugins: {
-                    legend: { display: false },
+                    legend: {
+                        display: false
+                    },
                     title: {
                         display: true,
-                        text: "Heatmap",
+                        text: `Heatmap (${DDX["label"][1][0]})`,
                         position: "top",
                         color: "teal",
                         align: "center",
@@ -254,73 +236,27 @@
                             size: 24,
                             style: "normal",
                             family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-                        },
+                        }
                     },
                     tooltip: {
                         callbacks: {
-                            title: (items) => {
-                                const cell = items[0].raw;
-                                return `${cell.rowLabel} / ${cell.columnLabel}`;
-                            },
-                            label: (context) => `Value: ${formatValue(context.raw.value)}`,
-                        },
-                    },
-                },
-                animation: {
-                    animateScale: true,
-                    animateRotate: true
+                            // Custom tooltip to show readable labels and the exact raw value
+                            title() { return ''; },
+                            label(context) {
+                                const item = context.raw;
+                                return `X: ${xLabels[item.x]}, Y: ${yLabels[item.y]} | Value: ${item.v}`;
+                            }
+                        }
+                    }
                 }
-            },
-            plugins: [{
-                id: "heatmapColorScale",
-                beforeDatasetsDraw: (chart) => {
-                    const { ctx, chartArea } = chart;
-                    if (!chartArea) {
-                        return;
-                    }
+            }
+        });
 
-                    const cellWidth = (chartArea.right - chartArea.left) / valueFields.length;
-                    const cellHeight = (chartArea.bottom - chartArea.top) / rows.length;
-
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.rect(chartArea.left, chartArea.top, chartArea.right - chartArea.left,
-                        chartArea.bottom - chartArea.top);
-                    ctx.clip();
-                    values.forEach((cell) => {
-                        const centerX = chart.scales.x.getPixelForValue(cell.x);
-                        const centerY = chart.scales.y.getPixelForValue(cell.y);
-                        ctx.fillStyle = colorForValue(cell.value);
-                        ctx.fillRect(centerX - cellWidth / 2, centerY - cellHeight / 2,
-                            Math.max(0, cellWidth - 1), Math.max(0, cellHeight - 1));
-                    });
-                    ctx.restore();
-                },
-                afterDraw: (chart) => {
-                    const { ctx, chartArea } = chart;
-                    if (!chartArea) {
-                        return;
-                    }
-
-                    const x = chartArea.right + 10;
-                    const width = 14;
-                    const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-                    gradient.addColorStop(0, colorForValue(minimum));
-                    gradient.addColorStop(1, colorForValue(maximum));
-
-                    ctx.save();
-                    ctx.fillStyle = gradient;
-                    ctx.fillRect(x, chartArea.top, width, chartArea.bottom - chartArea.top);
-                    ctx.fillStyle = "#333333";
-                    ctx.font = "11px Arial";
-                    ctx.textAlign = "left";
-                    ctx.textBaseline = "top";
-                    ctx.fillText(formatValue(maximum), x + width + 5, chartArea.top);
-                    ctx.textBaseline = "bottom";
-                    ctx.fillText(formatValue(minimum), x + width + 5, chartArea.bottom);
-                    ctx.restore();
-                },
-            }],
+        $(".dropdown").dropdown({
+            onChange: function (v) {
+                DDX.active.chart.options.plugins.legend.position = v;
+                DDX.active.chart.update();
+            }
         });
 
         $("#stat_txt").html("Status: heatmap chart completed.");
