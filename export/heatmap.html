@@ -113,6 +113,50 @@
         Chart.defaults.font.style = "normal";
         Chart.defaults.font.weight = "normal";
 
+        let ctx = DDX["active"]["value"].find("canvas");
+
+        const intensityScale = {
+            id: 'intensityScale',
+            afterDraw(chart) {
+                const { ctx, chartArea } = chart;
+                if (!chartArea) return;
+
+                const barX = chartArea.right + 12;
+                const barWidth = 40;
+                const labelX = barX + barWidth + 8;
+                const steps = 100;
+                const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+
+                for (let step = 0; step <= steps; step++) {
+                    gradient.addColorStop(step / steps, `rgba(75, 192, 192, ${step / steps})`);
+                }
+
+                ctx.save();
+                ctx.fillStyle = gradient;
+                ctx.fillRect(barX, chartArea.top, barWidth, chartArea.bottom - chartArea.top);
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
+                ctx.strokeRect(barX, chartArea.top, barWidth, chartArea.bottom - chartArea.top);
+
+                ctx.font = '12px sans-serif';
+                ctx.fillStyle = '#666';
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'middle';
+
+                for (let tick = 0; tick <= 4; tick++) {
+                    const ratio = tick / 4;
+                    const y = chartArea.bottom - ratio * (chartArea.bottom - chartArea.top);
+                    const value = Math.round(maxValue * ratio);
+
+                    ctx.beginPath();
+                    ctx.moveTo(barX + barWidth, y);
+                    ctx.lineTo(barX + barWidth + 4, y);
+                    ctx.stroke();
+                    ctx.fillText(value, labelX + 4, y);
+                }
+                ctx.restore();
+            }
+        };
+
         const xLabels = DDX["label"][2];
         const yLabels = [];
 
@@ -135,7 +179,6 @@
             });
         });
 
-        let ctx = DDX["active"]["value"].find("canvas");
         DDX["active"]["chart"] = new Chart(ctx[0].getContext("2d"), {        
             type: "matrix",
             data: {
@@ -157,6 +200,11 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        right: 100
+                    }
+                },
                 scales: {
                     x: {
                         type: "linear",
@@ -176,7 +224,7 @@
                             display: true,
                             maxTicksLimit: 25,
                             align: "center",
-                            callback: (a, b, c) => xLabels[b],
+                            callback: (i) => xLabels[i],
                             font: {
                                 weight: "normal",
                                 size: 12,
@@ -206,7 +254,7 @@
                         ticks: {
                             stepSize: 1,
                             display: true,
-                            callback: (a, b, c) => yLabels[b],
+                            callback: (i) => yLabels[i],
                             align: "center",
                             font: {
                                 weight: "normal",
@@ -249,7 +297,8 @@
                         }
                     }
                 }
-            }
+            },
+            plugins: [intensityScale]
         });
 
         $(".dropdown").dropdown({
