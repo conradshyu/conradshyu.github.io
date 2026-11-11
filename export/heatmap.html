@@ -83,7 +83,7 @@
                     <td>
                         <div class="ui small input" style="width: 100%;">
                             <input type="number" placeholder="Y-axis tick font size ..." min="8" max="24"
-                                onkeyup="DDX.active.chart.options.scales.y.ticks.font.size = this.value; DDX.active.chart.update();">
+                                onkeyup="DDX.active.chart.options.scales.y.ticks.font.size = this.value; console.log(DDX.active.chart.options.scales.y.ticks.font.size); DDX.active.chart.update();">
                         </div>
                     </td>
                 </tr>
@@ -116,7 +116,6 @@
         let ctx = DDX["active"]["value"].find("canvas");
 
         const intensityScale = {
-            id: 'intensityScale',
             afterDraw(chart) {
                 const { ctx, chartArea } = chart;
                 if (!chartArea) return;
