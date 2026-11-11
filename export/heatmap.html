@@ -28,14 +28,14 @@
                     <td>
                         <div class="ui small input" style="width: 100%;">
                             <input type="text" placeholder="Figure title ..."
-                                oninput="DDX.active.chart.options.plugins.title.text = this.value; DDX.active.chart.update();">
+                                onkeyup="DDX.active.chart.options.plugins.title.text = this.value; DDX.active.chart.update();">
                         </div>
                     </td>
                     <td>Title Font Size</td>
                     <td>
                         <div class="ui small input" style="width: 100%;">
                             <input type="number" placeholder="Title font size ..." min="8" max="32"
-                                oninput="DDX.active.chart.options.plugins.title.font.size = Number(this.value); DDX.active.chart.update();">
+                                onkeyup="DDX.active.chart.options.plugins.title.font.size = Number(this.value); DDX.active.chart.update();">
                         </div>
                     </td>
                 </tr>
@@ -44,14 +44,14 @@
                     <td>
                         <div class="ui small input" style="width: 100%;">
                             <input type="text" placeholder="X-axis title ..."
-                                oninput="DDX.active.chart.options.scales.x.title.text = this.value; DDX.active.chart.update();">
+                                onkeyup="DDX.active.chart.options.scales.x.title.text = this.value; DDX.active.chart.update();">
                         </div>
                     </td>
                     <td>Y-Axis Title</td>
                     <td>
                         <div class="ui small input" style="width: 100%;">
                             <input type="text" placeholder="Y-axis title ..."
-                                oninput="DDX.active.chart.options.scales.y.title.text = this.value; DDX.active.chart.update();">
+                                onkeyup="DDX.active.chart.options.scales.y.title.text = this.value; DDX.active.chart.update();">
                         </div>
                     </td>
                 </tr>
