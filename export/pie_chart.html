@@ -34,14 +34,14 @@
                     <td>
                         <div class="ui small input" style="width: 100%;">
                             <input type="text" placeholder="Figure title ..."
-                                onkeyup="DDX.active.chart.options.plugins.title.text = this.value; DDX.active.chart.update();">
+                                oninput="DDX.active.chart.options.plugins.title.text = this.value; DDX.active.chart.update();">
                         </div>
                     </td>
                     <td>Legend Font Size</td>
                     <td>
                         <div class="ui small input" style="width: 100%;">
                             <input type="number" placeholder="Legend font size ..." min="8" max="24"
-                                onkeyup="DDX.active.chart.options.plugins.legend.labels.font.size = this.value; DDX.active.chart.update();">
+                                oninput="DDX.active.chart.options.plugins.legend.labels.font.size = this.value; DDX.active.chart.update();">
                         </div>
                     </td>
                 </tr>
@@ -50,7 +50,7 @@
                     <td>
                         <div class="ui small input" style="width: 100%;">
                             <input type="number" placeholder="Title font size ..." min="8" max="32"
-                                onkeyup="DDX.active.chart.options.plugins.title.font.size = this.value; DDX.active.chart.update();">
+                                oninput="DDX.active.chart.options.plugins.title.font.size = this.value; DDX.active.chart.update();">
                         </div>
                     </td>
                     <td>Legend Position</td>
